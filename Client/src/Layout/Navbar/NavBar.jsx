@@ -177,7 +177,7 @@ const NavBar = () => {
                     >
                         <input
                             type="text"
-                            placeholder='Search Movie here'
+                            placeholder='Phim, diễn viên, thể loại...'
                             className='font-medium placeholder:colors-text text-sm w-full h-10 rounded px-4 text-black'
                             style={{
                                 transition: 'width 0.3s ease',
@@ -190,20 +190,20 @@ const NavBar = () => {
                 {/* menus */}
                 <div className='col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 justify-between lg:flex xl:justify-end items-center'>
                     <NavLink to="/movies" className={Hover}>
-                        Movies
+                        Phim ảnh
                     </NavLink>
                     <NavLink to="/about-us" className={Hover}>
-                        About Us
+                        Giới thiệu
                     </NavLink>
                     <NavLink to="/contact-us" className={Hover}>
-                        Contact Us
+                        Liên hệ
                     </NavLink>
                     <NavLink to="/login" className={Hover}>
                         <CgUser className='w-6 h-6' />
                     </NavLink>
                     <NavLink to="/favorite" className={`${Hover} relative`}>
                         <FaHeart className='w-6 h-6' />
-                        <div className='w-5 h-5 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-5 -right-1'>
+                        <div className='w-5 h-5 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-3 -right-3'>
                             3
                         </div>
                     </NavLink>

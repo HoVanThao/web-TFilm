@@ -8,14 +8,13 @@ const Promos = () => {
                 <div className="lg:grid lg:grid-cols-2 lg:gap-10 items-center">
                     <div className='flex lg:gap-10 gap-6 flex-col'>
                         <h1 className='xl:text-3xl text-xl capitalize font-sans font-medium xl:leading-loose'>
-                            Download Your Movies Watch offline. <br /> Enjoy on Your Mobile
+                            Tải phim và xem ngoại tuyến. <br /> Thưởng thức trên điện thoại di động.
                         </h1>
                         <p className='text-text text-sm xl:text-base leading-6 xl:leading-8'>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                            but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
-                            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-                            of Lorem Ipsum
+                            Với tính năng Tải Phim Xem Ngoại Tuyến tại TFilmHaven, bạn có thể lưu trữ những bộ phim yêu thích để thưởng thức mọi lúc, mọi nơi,
+                            ngay cả khi không có kết nối Internet. Chỉ cần vài bước đơn giản, bạn sẽ có cả kho phim trong tầm tay,
+                            sẵn sàng đồng hành cùng bạn trên mọi chuyến đi, từ những lúc chờ đợi đến những hành trình xa.
+                            Đặc biệt, bạn có thể thưởng thức trên thiết bị di động một cách dễ dàng và tiện lợi, mang cả thế giới điện ảnh theo bên mình!
                         </p>
                         <div className='flex gap-4 md:text-lg text-sm'>
                             <div className='flex-colo bg-black text-subMain px-6 py-3 rounded font-bold'>

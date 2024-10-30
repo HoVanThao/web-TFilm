@@ -34,7 +34,7 @@ const Banner = () => {
                             </div>
                             <div className='flex gap-5 items-center'>
                                 <Link to={`/movie/${movie.name}`} className='bg-subMain hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs'>
-                                    Watch
+                                    Xem ngay
                                 </Link>
                                 <button className='bg-white hover:text-subMain transitions text-white px-3 py-3 rounded text-sm bg-opacity-30'>
                                     <FaHeart />

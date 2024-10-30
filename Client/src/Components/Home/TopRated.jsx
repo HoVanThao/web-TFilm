@@ -18,7 +18,7 @@ const TopRated = () => {
 
     return (
         <div className='my-16'>
-            <Titles title='Top Rated' Icon={BsBookmarkStarFill} />
+            <Titles title='Phim hay hôm nay' Icon={BsBookmarkStarFill} />
             <div className='mt-10'>
                 <Swiper
                     navigation={{ nextEl, prevEl }}

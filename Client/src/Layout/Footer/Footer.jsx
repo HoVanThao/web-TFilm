@@ -5,70 +5,70 @@ const Footer = () => {
 
     const Links = [
         {
-            title: 'Company',
+            title: 'Công ty',
             links: [
                 {
-                    name: 'Home',
+                    name: 'Trang chủ',
                     link: '/',
 
                 },
                 {
-                    name: 'About Us',
+                    name: 'Giới thiệu',
                     link: '/about-us',
                 },
                 {
-                    name: 'Contact Us',
+                    name: 'Liên hệ',
                     link: '/contact-us',
 
                 },
                 {
-                    name: 'Movies',
+                    name: 'Phim ảnh',
                     link: '/movies',
                 },
             ]
         },
         {
-            title: 'Top categories',
+            title: 'Danh mục hàng đầu',
             links: [
                 {
-                    name: 'Action',
+                    name: 'Hành động',
                     link: '#',
 
                 },
                 {
-                    name: 'Romantic',
+                    name: 'Tình cảm',
                     link: '#',
                 },
                 {
-                    name: 'Drama',
+                    name: 'Kịnh tính',
                     link: '#',
 
                 },
                 {
-                    name: 'Historical',
+                    name: 'Lịch sử',
                     link: '#',
                 },
             ]
         },
         {
-            title: 'My Account',
+            title: 'Tài khoản của tôi',
             links: [
                 {
-                    name: 'Dashboard',
+                    name: 'Bảng điều khiển',
                     link: '/dashboard',
 
                 },
                 {
-                    name: 'My Favorites',
+                    name: 'Danh sách yêu thích',
                     link: '/favorite',
                 },
                 {
-                    name: 'Profile',
+                    name: 'Hồ sơ',
                     link: '/profile',
 
                 },
                 {
-                    name: 'Change Password',
+                    name: 'Đổi mật khẩu',
                     link: '/change-password',
                 },
             ]
@@ -107,7 +107,7 @@ const Footer = () => {
                             </span>
                             <br />
                             <span>
-                                Tell: +84 369 276 372
+                                Điện thoại: +84 369 276 372
                             </span>
                             <br />
                             <span>
