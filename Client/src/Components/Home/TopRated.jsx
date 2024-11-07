@@ -14,7 +14,7 @@ const TopRated = () => {
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
 
-    const classNames = 'hover:bg-dry transitions text-sm rounded w-8 h-8 flex-colo bg-subMain text-white';
+    const classNames = 'hover:bg-dry transitions border-2 border-subMain text-sm rounded w-8 h-8 flex-colo bg-subMain text-white';
 
     return (
         <div className='my-16'>
