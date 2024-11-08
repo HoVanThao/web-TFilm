@@ -59,7 +59,7 @@ const TopRated = () => {
                                         <FaHeart />
                                     </button>
                                     <Link
-                                        className='font-semibold text-xl transform-cpu line-clamp-2'
+                                        className='font-semibold text-xl transform-cpu transitions hover:text-subMain line-clamp-2'
                                         to={`/movie/${movie.name}`}
                                     >
                                         {movie.name}

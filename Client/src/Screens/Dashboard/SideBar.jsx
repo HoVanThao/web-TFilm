@@ -47,7 +47,7 @@ const SideBar = ({ children }) => {
             icon: FaHeart,
         },
         {
-            name: "Thay đổi mật khẩu",
+            name: "Đổi mật khẩu",
             link: "/password",
             icon: RiLockPasswordLine,
         }
