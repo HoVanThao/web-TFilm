@@ -10,9 +10,12 @@ import WatchPage from './Screens/WatchPage';
 import Login from './Screens/Login';
 import Register from './Screens/Register';
 import Profile from './Screens/Dashboard/Profile';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 
 const App = () => {
+  Aos.init();
 
   return (
     <Routes>
