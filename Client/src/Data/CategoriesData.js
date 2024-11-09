@@ -12,7 +12,7 @@ export const CategoriesData = [
         title: 'Horror',
     },
     {
-        id: '4',
+        _id: '4',
         title: 'Comedy',
     },
     {
@@ -32,7 +32,7 @@ export const CategoriesData = [
         title: 'Musicals',
     },
     {
-        id: '9',
+        _id: '9',
         title: 'Drama',
     },
     {
@@ -49,11 +49,11 @@ export const CategoriesData = [
         title: 'Historical',
     },
     {
-        id: '13',
+        _id: '13',
         title: 'Science',
     },
     {
-        _id: '10',
+        _id: '14',
         title: 'Mystery',
     },
 ]
