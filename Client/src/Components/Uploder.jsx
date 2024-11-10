@@ -19,13 +19,13 @@ const Uploder = () => {
                 {...getRootProps()}
                 className="px-6 py-8 pt-5 pb-6 border-2 border-border border-dashed bg-main rounded-md cursor-pointer"
             >
-                <input className='hidden' {...getRootProps()} />
+                <input className='hidden' {...getInputProps()} />
                 <span className="mx-auto flex-colo text-subMain text-3xl">
                     <FiUploadCloud />
                 </span>
-                <p className="text-sm mt-2">Thêm hình ảnh của bạn vào đây</p>
+                <p className="text-sm mt-2">Thêm file của bạn vào đây</p>
                 <em className="text-xs text-border">
-                    (Chỉ chấp nhận các tệp .jpg và .png)
+                    (Chỉ chấp nhận các tệp .jpg, .png, .mp4)
                 </em>
             </div>
         </div>

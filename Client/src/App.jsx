@@ -20,31 +20,36 @@ import 'aos/dist/aos.css';
 import Users from './Screens/Dashboard/Admin/Users';
 import Categories from './Screens/Dashboard/Admin/Categories';
 import AddMovie from './Screens/Dashboard/Admin/AddMovie';
+import ScrollOnTop from './ScrollOnTop';
 
 
 const App = () => {
   Aos.init();
 
   return (
-    <Routes>
-      <Route path="/" element={<HomeScreen />} />
-      <Route path="/movies" element={<Movies />} />
-      <Route path="/about-us" element={<AboutUs />} />
-      <Route path="/contact-us" element={<ContactUs />} />
-      <Route path="/movie/:id" element={<SingleMovie />} />
-      <Route path="/watch/:id" element={<WatchPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/password" element={<Password />} />
-      <Route path="/favorites" element={<FavoritesMovies />} />
-      <Route path="/movieslist" element={<MovieList />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/users" element={<Users />} />
-      <Route path="/categories" element={<Categories />} />
-      <Route path="/addmovie" element={<AddMovie />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+
+    <ScrollOnTop>
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/movie/:id" element={<SingleMovie />} />
+        <Route path="/watch/:id" element={<WatchPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/password" element={<Password />} />
+        <Route path="/favorites" element={<FavoritesMovies />} />
+        <Route path="/movieslist" element={<MovieList />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/addmovie" element={<AddMovie />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </ScrollOnTop>
+
   );
 };
 

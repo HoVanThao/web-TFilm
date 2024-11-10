@@ -201,10 +201,12 @@ const NavBar = () => {
                     <NavLink to="/login" className={Hover}>
                         <CgUser className='w-6 h-6' />
                     </NavLink>
-                    <NavLink to="/favorite" className={`${Hover} relative`}>
-                        <FaHeart className='w-6 h-6' />
-                        <div className='w-5 h-5 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-3 -right-3'>
-                            3
+                    <NavLink to="/favorites" className={Hover} >
+                        <div className='relative'>
+                            <FaHeart className='w-6 h-6' />
+                            <div className='w-6 h-6 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-4 -right-4'>
+                                3
+                            </div>
                         </div>
                     </NavLink>
                 </div>

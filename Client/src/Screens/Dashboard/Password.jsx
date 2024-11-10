@@ -10,19 +10,19 @@ const Password = () => {
                 <Input
                     label="Mật khẩu cũ"
                     placeholder="********"
-                    type="text"
+                    type="Password"
                     bg={true}
                 />
                 <Input
                     label="Mật khẩu mới"
                     placeholder="********"
-                    type="email"
+                    type="Password"
                     bg={true}
                 />
                 <Input
                     label="nhập lại mật khẩu mới"
                     placeholder="********"
-                    type="email"
+                    type="Password"
                     bg={true}
                 />
                 <div className="flex justify-end items-center my-4">
