@@ -229,7 +229,6 @@ const NavBar = () => {
 
     const Hover = ({ isActive }) => (isActive ? 'hover:text-gray-300' : 'hover:text-subMain transitions text-white');
 
-    // Close search input when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (searchRef.current && !searchRef.current.contains(event.target)) {
