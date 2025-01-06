@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import AboutUs from './Screens/AboutUs';
 import HomeScreen from './Screens/HomeScreen';
@@ -24,7 +24,10 @@ import ScrollOnTop from './ScrollOnTop';
 
 
 const App = () => {
-  Aos.init();
+  // Khởi tạo AOS trong useEffect
+  useEffect(() => {
+    Aos.init();
+  }, []);
 
   return (
 

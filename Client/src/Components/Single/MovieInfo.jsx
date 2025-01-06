@@ -1,6 +1,6 @@
 import React from 'react'
 import FlexMovieItems from '../FlexMovieItems'
-import { FaPlay, FaShareAlt } from 'react-icons/fa'
+import { FaImdb, FaPlay, FaShareAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { FiLogIn } from 'react-icons/fi'
 const MovieInfo = ({ movie, setModalOpen }) => {
@@ -21,6 +21,21 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                                     HD 4K
                                 </div>
                                 <FlexMovieItems movie={movie} />
+                            </div>
+                            <div className='flex gap-2 items-center'>
+                                <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
+                                    <FaImdb />
+                                    <p>7.8/10</p>
+                                </div>
+                                <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
+                                    <p>Si-Fi</p>
+                                </div>
+                                <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
+                                    <p>Apr 17, 2024</p>
+                                </div>
+                                <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
+                                    <p>13+</p>
+                                </div>
                             </div>
                             <p className="text-text text-sm leading-7">{movie?.desc}</p>
                             <div className="grid sm:grid-cols-5 grid-cols-3 gap-4 p-6 bg-main border border-gray-800 rounded-lg">
