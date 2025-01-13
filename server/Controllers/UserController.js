@@ -3,7 +3,7 @@ import User from '../Models/UserModels.js'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../middlewares/authMiddleware.js';
 
-
+// guest
 const registerUser = asyncHandler(async (req, res) => {
     const { fullName, email, password, image } = req.body;
     try {
@@ -44,7 +44,6 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 });
-
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -69,7 +68,6 @@ const loginUser = asyncHandler(async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-
 const updateUserProfile = asyncHandler(async (req, res) => {
     const { fullName, email, image } = req.body;
     try {
@@ -89,7 +87,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
                 email: updatedUser.email,
                 image: updatedUser.image,
                 isAdmin: updatedUser.isAdmin,
-                token: generateToken(updatedUser._id),
             });
 
             // else send error message
@@ -101,8 +98,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-
-
 const deleteUserProfile = asyncHandler(async (req, res) => {
     try {
         // find user in DB
@@ -128,7 +123,6 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
 
     }
 });
-
 const changeUserPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body;
     try {
@@ -151,7 +145,6 @@ const changeUserPassword = asyncHandler(async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-
 const getLikedMovies = asyncHandler(async (req, res) => {
     try {
         // find user in DB
@@ -169,5 +162,101 @@ const getLikedMovies = asyncHandler(async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+const addLikedMovie = asyncHandler(async (req, res) => {
+    const { movieId } = req.body;
+    try {
+        // Tìm người dùng trong cơ sở dữ liệu
+        const user = await User.findById(req.user._id);
+        // Nếu người dùng tồn tại, thêm phim vào danh sách phim đã thích và lưu vào cơ sở dữ liệu
+        if (user) {
+            // Kiểm tra xem phim đã được thích hay chưa
+            // Nếu phim đã được thích, gửi thông báo lỗi
+            if (user.likedMovies.includes(movieId)) {
+                res.status(400);
+                throw new Error("Phim đã được thích");
+            }
 
-export { registerUser, loginUser, updateUserProfile, deleteUserProfile, changeUserPassword, getLikedMovies };
+            // Nếu chưa, thêm phim vào danh sách phim đã thích và lưu vào cơ sở dữ liệu
+            user.likedMovies.push(movieId);
+            await user.save();
+            res.json({ message: "Phim đã được thêm vào danh sách yêu thích", data: user.likedMovies });
+
+            // Nếu không tìm thấy người dùng, gửi thông báo lỗi
+        } else {
+            res.status(404);
+            throw new Error("Không tìm thấy phim");
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+const deleteLikedMovies = asyncHandler(async (req, res) => {
+    try {
+        //find user in DB
+        const user = await User.findById(req.user._id);
+        // if user exists delete all liked movies and save it in DB
+        if (user) {
+            user.likedMovies = [];
+            await user.save();
+            res.json({ message: "All liked movies deleted successfully" });
+        }
+        // else send error message
+        else {
+            res.status(404);
+            throw new Error("User not found");
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+
+//admin
+const getUsers = asyncHandler(async (req, res) => {
+    try {
+        // find all users in DB
+        const users = await User.find({});
+        res.json(users);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+const deleteUser = asyncHandler(async (req, res) => {
+    try {
+        // find user in DB
+        const user = await User.findById(req.params.id);
+        // if user exists delete user from DB
+        if (user) {
+            // if user is admin throw error message
+            if (user.isAdmin) {
+                res.status(400);
+                throw new Error("Không thể xóa tài khoản admin");
+            }
+            // else delete user from DB
+            await user.remove();
+            res.json({ message: "Xóa tài khoản thành công" });
+        }
+
+        // else send error message
+        else {
+            res.status(404);
+            throw new Error("Tài khoản không tồn tại");
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+
+    }
+});
+
+export {
+    registerUser,
+    loginUser,
+    updateUserProfile,
+    deleteUserProfile,
+    changeUserPassword,
+    getLikedMovies,
+    addLikedMovie,
+    deleteLikedMovies,
+    getUsers,
+    deleteUser
+};
