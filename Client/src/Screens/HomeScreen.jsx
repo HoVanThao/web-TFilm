@@ -14,7 +14,7 @@ const HomeScreen = () => {
             </div>
             <div className='container mx-auto min-h-screen px-2 mb-6'>
                 <PopularMovies />
-                <TopTrending />
+                {/* <TopTrending /> */}
                 <TopRated />
                 <Promos />
 

@@ -210,7 +210,6 @@ const deleteLikedMovies = asyncHandler(async (req, res) => {
     }
 });
 
-
 //admin
 const getUsers = asyncHandler(async (req, res) => {
     try {
@@ -233,7 +232,7 @@ const deleteUser = asyncHandler(async (req, res) => {
                 throw new Error("Không thể xóa tài khoản admin");
             }
             // else delete user from DB
-            await user.remove();
+            await User.findByIdAndDelete(req.params.id);
             res.json({ message: "Xóa tài khoản thành công" });
         }
 

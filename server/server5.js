@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { connectDB } from './config/db.js';
 import userRouter from './Routes/UserRouter.js'
+import movieRouter from './Routes/MoviesRouter.js'
 import { errorHandler } from './middlewares/errorMiddleware.js';
 
 
@@ -15,11 +16,12 @@ connectDB();
 
 // main router
 app.get('/', (req, res) => {
-    res.send('API is running...');
+    res.send('API is running....');
 });
 
 // other routes
 app.use("/api/users", userRouter);
+app.use("/api/movies", movieRouter);
 
 // errorMiddlewares
 app.use(errorHandler)
@@ -30,3 +32,7 @@ app.listen(PORT, () => {
     console.log(`Server running in http://localhost/${PORT}`)
 });
 
+
+// taskkill /PID 21936 /F
+// netstat -ano | findstr :5000
+// npm cache clean --force
