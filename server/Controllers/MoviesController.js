@@ -81,7 +81,7 @@ const getRandomMovies = asyncHandler(async (req, res) => {
 })
 
 
-// ***************Private Routes - admin - controller***************
+// ***************Private Routes controller***************
 
 const createMovieReview = asyncHandler(async (req, res) => {
     const { rating, comment } = req.body;
@@ -127,6 +127,119 @@ const createMovieReview = asyncHandler(async (req, res) => {
     }
 });
 
+// ***************Private Routes - admin - controller***************
+
+const updateMovie = asyncHandler(async (req, res) => {
+    try {
+        const {
+            name,
+            desc,
+            image,
+            titleImage,
+            category,
+            language,
+            year,
+            time,
+            video,
+            rate,
+            numberOfReviews,
+            casts
+        } = req.body;
+
+        const movie = await Movie.findById(req.params.movieId);
+
+        if (movie) {
+            movie.name = name || movie.name;
+            movie.desc = desc || movie.desc;
+            movie.image = image || movie.image;
+            movie.titleImage = titleImage || movie.titleImage;
+            movie.rate = rate || movie.rate;
+            movie.number0fReviews = numberOfReviews || movie.numberOfReviews;
+            movie.category = category || movie.category;
+            movie.time = time || movie.time;
+            movie.language = language || movie.language;
+            movie.year = year || movie.year;
+            movie.video = video || movie.video;
+            movie.casts = casts || movie.casts;
+
+            const updateMovie = await movie.save();
+            res.status(201).json(updateMovie);
+        } else {
+            res.status(404);
+            throw new Error("Movie not found");
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+const createMovie = asyncHandler(async (req, res) => {
+    try {
+        const {
+            name,
+            desc,
+            image,
+            titleImage,
+            category,
+            language,
+            year,
+            time,
+            video,
+            rate,
+            numberOfReviews,
+            casts
+        } = req.body;
+
+        const movie = new Movie({
+            name,
+            desc,
+            image,
+            titleImage,
+            category,
+            language,
+            year,
+            time,
+            video,
+            rate,
+            numberOfReviews,
+            casts,
+            userId: req.user._id,
+        })
+
+        if (!movie) {
+            res.status(400).json("Invalid movie data");
+        }
+
+        const createMovie = await movie.save();
+        res.status(201).json(createMovie);
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+const deleteMovie = asyncHandler(async (req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.movieId);
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }
+        await movie.deleteOne();
+        res.json({ message: "Movie removed" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
 
 
-export { importMovies, getMovies, getMovieById, getTopRatedMovies, getRandomMovies, createMovieReview };
+const deteleAllMovie = asyncHandler(async (req, res) => {
+    try {
+        await Movie.deleteMany({});
+        res.json({ message: "detele all Movies" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+export { importMovies, getMovies, getMovieById, getTopRatedMovies, getRandomMovies, createMovieReview, updateMovie, deleteMovie, deteleAllMovie, createMovie };
+
