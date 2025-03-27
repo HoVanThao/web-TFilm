@@ -28,7 +28,7 @@ const MoviesPage = () => {
                     }
                 </div>
                 <div className='w-full flex-colo md:my-20 my-10'>
-                    <button onClick={HandleLoadingMore} className='flex-rows transitions hover:bg-subMain gap-3 text-white py-3 px-8 rounded font-semibold border-2 border-subMain'>
+                    <button onClick={HandleLoadingMore} className='flex-rows bg-subMainn transitions hover:text-black gap-3 text-white py-3 px-8 rounded font-semibold border-2 border-subMainn'>
                         Loading More <CgSpinner className='animate-spin' />
                     </button>
                 </div>

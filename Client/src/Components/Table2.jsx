@@ -23,7 +23,7 @@ const Rows = (data, i, users, OnEditFunction) => {
                         <td className={`${Text}`}>{data.fullname}</td>
                         <td className={`${Text}`}>{data.email}</td>
                         <td className={`${Text} float-right flex-rows gap-2`}>
-                            <button className='bg-subMain text-white hover:bg-main transitions border border-subMain rounded flex-colo w-6 h-6'>
+                            <button className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
                                 <MdDelete />
                             </button>
                         </td>
@@ -38,7 +38,7 @@ const Rows = (data, i, users, OnEditFunction) => {
                             <button onClick={() => OnEditFunction(data)} className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
                                 <FaEdit />
                             </button>
-                            <button className='bg-subMain text-white hover:bg-main transitions border border-subMain rounded flex-colo w-6 h-6'>
+                            <button className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
                                 <MdDelete />
                             </button>
                         </td>

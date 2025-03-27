@@ -185,7 +185,7 @@ const Banner = () => {
     });
 
     return (
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full overflow-hidden ">
             <Swiper
                 direction="horizontal"
                 slidesPerView={1}
@@ -194,20 +194,22 @@ const Banner = () => {
                 modules={[Autoplay]}
                 autoplay={{ delay: 4000, disableOnInteraction: false }}
                 onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)} // Theo dõi slide hiện tại
-                className="w-full xl:h-screen bg-dry sm:h-96 h-48"
             >
                 {Movies.slice(0, 6).map((movie, index) => (
                     <SwiperSlide key={index} className="relative rounded overflow-hidden">
-                        <img
-                            src={`/images/movies/${movie.image}`}
-                            alt={movie.name}
-                            className="w-full h-full object-cover"
-                        />
-                        <div className="absolute linear-bg xl:pl-52 sm:pl-32 pl-8 top-0 bottom-0 right-0 left-0 flex flex-col justify-center lg:gap-4 xl:gap-8 md:gap-4 gap-4">
+                        <div className='w-full xl:h-banner bg-dry sm:h-96 h-48 halftone-effect'>
+                            <img
+                                src={`/images/movies/${movie.image}`}
+                                alt={movie.name}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+
+                        <div className="absolute linear-bg xl:pl-24 sm:pl-32 pl-8 top-0  right-0 bottom-0 left-0 flex flex-col justify-center lg:gap-4 xl:gap-8 md:gap-4 gap-4">
                             {/* Movie Name */}
                             <motion.h1
                                 key={`title-${currentSlide}`} // Dựa trên slide hiện tại
-                                className="xl:text-6xl truncate font-sans sm:text-2xl text-xl font-bold uppercase"
+                                className="xl:text-4xl truncate font-sans sm:text-2xl text-xl font-bold uppercase"
                                 {...fadeIn('up', 0.2)} // Hiệu ứng xuất hiện từ dưới lên
                             >
                                 {movie.name}
@@ -260,11 +262,11 @@ const Banner = () => {
                             >
                                 <Link
                                     to={`/movie/${movie.name}`}
-                                    className="bg-subMain hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs"
+                                    className="bg-subMainn hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs"
                                 >
                                     Xem ngay
                                 </Link>
-                                <button className="bg-white hover:text-subMain transitions text-white px-3 py-3 rounded text-sm bg-opacity-30">
+                                <button className="bg-white hover:text-subMainn transitions text-white px-3 py-3 rounded text-sm bg-opacity-30">
                                     <FaHeart />
                                 </button>
                             </motion.div>

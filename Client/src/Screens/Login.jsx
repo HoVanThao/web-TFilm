@@ -25,7 +25,7 @@ const Login = () => {
                         type="password"
                         bg={true}
                     />
-                    <Link to="/dashboard" className='w-full bg-subMain hover:text-main transitions flex-rows gap-4 text-white p-4 rounded-lg'>
+                    <Link to="/dashboard" className='w-full bg-subMainn hover:text-main transitions flex-rows gap-4 text-white p-4 rounded-lg'>
                         <FiLogIn /> Sign In
                     </Link>
                     <p className='text-center text-border'>

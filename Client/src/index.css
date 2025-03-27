@@ -17,10 +17,54 @@ select:focus {
 }
 
 
-.linear-bg {
+/* .linear-bg {
     background: linear-gradient(269.82deg, #07091c00 0.17%, #080a1ad6 99.87%);
+} */
+
+.linear-bg {
+    background:
+        /* Top dark (nhẹ hơn) */
+        linear-gradient(to bottom, rgba(8, 10, 26, 0.1) 0.1%, transparent 25%),
+        /* Bottom dark (nhẹ hơn) */
+        linear-gradient(to top, rgba(8, 10, 26, 0.1) 0.1%, transparent 25%),
+        /* Left dark (nhẹ hơn) */
+        linear-gradient(to right, rgba(8, 10, 26, 0.5) 0.1%, transparent 25%),
+        /* Right dark (nhẹ hơn) */
+        linear-gradient(to left, rgba(8, 10, 26, 0.6) 0.1%, transparent 25%);
+
+    background-size: 100% 30%, 100% 30%, 30% 100%, 30% 100%, cover;
+    background-position: top, bottom, left, right, center;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
 }
 
+/*
+==== new - thảo =====
+*/
+.bg-custom-gradient {
+    background: linear-gradient(0deg, rgba(40, 43, 58, 0) 20%, #282b3a);
+}
+
+.halftone-effect {
+    position: relative;
+}
+
+.halftone-effect::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.2) 10%, transparent 70%);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+
+
+
+/*
+==== new - thảo =====
+*/
 .hoveres {
     @apply hidden
 }

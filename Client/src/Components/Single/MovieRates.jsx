@@ -52,7 +52,7 @@ const MovieRates = ({ movie }) => {
                         </div>
                     </div>
                     <Message label="Bình luận" placeholder="Hãy nói cảm nhận của bạn về bộ phim..." />
-                    <button className='bg-subMain hover:bg-transparent border-2 border-subMain text-white py-3 w-full flex-colo rounded'>
+                    <button className='bg-subMainn hover:bg-transparent border-2 border-subMainn text-white py-3 w-full flex-colo rounded'>
                         Xác nhận
                     </button>
                 </div>

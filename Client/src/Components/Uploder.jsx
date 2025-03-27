@@ -20,7 +20,7 @@ const Uploder = () => {
                 className="px-6 py-8 pt-5 pb-6 border-2 border-border border-dashed bg-main rounded-md cursor-pointer"
             >
                 <input className='hidden' {...getInputProps()} />
-                <span className="mx-auto flex-colo text-subMain text-3xl">
+                <span className="mx-auto flex-colo text-subMainn text-3xl">
                     <FiUploadCloud />
                 </span>
                 <p className="text-sm mt-2">Thêm file của bạn vào đây</p>

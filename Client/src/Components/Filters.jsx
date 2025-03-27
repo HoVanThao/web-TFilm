@@ -128,7 +128,7 @@ const Filters = () => {
                                     key={i}
                                     value={option}
                                     className={({ active }) =>
-                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? "bg-subMain text-white" : "text-main"}`
+                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? "bg-subMainn text-white" : "text-main"}`
                                     }
                                 >
                                     {({ selected }) => (

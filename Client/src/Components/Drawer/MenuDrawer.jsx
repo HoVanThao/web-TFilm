@@ -20,13 +20,13 @@ const MenuDrawer = ({ toggleDrawer }) => {
 
     return (
         <div className="absolute right-0 top-0 w-72 h-full bg-main text-white shadow-lg">
-            <div className="flex justify-between items-center px-4 py-4 bg-dry">
+            <div className="flex justify-between items-center px-4 py-4 bg-navbar">
                 <Link to="/" onClick={toggleDrawer}>
                     <img src="/images/logo.png" alt="logo" className="w-28" />
                 </Link>
                 <button
                     onClick={toggleDrawer}
-                    className="transitions w-10 h-10 flex justify-center items-center text-base text-white bg-subMain rounded-full hover:bg-white hover:text-subMain"
+                    className="transitions w-10 h-10 flex justify-center items-center text-base text-white bg-subMainn rounded-full hover:bg-white hover:text-subMainn"
                 >
                     <IoClose />
                 </button>

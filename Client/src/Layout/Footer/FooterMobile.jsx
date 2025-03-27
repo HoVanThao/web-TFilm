@@ -27,7 +27,7 @@ const FooterMobile = () => {
                 </div>
             )}
             <footer className='lg:hidden fixed z-50 bottom-0 w-full px-1'>
-                <div className="bg-dry rounded-md flex-btn w-full p-1">
+                <div className="bg-navbar rounded-md flex-btn w-full p-1">
                     <NavLink to="/" className={Hover}>
                         <BiHomeHeart />
                     </NavLink>
@@ -37,7 +37,7 @@ const FooterMobile = () => {
                     <NavLink to="/favorites" className={Hover}>
                         <div className='relative'>
                             <FiHeart className='w-6 h-6' />
-                            <div className='w-6 h-6 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-4 -right-4'>
+                            <div className='w-6 h-6 flex-colo rounded-full text-xs bg-subMainn text-white absolute -top-4 -right-4'>
                                 3
                             </div>
                         </div>

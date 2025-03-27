@@ -42,7 +42,7 @@ const ShareMovieModal = ({ modalOpen, setModalOpen, movie }) => {
                 {
                     shareData.map((data, index) => (
                         <data.shareButton key={index} url={url} quote="TFilm-Haven | Free Movies Site">
-                            <div className='w-12 trainsitions hover:bg-subMain flex-colo text-lg h-12 bg-white rounded bg-opacity-30'>
+                            <div className='w-12 trainsitions hover:bg-subMainn flex-colo text-lg h-12 bg-white rounded bg-opacity-30'>
                                 <data.icon />
                             </div>
                         </data.shareButton>

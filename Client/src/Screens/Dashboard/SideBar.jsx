@@ -53,7 +53,7 @@ const SideBar = ({ children }) => {
         }
     ]
 
-    const active = "bg-dryGray text-subMain"
+    const active = "bg-dryGray text-subMainn"
     const hover = "hover:text-white hover:bg-main"
     const inActive = "rounded font-medium text-sm transitions flex gap-3 items-center p-4"
 

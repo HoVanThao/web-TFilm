@@ -25,7 +25,7 @@ const CastModal = ({ modalOpen, setModalOpen, cast }) => {
                 </div>
                 <button
                     onClick={() => setModalOpen(false)}
-                    className="w-full flex-colo py-4 rounded bg-subMain transitions text-white hover:bg-main transitions border-2 border-subMain"
+                    className="w-full flex-colo py-4 rounded bg-subMainn transitions text-white hover:bg-main transitions border-2 border-subMainn"
                 >
                     {cast ? "Chỉnh sửa" : "Thêm mới"}
                 </button>

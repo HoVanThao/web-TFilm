@@ -14,12 +14,12 @@ const TopRated = () => {
     const [nextEl, setNextEl] = useState(null);
     const [prevEl, setPrevEl] = useState(null);
 
-    const classNames = 'hover:bg-dry transitions border-2 border-subMain text-sm rounded w-8 h-8 flex-colo bg-subMain text-white';
+    const classNames = 'hover:bg-dry transitions border-2 border-subMainn text-sm rounded w-8 h-8 flex-colo bg-subMainn text-white';
 
     return (
-        <div className='my-16'>
+        <div className='my-16 '>
             <Titles title='Phim hay hôm nay' Icon={BsBookmarkStarFill} />
-            <div className='mt-10'>
+            <div className='mt-10 '>
                 <Swiper
                     navigation={{ nextEl, prevEl }}
                     autoplay={true}
@@ -36,25 +36,25 @@ const TopRated = () => {
                             spaceBetween: 20,
                         },
                         1024: {
-                            slidesPerView: 3,
-                            spaceBetween: 30,
+                            slidesPerView: 4,
+                            spaceBetween: 20,
                         },
                         1280: {
-                            slidesPerView: 4,
-                            spaceBetween: 40,
+                            slidesPerView: 6,
+                            spaceBetween: 10,
                         },
                     }}
                 >
                     {Movies.map((movie, index) => (
                         <SwiperSlide key={index}>
-                            <div className='p-2 h-rate hovered border border-border bg-dry rounded-lg overflow-hidden'>
+                            <div className='p-2 h-72 hovered border border-border bg-dry rounded-lg overflow-hidden'>
                                 <img
                                     src={`/images/movies/${movie.titleImage}`}
                                     alt={movie.name}
                                     className='w-full h-full object-cover rounded-lg'
                                 />
-                                <div className='px-4 hoveres gap-6 text-center absolute bg-black bg-opacity-70 top-0 left-0 right-0 bottom-0'>
-                                    <button className='w-12 h-12 flex-colo transitions hover:bg-subMain rounded-full bg-white bg-opacity-30 text-white'>
+                                <div className='px-4 rounded-lg hoveres gap-6 text-center absolute bg-black bg-opacity-70 top-0 left-0 right-0 bottom-0'>
+                                    <button className='w-12 h-12 flex-colo transitions hover:text-subMainn rounded-full bg-white bg-opacity-30 text-white'>
                                         <FaHeart />
                                     </button>
                                     <Link

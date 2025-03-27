@@ -17,7 +17,7 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                         <div className='col-span-3 flex flex-col gap-10'>
                             <h1 className='xl:text-4xl capitalize font-sans text-2xl font-bold'>{movie?.name}</h1>
                             <div className='flex items-center gap-4 font-medium text-dryGray'>
-                                <div className='flex-colo bg-subMain text-xs px-2 py-1'>
+                                <div className='flex-colo bg-subMainn text-xs px-2 py-1'>
                                     HD 4K
                                 </div>
                                 <FlexMovieItems movie={movie} />
@@ -53,7 +53,7 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                                 <div className="sm:col-span-2 col-span-3 flex justify-end font-medium text-sm">
                                     <Link
                                         to={`/watch/${movie?.name}`}
-                                        className='bg-dry py-4 hover:bg-subMain transitions border-2 border-subMain rounded-full flex-rows gap-4 w-full sm:py-3' >
+                                        className='bg-dry py-4 hover:bg-subMainn transitions border-2 border-subMainn rounded-full flex-rows gap-4 w-full sm:py-3' >
                                         <FaPlay className='w-3 h-3' />
                                         Xem ngay
                                     </Link>
@@ -61,7 +61,7 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                             </div>
                         </div>
                         <div className="col-span-2 md:mt-0 mt-2 flex justify-end">
-                            <button className='md:w-1/4 w-full relative flex-colo bg-subMain hover:bg-transparent border-2 border-subMain transitions md:h-64 h-20 rounded font-medium'>
+                            <button className='md:w-1/4 w-full relative flex-colo bg-subMainn hover:bg-transparent border-2 border-subMainn transitions md:h-64 h-20 rounded font-medium'>
                                 <div className="flex-rows gap-6 text-md uppercase tracking-widest absolute md:rotate-90">
                                     Download
                                     <FiLogIn className='h-6 w-6' />

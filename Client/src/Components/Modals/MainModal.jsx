@@ -38,7 +38,7 @@ const MainModal = ({ modalOpen, setModalOpen, children }) => {
                                         ref={cancelButtonRef}
                                         onClick={() => setModalOpen(false)}
                                         type="button"
-                                        className="transitions w-10 h-10 flex-colo text-base text-white bg-subMain rounded-full hover:bg-white hover:text-subMain"
+                                        className="transitions w-10 h-10 flex-colo text-base text-white bg-subMainn rounded-full hover:bg-white hover:text-subMainn"
                                     >
                                         <IoClose />
                                     </button>

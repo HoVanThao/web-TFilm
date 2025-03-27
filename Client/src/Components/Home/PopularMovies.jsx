@@ -9,9 +9,9 @@ const PopularMovies = () => {
         <>
             <div className='my-16'>
                 <Titles title="Phim Thịnh Hành" Icon={BsCollectionFill} />
-                <div className='grid sm:mt-12 mt-6 xl:grid-cols-4 lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-10'>
+                <div className='grid sm:mt-12 mt-6 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-2'>
                     {
-                        Movies.slice(0, 8).map((movie, index) => (
+                        Movies.slice(0, 18).map((movie, index) => (
                             <Movie key={index} movie={movie} />
                         ))
                     }

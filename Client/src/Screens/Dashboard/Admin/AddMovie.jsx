@@ -89,7 +89,7 @@ const AddMovie = () => {
                     <Uploder />
                 </div>
                 <div className="w-full grid lg:grid-cols-2 gap-6 items-start ">
-                    <button onClick={() => setModalOpen(true)} className="w-full py-4 bg-main border border-subMain border-dashed text-white rounded">
+                    <button onClick={() => setModalOpen(true)} className="w-full py-4 bg-main border border-subMainn border-dashed text-white rounded">
                         Thêm diễn viên
                     </button>
                     <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-4 grid-cols-2 gap-4">
@@ -103,7 +103,7 @@ const AddMovie = () => {
                                     />
                                     <p>{user.fullname}</p>
                                     <div className="flex-rows mt-2 w-full gap-2">
-                                        <button className="w-6 h-6 flex-colo bg-subMain text-white hover:bg-main transitions border border-subMain rounded">
+                                        <button className="w-6 h-6 flex-colo bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded">
                                             <MdDelete />
                                         </button>
                                         <button onClick={() => { setCast(user); setModalOpen(true); }} className="w-6 h-6 flex-colo bg-green-500 text-white hover:bg-main transitions border border-green-600 rounded">
@@ -115,7 +115,7 @@ const AddMovie = () => {
                         }
                     </div>
                 </div>
-                <button className='bg-subMain w-full flex-rows gap-6 transitions hover:bg-dry font-medium border-2 border-subMain text-white py-4 px-6 rounded sm:w-auto'>
+                <button className='bg-subMainn w-full flex-rows gap-6 transitions hover:bg-dry font-medium border-2 border-subMainn text-white py-4 px-6 rounded sm:w-auto'>
                     <ImUpload /> Thêm phim mới
                 </button>
             </div>

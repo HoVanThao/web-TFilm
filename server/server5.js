@@ -4,12 +4,24 @@ import dotenv from 'dotenv'
 import { connectDB } from './config/db.js';
 import userRouter from './Routes/UserRouter.js'
 import movieRouter from './Routes/MoviesRouter.js'
+import categoryRouter from './Routes/CategoriesRouter.js'
+import uploadFileRouter from './Routes/UploadFileRouter.js'
 import { errorHandler } from './middlewares/errorMiddleware.js';
+import cloudinary from 'cloudinary';
 
 
 dotenv.config();
 
 const app = express();
+
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
+    timeout: 20000,
+});
+
+
 app.use(cors());
 app.use(express.json());
 connectDB();
@@ -22,6 +34,8 @@ app.get('/', (req, res) => {
 // other routes
 app.use("/api/users", userRouter);
 app.use("/api/movies", movieRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/upload", uploadFileRouter);
 
 // errorMiddlewares
 app.use(errorHandler)

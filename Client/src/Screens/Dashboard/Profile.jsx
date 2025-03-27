@@ -22,10 +22,10 @@ const Profile = () => {
                     bg={true}
                 />
                 <div className="flex gap-2 flex-wrap flex-col-reverse sm:flex-row justify-between items-center my-4">
-                    <button className='bg-main transitions hover:text-subMain font-medium border border-subMain text-white py-3 px-6 rounded w-full sm:w-auto'>
+                    <button className='bg-subMainn transitions hover:text-black font-medium border border-subMainn text-white py-3 px-6 rounded w-full sm:w-auto'>
                         Lưu thông tin
                     </button>
-                    <button className='bg-main transitions hover:text-subMain font-medium border border-subMain text-white py-3 px-6 rounded w-full sm:w-auto'>
+                    <button className='bg-subMainn transitions hover:text-black font-medium border border-subMainn text-white py-3 px-6 rounded w-full sm:w-auto'>
                         Xóa tài khoản
                     </button>
                 </div>

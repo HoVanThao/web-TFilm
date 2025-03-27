@@ -227,7 +227,7 @@ const NavBar = () => {
     const [showSearch, setShowSearch] = useState(false);
     const searchRef = useRef(null);
 
-    const Hover = ({ isActive }) => (isActive ? 'hover:text-gray-300' : 'hover:text-subMain transitions text-white');
+    const Hover = ({ isActive }) => (isActive ? 'hover:text-gray-300' : 'hover:text-subMainn transitions text-white');
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -243,20 +243,20 @@ const NavBar = () => {
     }, []);
 
     return (
-        <div className='bg-main shadow-md bg-opacity-75 sticky top-0 z-20'>
-            <div className='container mx-auto py-6 px-2 lg:grid gap-10 grid-cols-7 justify-between items-center'>
+        <div className='bg-navbar shadow-md sticky top-0 z-20'>
+            <div className='container w-full mx-auto py-3 px-2 lg:grid gap-5 grid-cols-12 justify-between items-center'>
                 {/* Logo */}
-                <div className='col-span-1 lg:block hidden'>
+                <div className='col-span-2 lg:block hidden'>
                     <Link to="/">
-                        <img src="/images/logo.png" alt='logo' className='w-full h-12 object-contain' />
+                        <img src="/images/logo.png" alt='logo' className='w-full h-12 object-cover' />
                     </Link>
                 </div>
                 {/* search form */}
-                <div className="col-span-3 flex items-center" ref={searchRef}>
+                {/* <div className="col-span-3 flex items-center" ref={searchRef}>
                     <button
                         type='button'
                         onClick={() => setShowSearch(!showSearch)}
-                        className='bg-subMain transitions hover:bg-transparent border-2 border-subMain w-12 flex-colo h-10 rounded text-white'
+                        className='bg-white bg-opacity-30 transitions hover:bg-transparent border-2 border-white w-12 flex-colo h-10 rounded text-white'
                     >
                         <FaSearch />
                     </button>
@@ -274,11 +274,30 @@ const NavBar = () => {
                             }}
                         />
                     </form>
+                </div> */}
+                <div className="relative col-span-3 flex items-center">
+                    <FaSearch className="absolute left-3 text-white" />
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm phim, diễn viên"
+                        className="w-full h-10 pl-10 pr-4 text-white font-medium text-sm bg-dry border border-gray-600 rounded-lg
+                  focus:outline-none focus:border-white focus:ring-2 focus:ring-white focus:ring-opacity-50
+                  transition-all duration-200 ease-in-out"
+                    />
                 </div>
+
+
                 {/* menus */}
-                <div className='col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 justify-between lg:flex xl:justify-end items-center'>
+                <div className='col-span-7 font-medium text-sm hidden xl:gap-12 2xl:gap-20 justify-between lg:flex xl:justify-end items-center'>
+
                     <NavLink to="/movies" className={Hover}>
-                        Phim ảnh
+                        Duyệt phim
+                    </NavLink>
+                    <NavLink to="/movies" className={Hover}>
+                        Phim mới
+                    </NavLink>
+                    <NavLink to="/movies" className={Hover}>
+                        Phim rạp
                     </NavLink>
                     <NavLink to="/about-us" className={Hover}>
                         Giới thiệu
@@ -292,7 +311,7 @@ const NavBar = () => {
                     <NavLink to="/favorites" className={Hover} >
                         <div className='relative'>
                             <FaHeart className='w-6 h-6' />
-                            <div className='w-6 h-6 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-4 -right-4'>
+                            <div className='w-6 h-6 flex-colo rounded-full text-xs bg-subMainn text-white absolute -top-4 -right-4'>
                                 3
                             </div>
                         </div>

@@ -10,7 +10,7 @@ const Users = () => {
             <div className="flex flex-col gap-6">
                 <div className='flex-btn gap-2'>
                     <h2 className="text-xl font-bold">Thể loại</h2>
-                    <button className='bg-subMain font-medium gap-2 flex flex-row items-center transitions hover:text-main border border-subMain text-white py-2 px-4 rounded'>
+                    <button className='bg-subMainn font-medium gap-2 flex flex-row items-center transitions hover:text-main border border-subMainn text-white py-2 px-4 rounded'>
                         <HiPlusCircle /> Thêm
                     </button>
                 </div>

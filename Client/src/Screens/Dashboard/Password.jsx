@@ -26,7 +26,7 @@ const Password = () => {
                     bg={true}
                 />
                 <div className="flex justify-end items-center my-4">
-                    <button className='bg-main transitions hover:text-subMain font-medium border border-subMain text-white py-3 px-6 rounded w-full sm:w-auto'>
+                    <button className='bg-subMainn transitions hover:text-black font-medium border border-subMainn text-white py-3 px-6 rounded w-full sm:w-auto'>
                         Đổi mật khẩu
                     </button>
                 </div>
