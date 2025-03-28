@@ -10,14 +10,14 @@ import BannerBottom from '../Components/Home/BannerBottom'
 const HomeScreen = () => {
     return (
         <Layout>
-            <div className='mx-1'>
-                <Banner />
-            </div>
-            <div className='container mx-auto min-h-screen mb-6'>
+            <Banner />
+            <div className='mx-5 min-h-screen mb-6'>
                 <BannerBottom />
-                <PopularMovies />
-                {/* <TopTrending /> */}
 
+                <PopularMovies />
+                <TopRated />
+
+                <PopularMovies />
                 <TopRated />
                 <Promos />
 

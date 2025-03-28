@@ -196,12 +196,12 @@ const Banner = () => {
                 onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)} // Theo dõi slide hiện tại
             >
                 {Movies.slice(0, 6).map((movie, index) => (
-                    <SwiperSlide key={index} className="relative rounded overflow-hidden">
-                        <div className='w-full xl:h-banner bg-dry sm:h-96 h-48 halftone-effect'>
+                    <SwiperSlide key={index} className="relative rounded overflow-hidden ">
+                        <div className='w-full xl:h-banner bg-dry sm:h-96 h-48 halftone-effect '>
                             <img
                                 src={`/images/movies/${movie.image}`}
                                 alt={movie.name}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover "
                             />
                         </div>
 

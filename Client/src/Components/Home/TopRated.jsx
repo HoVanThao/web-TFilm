@@ -11,17 +11,17 @@ import { Link } from 'react-router-dom';
 import Rating from '../Stars';
 
 const TopRated = () => {
-    const [nextEl, setNextEl] = useState(null);
-    const [prevEl, setPrevEl] = useState(null);
+    // const [nextEl, setNextEl] = useState(null);
+    // const [prevEl, setPrevEl] = useState(null);
 
     const classNames = 'hover:bg-dry transitions border-2 border-subMainn text-sm rounded w-8 h-8 flex-colo bg-subMainn text-white';
 
     return (
-        <div className='my-16 '>
+        <div className='my-10 '>
             <Titles title='Phim hay hôm nay' Icon={BsBookmarkStarFill} />
-            <div className='mt-10 '>
+            <div className='sm:mt-6 xl:mt-4 mt-2'>
                 <Swiper
-                    navigation={{ nextEl, prevEl }}
+                    // navigation={{ nextEl, prevEl }}
                     autoplay={true}
                     speed={1000}
                     loop={true}
@@ -40,7 +40,7 @@ const TopRated = () => {
                             spaceBetween: 20,
                         },
                         1280: {
-                            slidesPerView: 6,
+                            slidesPerView: 7,
                             spaceBetween: 10,
                         },
                     }}
@@ -71,14 +71,14 @@ const TopRated = () => {
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                <div className="w-full px-1 flex-rows gap-6 pt-12">
+                {/* <div className="w-full px-1 flex-rows gap-6 pt-12">
                     <button className={classNames} ref={(node) => setPrevEl(node)}>
                         <BsCaretLeftFill />
                     </button>
                     <button className={classNames} ref={(node) => setNextEl(node)}>
                         <BsCaretRightFill />
                     </button>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -15,21 +15,19 @@ const BannerBottom = () => {
     return (
 
         <>
-            <div className='my-16'>
+            <div className='my-6'>
                 <Titles title="Phim Chiếu Rạp" Icon={BsFillCollectionFill} />
-                <div className='relative w-full overflow-visible sm:mt-12 mt-6'>
-
-
+                <div className='relative w-full overflow-visible sm:mt-6 xl:mt-4 mt-2'>
 
                     {/* Banner chính */}
                     <div className='relative rounded overflow-hidden'>
-                        <div className='w-full h-48 sm:h-96 xl:h-bannerbottom  bg-dry halftone-effect rounded-lg'>
+                        <div className='w-full h-48 sm:h-96 xl:h-bannerbottom border-2 bg-dry halftone-effect rounded-3xl'>
                             <img src={`/images/movies/${activeMovie.image}`} alt={activeMovie.name}
-                                className='w-full h-full object-cover rounded-lg' />
+                                className='w-full h-full object-cover rounded-3xl' />
                         </div>
 
 
-                        <div className='absolute linear-bg rounded-lg top-0 bottom-0 left-0 right-0 flex flex-col justify-center xl:pl-20 sm:pl-12 pl-6 text-white'>
+                        <div className='absolute linear-bg rounded-3xl top-0 bottom-0 left-0 right-0 flex flex-col justify-center xl:pl-20 sm:pl-12 pl-6 text-white'>
                             <h1 className='xl:text-3xl sm:text-2xl text-xl font-bold uppercase'>{activeMovie.name}</h1>
                             <div className='flex gap-5 items-center text-gray-300'>
                                 <FlexMovieItems movie={activeMovie} />
@@ -86,10 +84,6 @@ const BannerBottom = () => {
                             </SwiperSlide>
                         ))}
                     </Swiper> */}
-
-
-
-
 
                 </div>
             </div>

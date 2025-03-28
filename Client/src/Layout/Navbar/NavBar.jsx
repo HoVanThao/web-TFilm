@@ -244,7 +244,7 @@ const NavBar = () => {
 
     return (
         <div className='bg-navbar shadow-md sticky top-0 z-20'>
-            <div className='container w-full mx-auto py-3 px-2 lg:grid gap-5 grid-cols-12 justify-between items-center'>
+            <div className='w-full mx-auto py-3 px-6 lg:grid gap-5 grid-cols-12 justify-between items-center'>
                 {/* Logo */}
                 <div className='col-span-2 lg:block hidden'>
                     <Link to="/">
@@ -292,6 +292,9 @@ const NavBar = () => {
 
                     <NavLink to="/movies" className={Hover}>
                         Duyệt phim
+                    </NavLink>
+                    <NavLink to="/movies" className={Hover}>
+                        Phim hay
                     </NavLink>
                     <NavLink to="/movies" className={Hover}>
                         Phim mới
