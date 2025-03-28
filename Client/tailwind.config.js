@@ -44,6 +44,7 @@ export default {
       height: {
         banner: '680px',
         header: '560px',
+        bannerbottom: '500px',
         rate: '400px',
       },
       fontSize: {

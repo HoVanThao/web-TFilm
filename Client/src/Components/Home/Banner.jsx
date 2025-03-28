@@ -17,7 +17,7 @@
 //                 speed={1000}
 //                 modules={[Autoplay]}
 //                 autoplay={{ delay: 4000, disableOnInteraction: false }}
-//                 className='w-full xl:h-screen bg-dry sm:h-96 h-48'
+//                 className='w-full xl:h-rate bg-dry sm:h-96 h-48'
 //             >
 //                 {Movies.slice(0, 6).map((movie, index) => (
 //                     <SwiperSlide key={index} className='relative rounded overflow-hidden'>
@@ -162,7 +162,7 @@ import { Autoplay } from 'swiper/modules';
 import { Movies } from './../../Data/MovieData';
 import FlexMovieItems from '../FlexMovieItems';
 import { Link } from 'react-router-dom';
-import { FaHeart, FaImdb } from 'react-icons/fa';
+import { FaHeart, FaImdb, FaPlay } from 'react-icons/fa';
 import { motion } from 'framer-motion'; // Import Framer Motion
 import 'swiper/css';
 
@@ -262,9 +262,9 @@ const Banner = () => {
                             >
                                 <Link
                                     to={`/movie/${movie.name}`}
-                                    className="bg-subMainn hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs"
+                                    className="bg-subMainn hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs flex items-center gap-2"
                                 >
-                                    Xem ngay
+                                    <FaPlay /> Xem ngay
                                 </Link>
                                 <button className="bg-white hover:text-subMainn transitions text-white px-3 py-3 rounded text-sm bg-opacity-30">
                                     <FaHeart />
@@ -279,3 +279,7 @@ const Banner = () => {
 };
 
 export default Banner;
+
+
+
+
