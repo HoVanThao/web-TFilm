@@ -17,7 +17,10 @@ const BannerBottom = () => {
         <>
             <div className='my-16'>
                 <Titles title="Phim Chiếu Rạp" Icon={BsFillCollectionFill} />
-                <div className='relative w-full overflow-hidden sm:mt-12 mt-6'>
+                <div className='relative w-full overflow-visible sm:mt-12 mt-6'>
+
+
+
                     {/* Banner chính */}
                     <div className='relative rounded overflow-hidden'>
                         <div className='w-full h-48 sm:h-96 xl:h-bannerbottom  bg-dry halftone-effect rounded-lg'>
@@ -52,8 +55,22 @@ const BannerBottom = () => {
                     </div>
 
 
+                    {/* Thumbnail List */}
+                    <div className="absolute left-0 -bottom-10  right-0  flex-rows gap-2 my-4 px-4 z-10">
+                        {Movies.slice(0, 10).map((movie, index) => (
+                            <div key={index}
+                                className={`p-1 xl:h-20 xl:w-20 lg:h-14 lg:w-14 sm:h-12 sm:w-12 h-3 w-3 border border-border bg-dry rounded-lg overflow-hidden cursor-pointer transition-transform ${activeMovie === movie ? 'border-2 border-white scale-110' : ''}`}
+                                onClick={() => setActiveMovie(movie)}
+                            >
+                                <img src={`/images/movies/${movie.image}`} alt={movie.name}
+                                    className="w-full h-full object-cover rounded" />
+                            </div>
+                        ))}
+                    </div>
+
+
                     {/* Thumbnail Slider */}
-                    <Swiper
+                    {/* <Swiper
                         slidesPerView={5}
                         spaceBetween={10}
                         className='mt-4 px-4 w-'
@@ -68,7 +85,12 @@ const BannerBottom = () => {
                                 </div>
                             </SwiperSlide>
                         ))}
-                    </Swiper>
+                    </Swiper> */}
+
+
+
+
+
                 </div>
             </div>
         </>

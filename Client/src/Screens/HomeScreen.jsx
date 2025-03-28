@@ -14,9 +14,10 @@ const HomeScreen = () => {
                 <Banner />
             </div>
             <div className='container mx-auto min-h-screen mb-6'>
+                <BannerBottom />
                 <PopularMovies />
                 {/* <TopTrending /> */}
-                <BannerBottom />
+
                 <TopRated />
                 <Promos />
 
