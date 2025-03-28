@@ -28,7 +28,7 @@ select:focus {
         /* Bottom dark (nhẹ hơn) */
         linear-gradient(to top, rgba(8, 10, 26, 0.1) 0.1%, transparent 25%),
         /* Left dark (nhẹ hơn) */
-        linear-gradient(to right, rgba(8, 10, 26, 0.5) 0.1%, transparent 25%),
+        linear-gradient(to right, rgba(8, 10, 26, 0.3) 80%, transparent 100%),
         /* Right dark (nhẹ hơn) */
         linear-gradient(to left, rgba(8, 10, 26, 0.6) 0.1%, transparent 25%);
 
