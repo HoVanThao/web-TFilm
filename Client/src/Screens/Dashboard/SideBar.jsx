@@ -3,55 +3,93 @@ import { BsFillGridFill } from 'react-icons/bs'
 import { FaHeart, FaListAlt, FaUsers } from 'react-icons/fa'
 import { FiSettings } from 'react-icons/fi'
 import { HiViewGridAdd } from 'react-icons/hi'
-import { RiLockPasswordLine, RiMovie2Fill } from 'react-icons/ri'
+import { RiLockPasswordLine, RiLogoutCircleLine, RiMovie2Fill } from 'react-icons/ri'
 import Layout from '../../Layout/Layout'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutAction } from '../../Redux/Actions/userActions'
+import toast from 'react-hot-toast'
 
 
 const SideBar = ({ children }) => {
 
-    const SideLinks = [
-        {
-            name: "Bảng điều khiển",
-            link: "/dashboard",
-            icon: BsFillGridFill,
-        },
-        {
-            name: "Danh sách phim",
-            link: "/movieslist",
-            icon: FaListAlt,
-        },
-        {
-            name: "Thêm phim mới",
-            link: "/addmovie",
-            icon: RiMovie2Fill,
-        },
-        {
-            name: "Thể loại",
-            link: "/categories",
-            icon: HiViewGridAdd,
-        },
-        {
-            name: "Người dùng",
-            link: "/users",
-            icon: FaUsers,
-        },
-        {
-            name: "Cập nhật hồ sơ",
-            link: "/profile",
-            icon: FiSettings,
-        },
-        {
-            name: "Phim yêu thích",
-            link: "/favorites",
-            icon: FaHeart,
-        },
-        {
-            name: "Đổi mật khẩu",
-            link: "/password",
-            icon: RiLockPasswordLine,
-        }
-    ]
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { userInfo } = useSelector((state) => state.userLogin);
+
+    const logoutHandler = () => {
+        dispatch(logoutAction());
+        navigate("/login");
+        toast.success("Logout thành công")
+    }
+
+    const SideLinks =
+        userInfo.isAdmin ?
+            [
+                {
+                    name: "Bảng điều khiển",
+                    link: "/dashboard",
+                    icon: BsFillGridFill,
+                },
+                {
+                    name: "Danh sách phim",
+                    link: "/movieslist",
+                    icon: FaListAlt,
+                },
+                {
+                    name: "Thêm phim mới",
+                    link: "/addmovie",
+                    icon: RiMovie2Fill,
+                },
+                {
+                    name: "Thể loại",
+                    link: "/categories",
+                    icon: HiViewGridAdd,
+                },
+                {
+                    name: "Người dùng",
+                    link: "/users",
+                    icon: FaUsers,
+                },
+                {
+                    name: "Cập nhật hồ sơ",
+                    link: "/profile",
+                    icon: FiSettings,
+                },
+                {
+                    name: "Phim yêu thích",
+                    link: "/favorites",
+                    icon: FaHeart,
+                },
+                {
+                    name: "Đổi mật khẩu",
+                    link: "/password",
+                    icon: RiLockPasswordLine,
+                }
+            ]
+            : userInfo ?
+                [
+                    {
+                        name: "Cập nhật hồ sơ",
+                        link: "/profile",
+                        icon: FiSettings,
+                    },
+                    {
+                        name: "Phim yêu thích",
+                        link: "/favorites",
+                        icon: FaHeart,
+                    },
+                    {
+                        name: "Đổi mật khẩu",
+                        link: "/password",
+                        icon: RiLockPasswordLine,
+                    }
+                ]
+                :
+                [
+
+                ]
+        ;
 
     const active = "bg-dryGray text-subMainn"
     const hover = "hover:text-white hover:bg-main"
@@ -72,6 +110,9 @@ const SideBar = ({ children }) => {
                                 </NavLink>
                             ))
                         }
+                        <button onClick={logoutHandler} className={`${inActive} ${hover} w-full`}>
+                            <RiLogoutCircleLine /> Log Out
+                        </button>
                     </div>
                     <div
                         data-aos="fade-up"

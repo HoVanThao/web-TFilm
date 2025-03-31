@@ -1,30 +1,34 @@
 import * as yup from 'yup'
 
 
-const loginValidation = yup.object().shape({
-    email: yup.string().emai().required("Email là trường bắt buộc").trim(),
+const LoginValidation = yup.object().shape({
+    email: yup.string().email().required("Email là trường bắt buộc").trim().max(50, "Email không được vượt quá 50 ký tự"),
     password: yup.string()
         .required("Mật khẩu là bắt buộc")
-        .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
-        .max(20, "Mật khẩu phải ít hơn 20 ký tự")
-        .matches(/( ?=.* [0-9])/, "Mật khẩu phải chứa một số")
+        .min(8, "Mật khẩu phải có ít nhất 8 ký tự")
+        .max(20, "Mật khẩu không được vượt quá 20 ký tự")
 });
 
 
-const registerValidation = yup.object().shape({
-    email: yup.string().emai().required("Email là trường bắt buộc").trim(),
+const RegisterValidation = yup.object().shape({
+    email: yup.string().email().required("Email là trường bắt buộc").trim().max(50, "Email không được vượt quá 50 ký tự"),
     password: yup.string()
         .required("Mật khẩu là bắt buộc")
-        .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
-        .max(20, "Mật khẩu phải ít hơn 20 ký tự")
-        .matches(/( ?=.* [0-9])/, "Mật khẩu phải chứa một số"),
+        .min(8, "Mật khẩu phải có ít nhất 8 ký tự")
+        .max(20, "Mật khẩu không được vượt quá 20 ký tự")
+        .matches(/(?=.*[0-9])/, "Mật khẩu phải chứa một số")
+        .matches(/(?=.*[!@#$%^&*])/, "Mật khẩu phải chứa ít nhất một ký tự đặc biệt (!@#$%^&*)"),
     fullName: yup.string()
         .required("Họ và tên là bắt buộc")
-        .max(20, "Họ và tên phải ít hơn 20 ký tự")
-        .matches(/^[a-zA-Z]*$/, "Họ và tên phải là các kí tự chữ cái"),
+        .max(20, "Mật khẩu không được vượt quá 50 ký tự")
+        .matches(/^[a-zA-Z\s]*$/, "Họ và tên phải là các kí tự chữ cái"),
+    confirmPassword: yup.string()
+        .required("Xác nhận mật khẩu là bắt buộc")
+        .oneOf([yup.ref('password')], "Mật khẩu xác nhận không khớp")
 });
 
+
 export {
-    loginValidation,
-    registerValidation,
+    LoginValidation,
+    RegisterValidation,
 }

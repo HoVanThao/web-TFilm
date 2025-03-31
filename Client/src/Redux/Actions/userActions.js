@@ -31,8 +31,21 @@ const logoutAction = () => (dispatch) => {
     dispatch({ type: userConstants.USER_REGISTER_RESET });
 };
 
+const updateProfileAction = (datas) => async (dispatch) => {
+    try {
+        dispatch({ type: userConstants.USER_UPDATE_PROFILE_REQUEST });
+        const response = await userApi.updateProfileService(datas);
+        dispatch({ type: userConstants.USER_UPDATE_PROFILE_SUCCESS, payload: response });
+        toast.success("Cập nhật thành công");
+        dispatch({ type: userConstants.USER_LOGIN_SUCCESS, payload: response });
+    } catch (error) {
+        ErrorsAction(error, dispatch, userConstants.USER_UPDATE_PROFILE_FAIL);
+    }
+};
+
 export {
     loginAction,
     registerAction,
     logoutAction,
+    updateProfileAction,
 }

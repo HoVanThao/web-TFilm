@@ -222,25 +222,28 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FaHeart, FaSearch } from 'react-icons/fa';
 import { CgUser } from 'react-icons/cg';
+import { useSelector } from 'react-redux';
 
 const NavBar = () => {
-    const [showSearch, setShowSearch] = useState(false);
-    const searchRef = useRef(null);
+    // const [showSearch, setShowSearch] = useState(false);
+    // const searchRef = useRef(null);
+
+    const { userInfo } = useSelector((state) => state.userLogin);
 
     const Hover = ({ isActive }) => (isActive ? 'hover:text-gray-300' : 'hover:text-subMainn transitions text-white');
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (searchRef.current && !searchRef.current.contains(event.target)) {
-                setShowSearch(false);
-            }
-        };
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (searchRef.current && !searchRef.current.contains(event.target)) {
+    //             setShowSearch(false);
+    //         }
+    //     };
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
+    //     document.addEventListener('mousedown', handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener('mousedown', handleClickOutside);
+    //     };
+    // }, []);
 
     return (
         <div className='bg-navbar shadow-md sticky top-0 z-20'>
@@ -308,10 +311,19 @@ const NavBar = () => {
                     <NavLink to="/contact-us" className={Hover}>
                         Liên hệ
                     </NavLink>
-                    <NavLink to="/login" className={Hover}>
-                        <CgUser className='w-6 h-6' />
+                    <NavLink
+                        to={userInfo?.isAdmin ? "/dashboard" : userInfo ? "/profile" : "/login"}
+                        className={Hover}>
+                        {
+                            userInfo ? (
+                                <img src={userInfo?.image ? userInfo?.image : "/images/user.png"} alt={userInfo?.fullName} className='w-8 h-8 rounded-full border object-cover border-dryGray' />
+                            ) : (
+                                <CgUser className='w-6 h-6' />
+                            )
+                        }
+
                     </NavLink>
-                    <NavLink to="/favorites" className={Hover} >
+                    <NavLink to={userInfo?.isAdmin ? "/favorites" : userInfo ? "/favorites" : "/login"} className={Hover} >
                         <div className='relative'>
                             <FaHeart className='w-6 h-6' />
                             <div className='w-6 h-6 flex-colo rounded-full text-xs bg-subMainn text-white absolute -top-4 -right-4'>
