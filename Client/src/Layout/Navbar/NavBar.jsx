@@ -244,7 +244,7 @@ const NavBar = () => {
 
     return (
         <div className='bg-navbar shadow-md sticky top-0 z-20'>
-            <div className='w-full mx-auto py-3 px-6 lg:grid gap-5 grid-cols-12 justify-between items-center'>
+            <div className='w-full mx-auto py-3 px-6 lg:grid gap-5  grid-cols-12 justify-between items-center'>
                 {/* Logo */}
                 <div className='col-span-2 lg:block hidden'>
                     <Link to="/">
@@ -288,7 +288,7 @@ const NavBar = () => {
 
 
                 {/* menus */}
-                <div className='col-span-7 font-medium text-sm hidden xl:gap-12 2xl:gap-20 justify-between lg:flex xl:justify-end items-center'>
+                <div className='col-span-7 font-medium text-sm hidden xl:gap-9 2xl:gap-12 lg:gap-4 justify-between lg:flex xl:justify-end items-center'>
 
                     <NavLink to="/movies" className={Hover}>
                         Duyệt phim

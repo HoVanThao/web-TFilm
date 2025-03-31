@@ -11,11 +11,11 @@ const AboutUs = () => {
                     <div className='grid grid-flow-row xl:grid-cols-2 gap-4 xl:gap-16 items-center'>
                         <div>
                             <h3 className="text-xl lg:text-3xl mb-4 font-semibold">
-                                Chào mừng đến với TFilmHaven
+                                Chào mừng đến với HamPhim
                             </h3>
                             <div className='mt-3 text-sm leading-8 text-text'>
                                 <p>
-                                    Khám phá thế giới giải trí vô tận tại TFilmHaven, thiên Đường Phim Ảnh của Bạn, nơi những bộ phim không chỉ là câu chuyện mà còn là trải nghiệm. Hãy đắm mình vào kho tàng phim phong phú,
+                                    Khám phá thế giới giải trí vô tận tại HamPhim, thiên Đường Phim Ảnh của Bạn, nơi những bộ phim không chỉ là câu chuyện mà còn là trải nghiệm. Hãy đắm mình vào kho tàng phim phong phú,
                                     từ những bom tấn mới nhất, các tác phẩm kinh điển vượt thời gian, đến những viên ngọc ẩn chờ bạn khám phá.
                                 </p>
 
@@ -36,7 +36,7 @@ const AboutUs = () => {
                                     </span>
                                     <h4 className="text-lg font-semibold my-2">Lượt Thích</h4>
                                     <p className='mb-0 text-text leading-7 text-sm'>
-                                        Hoàn toàn miễn phí và không cần đăng ký gói!
+                                        Hoàn toàn miễn phí và không cần đăng ký gói Plus!
                                     </p>
                                 </div>
                             </div>
