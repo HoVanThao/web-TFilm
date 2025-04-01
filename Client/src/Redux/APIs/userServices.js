@@ -23,8 +23,12 @@ const loginService = async (user) => {
     return data;
 };
 
-const updateProfileService = async (user) => {
-    const { data } = await Axios.put("/users", user);
+const updateProfileService = async (user, token) => {
+    const { data } = await Axios.put("/users", user, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
     if (data) {
         localStorage.setItem("userInfo", JSON.stringify(data));
     }

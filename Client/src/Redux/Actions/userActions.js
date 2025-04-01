@@ -1,7 +1,7 @@
 import * as userConstants from '../Constants/userConstants';
 import * as userApi from '../APIs/userServices';
 import toast from 'react-hot-toast';
-import { ErrorsAction } from '../protection';
+import { ErrorsAction, tokenProtection } from '../protection';
 
 const loginAction = (datas) => async (dispatch) => {
     try {
@@ -31,10 +31,10 @@ const logoutAction = () => (dispatch) => {
     dispatch({ type: userConstants.USER_REGISTER_RESET });
 };
 
-const updateProfileAction = (datas) => async (dispatch) => {
+const updateProfileAction = (datas) => async (dispatch, getState) => {
     try {
         dispatch({ type: userConstants.USER_UPDATE_PROFILE_REQUEST });
-        const response = await userApi.updateProfileService(datas);
+        const response = await userApi.updateProfileService(datas, tokenProtection(getState));
         dispatch({ type: userConstants.USER_UPDATE_PROFILE_SUCCESS, payload: response });
         toast.success("Cập nhật thành công");
         dispatch({ type: userConstants.USER_LOGIN_SUCCESS, payload: response });

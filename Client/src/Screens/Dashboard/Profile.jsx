@@ -1,26 +1,89 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SideBar from './SideBar'
 import Uploder from '../../Components/Uploder'
 import { Input } from '../../Components/UsedInputs'
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { UpdateValidation } from '../../Components/Validation/userValidation'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import toast from 'react-hot-toast'
+import { InlineError } from '../../Components/Notfications/Error'
+import { ImagePreview } from '../../Components/ImagePreview'
+import { updateProfileAction } from '../../Redux/Actions/userActions'
 
 const Profile = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { userInfo } = useSelector((state) => state.userLogin)
+    const { isLoading, isError, isSuccess } = useSelector((state) => state.userUpdateProfile)
+    const [imageUrl, setImageUrl] = useState(userInfo ? userInfo.image : "");
+
+
+
+    //validation user
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(UpdateValidation),
+    });
+
+    const onSubmit = (data) => {
+        dispatch(updateProfileAction({ ...data, image: imageUrl }));
+        //console.log({ ...data, image: imageUrl })
+    }
+
+    useEffect(() => {
+        if (userInfo) {
+            setValue("fullName", userInfo?.fullName);
+            setValue("email", userInfo?.email);
+        }
+
+    }, [userInfo, setValue]);
+
     return (
         <SideBar>
-            <div className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
                 <h2 className="text-xl font-bold">Cập Nhật Hồ Sơ</h2>
-                <Uploder />
-                <Input
-                    label="Họ và tên"
-                    placeholder="Hồ Văn Thảo"
-                    type="text"
-                    bg={true}
-                />
-                <Input
-                    label="Email"
-                    placeholder="hovanthao0611cs@gmail.com"
-                    type="email"
-                    bg={true}
-                />
+                <div className='w-full grid lg:grid-cols-12 gap-6'>
+                    <div className='col-span-10'>
+                        <Uploder />
+                    </div>
+                    <div className='col-span-2'>
+                        <ImagePreview name={userInfo ? userInfo?.fullName : 'HamPhim'} image={imageUrl} />
+                    </div>
+                </div>
+
+                <div className='w-full'>
+                    <Input
+                        label="Họ và tên"
+                        placeholder="Hồ Văn Thảo"
+                        type="text"
+                        name='fullName'
+                        register={register("fullName")}
+                        bg={true}
+                    />
+                    {
+                        errors.fullName && <InlineError text={errors.fullName.message} />
+                    }
+                </div>
+                <div className='w-full'>
+                    <Input
+                        label="Email"
+                        placeholder="hovanthao0611cs@gmail.com"
+                        type="email"
+                        name='email'
+                        register={register("email")}
+                        bg={true}
+                    />
+                    {
+                        errors.email && <InlineError text={errors.email.message} />
+                    }
+                </div>
                 <div className="flex gap-2 flex-wrap flex-col-reverse sm:flex-row justify-between items-center my-4">
                     <button className='bg-subMainn transitions hover:text-black font-medium border border-subMainn text-white py-3 px-6 rounded w-full sm:w-auto'>
                         Lưu thông tin
@@ -29,7 +92,7 @@ const Profile = () => {
                         Xóa tài khoản
                     </button>
                 </div>
-            </div>
+            </form>
         </SideBar>
     )
 }

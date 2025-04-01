@@ -21,14 +21,23 @@ const RegisterValidation = yup.object().shape({
     fullName: yup.string()
         .required("Họ và tên là bắt buộc")
         .max(20, "Mật khẩu không được vượt quá 50 ký tự")
-        .matches(/^[a-zA-Z\s]*$/, "Họ và tên phải là các kí tự chữ cái"),
+        .matches(/^[a-zA-ZÀ-ỹ\s]+$/, "Họ và tên phải là các kí tự chữ cái"),
     confirmPassword: yup.string()
         .required("Xác nhận mật khẩu là bắt buộc")
         .oneOf([yup.ref('password')], "Mật khẩu xác nhận không khớp")
+});
+
+const UpdateValidation = yup.object().shape({
+    email: yup.string().email().required("Email là trường bắt buộc").trim().max(50, "Email không được vượt quá 50 ký tự"),
+    fullName: yup.string()
+        .required("Họ và tên là bắt buộc")
+        .max(20, "Mật khẩu không được vượt quá 50 ký tự")
+        .matches(/^[a-zA-ZÀ-ỹ\s]+$/, "Họ và tên phải là các kí tự chữ cái"),
 });
 
 
 export {
     LoginValidation,
     RegisterValidation,
+    UpdateValidation,
 }
