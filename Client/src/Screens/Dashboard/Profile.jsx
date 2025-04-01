@@ -3,21 +3,20 @@ import SideBar from './SideBar'
 import Uploder from '../../Components/Uploder'
 import { Input } from '../../Components/UsedInputs'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate, useNavigate } from 'react-router-dom'
 import { UpdateValidation } from '../../Components/Validation/userValidation'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import toast from 'react-hot-toast'
 import { InlineError } from '../../Components/Notfications/Error'
 import { ImagePreview } from '../../Components/ImagePreview'
-import { updateProfileAction } from '../../Redux/Actions/userActions'
+import { deleteProfileAction, updateProfileAction } from '../../Redux/Actions/userActions'
 
 const Profile = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { userInfo } = useSelector((state) => state.userLogin)
     const { isLoading, isError, isSuccess } = useSelector((state) => state.userUpdateProfile)
+    const { isLoading: deleteLoading, isError: deleteError } = useSelector((state) => state.userDeleteProfile)
     const [imageUrl, setImageUrl] = useState(userInfo ? userInfo.image : "");
 
 
@@ -37,13 +36,28 @@ const Profile = () => {
         //console.log({ ...data, image: imageUrl })
     }
 
+    const deleteProfile = () => {
+        window.confirm("Bạn có chắc muốn xóa tài khoản?")
+        dispatch(deleteProfileAction());
+    }
+
     useEffect(() => {
         if (userInfo) {
             setValue("fullName", userInfo?.fullName);
             setValue("email", userInfo?.email);
         }
 
-    }, [userInfo, setValue]);
+        if (isSuccess) {
+            dispatch({ type: "USER_UPDATE_PROFILE_RESET" });
+        }
+
+        if (isError || deleteError) {
+            toast.error(isError || deleteError);
+            dispatch({ type: "USER_UPDATE_PROFILE_RESET" });
+            dispatch({ type: "USER_DELETE_PROFILE_RESET" })
+        }
+
+    }, [userInfo, setValue, isSuccess, isError, dispatch, deleteError]);
 
     return (
         <SideBar>
@@ -51,10 +65,10 @@ const Profile = () => {
                 <h2 className="text-xl font-bold">Cập Nhật Hồ Sơ</h2>
                 <div className='w-full grid lg:grid-cols-12 gap-6'>
                     <div className='col-span-10'>
-                        <Uploder />
+                        <Uploder setImageUrl={setImageUrl} />
                     </div>
                     <div className='col-span-2'>
-                        <ImagePreview name={userInfo ? userInfo?.fullName : 'HamPhim'} image={imageUrl} />
+                        <ImagePreview name={userInfo ? userInfo.fullName : 'HamPhim'} image={imageUrl} />
                     </div>
                 </div>
 
@@ -85,11 +99,15 @@ const Profile = () => {
                     }
                 </div>
                 <div className="flex gap-2 flex-wrap flex-col-reverse sm:flex-row justify-between items-center my-4">
-                    <button className='bg-subMainn transitions hover:text-black font-medium border border-subMainn text-white py-3 px-6 rounded w-full sm:w-auto'>
-                        Lưu thông tin
+                    <button disabled={deleteLoading || isLoading} className='bg-subMainn transitions hover:text-black font-medium border border-subMainn text-white py-3 px-6 rounded w-full sm:w-auto'>
+                        {
+                            isLoading ? "Loading..." : "Update Profile"
+                        }
                     </button>
-                    <button className='bg-subMainn transitions hover:text-black font-medium border border-subMainn text-white py-3 px-6 rounded w-full sm:w-auto'>
-                        Xóa tài khoản
+                    <button onClick={deleteProfile} disabled={deleteLoading || isLoading} className='bg-subMainn transitions hover:text-black font-medium border border-subMainn text-white py-3 px-6 rounded w-full sm:w-auto'>
+                        {
+                            deleteLoading ? "Deleting..." : "Delete Account"
+                        }
                     </button>
                 </div>
             </form>

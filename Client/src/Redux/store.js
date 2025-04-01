@@ -10,13 +10,13 @@ const rootReducer = combineReducers({
     userLogin: User.userLoginReducer,
     userRegister: User.userRegisterReducer,
     userUpdateProfile: User.userUpdateProfileReducer,
+    userDeleteProfile: User.userDeleteProfileReducer,
 });
 
 const userInfoFromLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
 
 const initialState = {
     userLogin: { userInfo: userInfoFromLocalStorage },
-    // userRegister: { userInfo: userInfoFromLocalStorage },
 };
 
 export const store = configureStore({

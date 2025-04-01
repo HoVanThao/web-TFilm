@@ -16,7 +16,7 @@ router.get("/favorites", protect, getLikedMovies);
 router.post("/favorites", protect, addLikedMovie);
 router.delete("/favorites", protect, deleteLikedMovies);
 
-// ***************Admin Routes***************
+// ***************Admin Routes*****************
 router.get("/", protect, admin, getUsers);
 router.delete("/:id", protect, admin, deleteUser);
 

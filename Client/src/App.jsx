@@ -22,6 +22,7 @@ import Categories from './Screens/Dashboard/Admin/Categories';
 import AddMovie from './Screens/Dashboard/Admin/AddMovie';
 import ScrollOnTop from './ScrollOnTop';
 import { ToastContainer } from './Components/Notfications/ToastContainer';
+import { AdminProtectedRouter, ProtectedRouter } from './ProtectedRouter';
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
       <ToastContainer />
       <ScrollOnTop>
         <Routes>
+          {/* ********************************PUBLIC ROUTERS*************************************** */}
           <Route path="/" element={<HomeScreen />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/about-us" element={<AboutUs />} />
@@ -43,15 +45,25 @@ const App = () => {
           <Route path="/watch/:id" element={<WatchPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/password" element={<Password />} />
-          <Route path="/favorites" element={<FavoritesMovies />} />
-          <Route path="/movieslist" element={<MovieList />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/addmovie" element={<AddMovie />} />
           <Route path="*" element={<NotFound />} />
+          {/* ********************************PRIVATE ROUTERS*************************************** */}
+          <Route element={<ProtectedRouter />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/password" element={<Password />} />
+            <Route path="/favorites" element={<FavoritesMovies />} />
+            <Route element={<AdminProtectedRouter />}>
+              {/* ********************************ADMIN ROUTERS*************************************** */}
+              <Route path="/movieslist" element={<MovieList />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/addmovie" element={<AddMovie />} />
+            </Route>
+          </Route>
+
+
+
+
         </Routes>
       </ScrollOnTop>
     </>

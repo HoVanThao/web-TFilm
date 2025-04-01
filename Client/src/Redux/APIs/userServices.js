@@ -33,6 +33,18 @@ const updateProfileService = async (user, token) => {
         localStorage.setItem("userInfo", JSON.stringify(data));
     }
     return data;
+};
+
+const deleteProfileService = async (token) => {
+    const { data } = await Axios.delete("/users", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    if (data) {
+        localStorage.removeItem("userInfo", JSON.stringify(data));
+    }
+    return data;
 }
 
 export {
@@ -40,4 +52,5 @@ export {
     logoutService,
     loginService,
     updateProfileService,
+    deleteProfileService,
 }

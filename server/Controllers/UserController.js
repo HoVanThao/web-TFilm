@@ -87,6 +87,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
                 email: updatedUser.email,
                 image: updatedUser.image,
                 isAdmin: updatedUser.isAdmin,
+                token: req.token,
             });
 
             // else send error message

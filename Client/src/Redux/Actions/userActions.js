@@ -38,8 +38,23 @@ const updateProfileAction = (datas) => async (dispatch, getState) => {
         dispatch({ type: userConstants.USER_UPDATE_PROFILE_SUCCESS, payload: response });
         toast.success("Cập nhật thành công");
         dispatch({ type: userConstants.USER_LOGIN_SUCCESS, payload: response });
+
     } catch (error) {
         ErrorsAction(error, dispatch, userConstants.USER_UPDATE_PROFILE_FAIL);
+    }
+};
+
+const deleteProfileAction = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: userConstants.USER_DELETE_PROFILE_REQUEST });
+        const response = await userApi.deleteProfileService(tokenProtection(getState));
+        dispatch({ type: userConstants.USER_DELETE_PROFILE_SUCCESS, payload: response });
+        toast.success("Xóa tài khoản thành công");
+        dispatch({ type: userConstants.USER_DELETE_PROFILE_RESET });
+        dispatch(logoutAction());
+
+    } catch (error) {
+        ErrorsAction(error, dispatch, userConstants.USER_DELETE_PROFILE_FAIL);
     }
 };
 
@@ -48,4 +63,5 @@ export {
     registerAction,
     logoutAction,
     updateProfileAction,
+    deleteProfileAction,
 }
