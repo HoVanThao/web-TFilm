@@ -136,11 +136,11 @@ const changeUserPassword = asyncHandler(async (req, res) => {
             const hashedPassword = await bcrypt.hash(newPassword, salt);
             user.password = hashedPassword;
             await user.save();
-            res.json({ message: "Password changed !! " });
+            res.json({ message: "Mật khẩu đã thay đổi !! " });
 
         } else {
             res.status(401);
-            throw new Error("Invalid old password");
+            throw new Error("Mật khẩu cũ không đúng!!!");
         }
     } catch (error) {
         res.status(400).json({ message: error.message });

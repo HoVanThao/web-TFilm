@@ -35,9 +35,26 @@ const UpdateValidation = yup.object().shape({
         .matches(/^[a-zA-ZÀ-ỹ\s]+$/, "Họ và tên phải là các kí tự chữ cái"),
 });
 
+const PasswordValidation = yup.object().shape({
+    oldPassword: yup.string()
+        .required("Mật khẩu là bắt buộc")
+        .min(8, "Mật khẩu phải có ít nhất 8 ký tự")
+        .max(20, "Mật khẩu không được vượt quá 20 ký tự"),
+    newPassword: yup.string()
+        .required("Mật khẩu là bắt buộc")
+        .min(8, "Mật khẩu phải có ít nhất 8 ký tự")
+        .max(20, "Mật khẩu không được vượt quá 20 ký tự")
+        .matches(/(?=.*[0-9])/, "Mật khẩu phải chứa một số")
+        .matches(/(?=.*[!@#$%^&*])/, "Mật khẩu phải chứa ít nhất một ký tự đặc biệt (!@#$%^&*)"),
+    confirmPassword: yup.string()
+        .required("Xác nhận mật khẩu là bắt buộc")
+        .oneOf([yup.ref('newPassword')], "Mật khẩu xác nhận không khớp")
+});
+
 
 export {
     LoginValidation,
     RegisterValidation,
     UpdateValidation,
+    PasswordValidation,
 }
