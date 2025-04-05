@@ -4,24 +4,24 @@ import { GoEye } from 'react-icons/go';
 import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-const Head = "text-xs text-left text-main font-semibold px-6 py-2 uppercase";
-const Text = "text-sm text-left leading-6 whitespace-nowrap px-5 py-3";
+const Head = "text-xs text-center text-main font-semibold px-6 py-2 uppercase";
+const Text = "text-sm text-center leading-6 whitespace-nowrap";
 
 
 const Rows = (movie, i, admin) => {
     return (
         <tr key={i}>
-            <td className={`${Text}`}>
+            <td className={`${Text} px-5 py-3`}>
                 <div className='w-12 p-1 bg-dry border border-border h-12 rounded overflow-hidden'>
-                    <img className="h-full w-full object-cover" src={`/images/movies/${movie.titleImage}`} alt={movie?.name} />
+                    <img className="h-full w-full object-cover" src={movie?.image ? movie?.image : "/images/user.png"} alt={movie?.name} />
                 </div>
             </td>
-            <td className={`${Text} truncate`}>{movie.name}</td>
-            <td className={`${Text}`}> {movie.category}</td >
-            <td className={`${Text}`}>{movie.language}</td>
-            <td className={`${Text}`}>{movie.year}</td>
-            <td className={`${Text}`}>{movie.time}</td>
-            <td className={`${Text} float-right flex-rows gap-2`}>
+            <td className={`${Text} px-5 py-3 truncate`}>{movie.name}</td>
+            <td className={`${Text} px-5 py-3`}> {movie.category}</td >
+            <td className={`${Text} px-5 py-3`}>{movie.language}</td>
+            <td className={`${Text} px-5 py-3`}>{movie.year}</td>
+            <td className={`${Text} px-5 py-3`}>{movie.time}h</td>
+            <td className={`${Text} flex-rows gap-2 ps-6 py-6`}>
                 {
                     admin ? (
                         <>
@@ -34,10 +34,10 @@ const Rows = (movie, i, admin) => {
                         </>
                     ) : (
                         <>
-                            <button className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
+                            <button className='bg-green-500 text-white  hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
                                 <FaCloudDownloadAlt />
                             </button>
-                            <Link to={`/movie/${movie?.name}`} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
+                            <Link to={`/movie/${movie?._id}`} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
                                 <GoEye />
                             </Link>
                         </>

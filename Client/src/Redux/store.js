@@ -12,6 +12,9 @@ const rootReducer = combineReducers({
     userUpdateProfile: User.userUpdateProfileReducer,
     userDeleteProfile: User.userDeleteProfileReducer,
     userChangePassword: User.userChangePasswordReducer,
+    userGetFavoriteMovies: User.userGetFavoriteMoviesReducer,
+    userDeleteAllFavoriteMovies: User.userDeleteAllFavoriteMoviesReducer,
+    userDeleteFavoriteMovie: User.userDeleteFavoriteMovieReducer,
 });
 
 const userInfoFromLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;

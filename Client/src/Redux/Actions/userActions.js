@@ -70,6 +70,28 @@ const changePasswordAction = (password) => async (dispatch, getState) => {
     }
 };
 
+const getFavoriteMoviesAction = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: userConstants.GET_FAVORITE_MOVIES_REQUEST });
+        const response = await userApi.getFavoriteMovies(tokenProtection(getState));
+        dispatch({ type: userConstants.GET_FAVORITE_MOVIES_SUCCESS, payload: response });
+    } catch (error) {
+        ErrorsAction(error, dispatch, userConstants.GET_FAVORITE_MOVIES_FAIL);
+    }
+};
+
+const deleteAllFavoriteMoviesAction = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: userConstants.DELETE_ALL_FAVORITE_MOVIES_REQUEST });
+        await userApi.deleteFavoriteMovies(tokenProtection(getState));
+        dispatch({ type: userConstants.DELETE_ALL_FAVORITE_MOVIES_SUCCESS });
+        toast.success("Phim yêu thích đã bị xóa!")
+    } catch (error) {
+        ErrorsAction(error, dispatch, userConstants.DELETE_ALL_FAVORITE_MOVIES_FAIL);
+    }
+};
+
+
 
 export {
     loginAction,
@@ -78,4 +100,6 @@ export {
     updateProfileAction,
     deleteProfileAction,
     changePasswordAction,
+    getFavoriteMoviesAction,
+    deleteAllFavoriteMoviesAction,
 }

@@ -210,6 +210,41 @@ const deleteLikedMovies = asyncHandler(async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+const deleteLikeMovieById = asyncHandler(async (req, res) => {
+    try {
+        // find user in DB
+        const user = await User.findById(req.user._id);
+
+        // Lấy movieId từ request params 
+        const movieId = req.params.movieId;
+
+        if (!movieId) {
+            return res.status(400).json({ message: "Movie ID is required" });
+        }
+
+        // Kiểm tra xem movieId có trong likedMovies không
+        const movieIndex = user.likedMovies.indexOf(movieId);
+
+        if (movieIndex === -1) {
+            return res.status(404).json({ message: "Movie not found in liked movies" });
+        }
+
+        // Xóa movieId khỏi mảng likedMovies
+        user.likedMovies.splice(movieIndex, 1);
+
+        // Lưu thay đổi
+        await user.save();
+
+        res.json({
+            message: "Xóa thành công",
+            likedMovies: user.likedMovies
+        });
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+
+    }
+});
 
 //admin
 const getUsers = asyncHandler(async (req, res) => {
@@ -258,5 +293,6 @@ export {
     addLikedMovie,
     deleteLikedMovies,
     getUsers,
-    deleteUser
+    deleteUser,
+    deleteLikeMovieById
 };

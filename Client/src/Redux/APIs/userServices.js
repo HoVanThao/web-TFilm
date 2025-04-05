@@ -57,6 +57,52 @@ const changePasswordService = async (pass, token) => {
     return data;
 };
 
+const getFavoriteMovies = async (token) => {
+    const { data } = await Axios.get("/users/favorites", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+};
+
+const deleteFavoriteMovies = async (token) => {
+    const { data } = await Axios.delete("/users/favorites", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+};
+
+const deleteFavoriteMovieById = async (movieId, token) => {
+    const { data } = await Axios.delete("/users/favorites", movieId, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+};
+
+const getAllUsersService = async (token) => {
+    const { data } = await Axios.get("/users", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+};
+
+const deleteUserService = async (userId, token) => {
+    const { data } = await Axios.get(`/users/${userId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+}
+
+
 export {
     registerService,
     logoutService,
@@ -64,4 +110,9 @@ export {
     updateProfileService,
     deleteProfileService,
     changePasswordService,
+    getFavoriteMovies,
+    deleteFavoriteMovies,
+    deleteFavoriteMovieById,
+    getAllUsersService,
+    deleteUserService,
 }

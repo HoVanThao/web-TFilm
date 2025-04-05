@@ -2,8 +2,9 @@ import React from 'react'
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 
-const Head = "text-xs text-left text-main font-semibold px-6 py-2 uppercase";
-const Text = "text-sm text-left leading-6 whitespace-nowrap px-5 py-3";
+const Head = "text-xs text-center text-main font-semibold px-6 py-2 uppercase";
+const Text = "text-sm text-center leading-6 whitespace-nowrap px-5 py-3";
+const divImg = "mx-auto";
 
 
 const Rows = (data, i, users, OnEditFunction) => {
@@ -22,7 +23,7 @@ const Rows = (data, i, users, OnEditFunction) => {
                         <td className={`${Text}`}> {data?.createAt ? data.createAt : '12, Jan 2024'}</td >
                         <td className={`${Text}`}>{data.fullname}</td>
                         <td className={`${Text}`}>{data.email}</td>
-                        <td className={`${Text} float-right flex-rows gap-2`}>
+                        <td className={`${Text}  flex-rows gap-2 ps-6 py-6`}>
                             <button className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
                                 <MdDelete />
                             </button>
@@ -92,7 +93,7 @@ const Table2 = ({ data, users, OnEditFunction }) => {
                             )
 
                         }
-                        <th scope='col' className={`${Head} text-end`}>
+                        <th scope='col' className={`${Head}`}>
                             Hành động
                         </th>
 
