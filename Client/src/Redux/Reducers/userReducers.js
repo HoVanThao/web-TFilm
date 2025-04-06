@@ -121,7 +121,37 @@ export const userDeleteFavoriteMovieReducer = (state = {}, action) => {
         default:
             return state;
     }
+}
+
+export const adminGetAllUsersReducer = (state = { users: [] }, action) => {
+    switch (action.type) {
+        case userConstants.GET_ALL_USERS_REQUEST:
+            return { isLoading: true };
+        case userConstants.GET_ALL_USERS_SUCCESS:
+            return { isLoading: false, isSuccess: true, users: action.payload };
+        case userConstants.GET_ALL_USERS_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case userConstants.GET_ALL_USERS_RESET:
+            return {
+                users: [],
+            };
+        default:
+            return state;
+    }
+}
 
 
-
+export const adminDeleteUserReducer = (state = {}, action) => {
+    switch (action.type) {
+        case userConstants.DELETE_USER_REQUEST:
+            return { isLoading: true };
+        case userConstants.DELETE_USER_SUCCESS:
+            return { isLoading: false, isSuccess: true };
+        case userConstants.DELETE_USER_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case userConstants.DELETE_USER_RESET:
+            return {};
+        default:
+            return state;
+    }
 }

@@ -225,26 +225,11 @@ import { CgUser } from 'react-icons/cg';
 import { useSelector } from 'react-redux';
 
 const NavBar = () => {
-    // const [showSearch, setShowSearch] = useState(false);
-    // const searchRef = useRef(null);
-
     const { userInfo } = useSelector((state) => state.userLogin);
-
+    const { likedMovies } = useSelector(
+        (state) => state.userGetFavoriteMovies,
+    )
     const Hover = ({ isActive }) => (isActive ? 'hover:text-gray-300' : 'hover:text-subMainn transitions text-white');
-
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (searchRef.current && !searchRef.current.contains(event.target)) {
-    //             setShowSearch(false);
-    //         }
-    //     };
-
-    //     document.addEventListener('mousedown', handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener('mousedown', handleClickOutside);
-    //     };
-    // }, []);
-
     return (
         <div className='bg-navbar shadow-md sticky top-0 z-20'>
             <div className='w-full mx-auto py-3 px-6 lg:grid gap-5  grid-cols-12 justify-between items-center'>
@@ -254,30 +239,7 @@ const NavBar = () => {
                         <img src="/images/logo.png" alt='logo' className='w-full h-12 object-cover' />
                     </Link>
                 </div>
-                {/* search form */}
-                {/* <div className="col-span-3 flex items-center" ref={searchRef}>
-                    <button
-                        type='button'
-                        onClick={() => setShowSearch(!showSearch)}
-                        className='bg-white bg-opacity-30 transitions hover:bg-transparent border-2 border-white w-12 flex-colo h-10 rounded text-white'
-                    >
-                        <FaSearch />
-                    </button>
-                    <form
-                        className={`transition-all duration-300 overflow-hidden ${showSearch ? 'w-full ml-4' : 'w-0'}`}
-                    >
-                        <input
-                            type="text"
-                            placeholder='Phim, diễn viên, thể loại...'
-                            className='font-medium placeholder:colors-text text-sm w-full h-10 rounded px-4 text-black'
-                            style={{
-                                transition: 'width 0.3s ease',
-                                width: showSearch ? '100%' : '0',
-                                opacity: showSearch ? '1' : '0',
-                            }}
-                        />
-                    </form>
-                </div> */}
+
                 <div className="relative col-span-3 flex items-center">
                     <FaSearch className="absolute left-3 text-white" />
                     <input
@@ -327,7 +289,9 @@ const NavBar = () => {
                         <div className='relative'>
                             <FaHeart className='w-6 h-6' />
                             <div className='w-6 h-6 flex-colo rounded-full text-xs bg-subMainn text-white absolute -top-4 -right-4'>
-                                3
+                                {
+                                    likedMovies?.length
+                                }
                             </div>
                         </div>
                     </NavLink>

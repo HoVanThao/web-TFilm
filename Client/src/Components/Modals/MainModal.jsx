@@ -32,7 +32,7 @@ const MainModal = ({ modalOpen, setModalOpen, children }) => {
                             leaveFrom='opacity-100 scale-100'
                             leaveTo='opacity-0 scale-95'
                         >
-                            <div className="inline-block relative transform sm:w-4/5 border border-border md:w-3/5 lg:w-2/5 w-full align-middle p-10 overflow-y-auto h-full bg-main text-white rounded-2xl">
+                            <div className="inline-block relative transform sm:w-6/12 border border-border md:w-5/12 lg:w-4/12 xl:w-3/12 w-full align-middle p-10 overflow-y-auto h-full bg-main text-white rounded-2xl">
                                 <div className="absolute right-1 top-1">
                                     <button
                                         ref={cancelButtonRef}

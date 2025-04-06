@@ -91,6 +91,28 @@ const deleteAllFavoriteMoviesAction = () => async (dispatch, getState) => {
     }
 };
 
+const getAllUsersAction = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: userConstants.GET_ALL_USERS_REQUEST });
+        const response = await userApi.getAllUsersService(tokenProtection(getState));
+        dispatch({ type: userConstants.GET_ALL_USERS_SUCCESS, payload: response, });
+    } catch (error) {
+        ErrorsAction(error, dispatch, userConstants.GET_ALL_USERS_FAIL);
+    }
+};
+
+const deleteUsersAction = (userId) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: userConstants.DELETE_USER_REQUEST });
+        await userApi.deleteUserService(userId, tokenProtection(getState));
+        dispatch({ type: userConstants.DELETE_USER_SUCCESS });
+        toast.success("Xóa thành công!");
+    } catch (error) {
+        ErrorsAction(error, dispatch, userConstants.DELETE_USER_RESET);
+    }
+};
+
+
 
 
 export {
@@ -102,4 +124,6 @@ export {
     changePasswordAction,
     getFavoriteMoviesAction,
     deleteAllFavoriteMoviesAction,
+    getAllUsersAction,
+    deleteUsersAction,
 }

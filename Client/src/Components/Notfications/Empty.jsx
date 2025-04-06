@@ -1,4 +1,6 @@
 import { RiMovie2Line } from "react-icons/ri";
+import moment from 'moment'
+import 'moment/locale/vi';
 
 const Empty = ({ message }) => {
     return (
@@ -12,3 +14,20 @@ const Empty = ({ message }) => {
 };
 
 export default Empty;
+
+export const shortUppercaseId = (id) => {
+    return id.slice(0, 8).toUpperCase();
+}
+
+// export const DateFormat = (date) => {
+//     moment.locale('vi');
+//     return moment(date).format("LL");
+// }
+
+export const DateFormat = (date) => {
+    return new Intl.DateTimeFormat('vi-VN', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    }).format(new Date(date));
+}

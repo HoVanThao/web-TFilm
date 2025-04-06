@@ -94,7 +94,7 @@ const getAllUsersService = async (token) => {
 };
 
 const deleteUserService = async (userId, token) => {
-    const { data } = await Axios.get(`/users/${userId}`, {
+    const { data } = await Axios.delete(`/users/${userId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

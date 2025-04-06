@@ -1,32 +1,35 @@
 import React from 'react'
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import { DateFormat, shortUppercaseId } from './Notfications/Empty';
 
 const Head = "text-xs text-center text-main font-semibold px-6 py-2 uppercase";
 const Text = "text-sm text-center leading-6 whitespace-nowrap px-5 py-3";
-const divImg = "mx-auto";
 
 
-const Rows = (data, i, users, OnEditFunction) => {
+const Rows = ({ data, users, onEditFunction, onDeleteFunction }) => {
     return (
-        <tr key={i}>
+        <tr>
             {
                 // users
                 users ? (
                     <>
                         <td className={`${Text}`}>
                             <div className='w-12 p-1 bg-dry border border-border h-12 rounded overflow-hidden'>
-                                <img className="h-full w-full object-cover" src={`/images/${data.image ? data.image : "user.png"}`} alt={data?.fullname} />
+                                <img className="h-full w-full object-cover" src={`${data?.image ? data.image : "/images/user.png"}`} alt={data?.fullname} />
                             </div>
                         </td>
-                        <td className={`${Text}`}>{data?._id ? data._id : '2R75T8'}</td>
-                        <td className={`${Text}`}> {data?.createAt ? data.createAt : '12, Jan 2024'}</td >
-                        <td className={`${Text}`}>{data.fullname}</td>
-                        <td className={`${Text}`}>{data.email}</td>
+                        <td className={`${Text}`}>{data?._id ? shortUppercaseId(data?._id) : '2R75T8'}</td>
+                        <td className={`${Text}`}> {DateFormat(data?.createdAt)}</td >
+                        <td className={`${Text}`}>{data?.fullName}</td>
+                        <td className={`${Text}`}>{data?.email}</td>
+                        <td className={`${Text}`}>{data?.isAdmin ? "Admin" : "User"}</td>
                         <td className={`${Text}  flex-rows gap-2 ps-6 py-6`}>
-                            <button className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
-                                <MdDelete />
-                            </button>
+                            {!data.isAdmin && (
+                                <button onClick={() => onDeleteFunction(data?._id)} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
+                                    <MdDelete />
+                                </button>
+                            )}
                         </td>
                     </>
                 ) : (
@@ -36,7 +39,7 @@ const Rows = (data, i, users, OnEditFunction) => {
                         <td className={`${Text}`}> {data?.createAt ? data.createAt : '12, Jan 2024'}</td >
                         <td className={`${Text}`}>{data.title}</td>
                         <td className={`${Text} float-right flex-rows gap-2`}>
-                            <button onClick={() => OnEditFunction(data)} className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
+                            <button onClick={() => onEditFunction(data)} className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
                                 <FaEdit />
                             </button>
                             <button className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
@@ -51,7 +54,7 @@ const Rows = (data, i, users, OnEditFunction) => {
     )
 }
 
-const Table2 = ({ data, users, OnEditFunction }) => {
+const Table2 = ({ data, users, onEditFunction, onDeleteFunction }) => {
 
     return (
         <div className='overflow-x-auto relative w-full'>
@@ -75,6 +78,9 @@ const Table2 = ({ data, users, OnEditFunction }) => {
                                     </th>
                                     <th scope='col' className={`${Head} `}>
                                         Email
+                                    </th>
+                                    <th scope='col' className={`${Head} `}>
+                                        Role
                                     </th>
                                 </>
                             ) : (
@@ -101,7 +107,7 @@ const Table2 = ({ data, users, OnEditFunction }) => {
                 </thead>
                 <tbody className='bg-main divide-y divide-gray-800'>
                     {
-                        data.map((data, i) => Rows(data, i, users, OnEditFunction))
+                        data.map((data, i) => <Rows key={i} data={data} users={users} onEditFunction={onEditFunction} onDeleteFunction={onDeleteFunction} />)
                     }
                 </tbody>
             </table>

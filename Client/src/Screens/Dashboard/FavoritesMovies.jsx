@@ -67,6 +67,7 @@ const FavoritesMovies = () => {
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
                 onConfirm={confirmDeleteHandler} // Truyền hàm xác nhận xóa vào modal
+                title={" Bạn có muốn xóa tất cả phim?"}
             />
         </SideBar >
     )
