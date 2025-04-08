@@ -5,7 +5,7 @@ import { Input } from '../../Components/UsedInputs'
 const CategoryModal = ({ modalOpen, setModalOpen, category }) => {
     return (
         <MainModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-            <h2 className="text-3xl font-bold">{category ? "Chỉnh sửa thể loại" : "Thêm thể loại"}</h2>
+            <h2 className="text-lg font-bold">{category ? "Chỉnh sửa thể loại" : "Thêm thể loại"}</h2>
             <form className="flex flex-col gap-6 text-left mt-6">
                 <Input
                     label="Thể loại"

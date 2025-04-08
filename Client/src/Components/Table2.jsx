@@ -35,14 +35,14 @@ const Rows = ({ data, users, onEditFunction, onDeleteFunction }) => {
                 ) : (
                     //the loai
                     <>
-                        <td className={`${Text} font-bold`}>{data?._id ? data._id : '2R75T8'}</td>
-                        <td className={`${Text}`}> {data?.createAt ? data.createAt : '12, Jan 2024'}</td >
-                        <td className={`${Text}`}>{data.title}</td>
-                        <td className={`${Text} float-right flex-rows gap-2`}>
+                        <td className={`${Text} font-bold`}>{data?._id ? shortUppercaseId(data?._id) : '2R75T8'}</td>
+                        <td className={`${Text}`}> {DateFormat(data?.createdAt)}</td >
+                        <td className={`${Text}`}>{data?.title}</td>
+                        <td className={`${Text} flex-rows gap-2 ps-6`}>
                             <button onClick={() => onEditFunction(data)} className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
                                 <FaEdit />
                             </button>
-                            <button className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
+                            <button onClick={() => onDeleteFunction(data?._id)} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
                                 <MdDelete />
                             </button>
                         </td>
@@ -89,10 +89,10 @@ const Table2 = ({ data, users, onEditFunction, onDeleteFunction }) => {
                                         Id
                                     </th>
                                     <th scope='col' className={`${Head} `}>
-                                        Ngày
+                                        Ngày Thêm
                                     </th>
                                     <th scope='col' className={`${Head} `}>
-                                        Tiêu đề
+                                        Thể loại
                                     </th>
 
                                 </>
