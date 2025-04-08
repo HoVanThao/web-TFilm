@@ -30,6 +30,7 @@ const updateCategoryAction = (id, title) => async (dispatch, getState) => {
         await categoriesApi.updateCategorieService(id, title, tokenProtection(getState));
         dispatch({ type: categoriesConstants.UPDATE_CATEGORY_SUCCESS });
         toast.success("Cập nhật thành công");
+        dispatch(getAllCategoriesAction());
     } catch (error) {
         ErrorsAction(error, dispatch, categoriesConstants.UPDATE_CATEGORY_FAIL);
     }
@@ -41,6 +42,7 @@ const deleteCategoryAction = (id) => async (dispatch, getState) => {
         await categoriesApi.deleteCategorieService(id, tokenProtection(getState));
         dispatch({ type: categoriesConstants.DELETE_CATEGORY_SUCCESS });
         toast.success("Xóa thành công");
+        dispatch(getAllCategoriesAction());
     } catch (error) {
         ErrorsAction(error, dispatch, categoriesConstants.DELETE_CATEGORY_FAIL);
     }
