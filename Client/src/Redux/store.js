@@ -5,6 +5,7 @@ import {
 
 import * as User from './Reducers/userReducers'
 import * as Categories from './Reducers/categoriesReducers'
+import * as Movies from './Reducers/moviesReducers'
 
 const rootReducer = combineReducers({
     // add reducers users
@@ -24,6 +25,9 @@ const rootReducer = combineReducers({
     categoryCreate: Categories.createCategoryReducer,
     categoryUpdate: Categories.updateCategoryReducer,
     categoryDelete: Categories.deleteCategoryReducer,
+
+    // movies
+    getAllMovies: Movies.moviesListReducer,
 
 });
 

@@ -23,13 +23,19 @@ import AddMovie from './Screens/Dashboard/Admin/AddMovie';
 import ScrollOnTop from './ScrollOnTop';
 import { ToastContainer } from './Components/Notfications/ToastContainer';
 import { AdminProtectedRouter, ProtectedRouter } from './ProtectedRouter';
+import { useDispatch } from 'react-redux';
+import { getAllCategoriesAction } from './Redux/Actions/categoriesActions';
 
 
 const App = () => {
+  Aos.init();
+  const dispatch = useDispatch();
   // Khởi tạo AOS trong useEffect
   useEffect(() => {
-    Aos.init();
-  }, []);
+    dispatch(getAllCategoriesAction());
+  }, [dispatch]);
+
+
 
   return (
     <>
