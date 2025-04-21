@@ -12,7 +12,7 @@ const MenuDrawer = ({ toggleDrawer }) => {
         { name: "Liên hệ", link: "/contact-us", icon: BiPhoneCall },
     ];
 
-    const active = "bg-dryGray text-subMain";
+    const active = "bg-dryGray text-subMainn";
     const hover = "hover:bg-dry";
     const inActive = "rounded font-medium text-sm transitions flex gap-6 items-center px-4 py-4";
 

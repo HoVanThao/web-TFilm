@@ -4,20 +4,20 @@ import toast from 'react-hot-toast';
 import { ErrorsAction, tokenProtection } from '../protection';
 
 
-export const getAllMoviesAction = async ({
+export const getAllMoviesAction = ({
     category = "",
     time = "",
+    language = "",
     rate = "",
     year = "",
     search = "",
-    language = "",
     pageNumber = "",
 
 }) => async (dispatch) => {
     try {
         dispatch({ type: moviesConstants.MOVIES_LIST_REQUEST });
         const response = await moviesApi.getAllMoviesService(
-            category, time, rate, year, search, language, pageNumber,
+            category, time, language, rate, year, search, pageNumber
         );
         dispatch({ type: moviesConstants.MOVIES_LIST_SUCCESS, payload: response });
     } catch (error) {

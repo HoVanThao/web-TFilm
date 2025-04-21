@@ -57,7 +57,7 @@ const FavoritesMovies = () => {
 
                 </div>
                 {
-                    isLoading ? <Loader /> : likedMovies.length > 0 ? <Table data={likedMovies} admin={false} /> : <Empty message="không có phim yêu thích nào!" />
+                    isLoading ? <Loader /> : likedMovies?.length > 0 ? <Table data={likedMovies} admin={false} /> : <Empty message="không có phim yêu thích nào!" />
                 }
 
 

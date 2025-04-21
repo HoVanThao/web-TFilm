@@ -50,13 +50,9 @@ const Categories = () => {
         setCategoryIdToDelete(null);
     };
 
-
-
-
-
     const OnEditFunction = (dataCategory) => {
         setCategory(dataCategory);
-        setModalDeleteOpen(!modalDeleteOpen);
+        setModalOpen(!modalOpen);
     };
 
     useEffect(() => {

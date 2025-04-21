@@ -19,7 +19,7 @@ const HomeScreen = () => {
 
                 <PopularMovies />
                 <TopRated />
-                <Promos />
+                {/* <Promos /> */}
 
             </div>
         </Layout>

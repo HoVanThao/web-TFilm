@@ -70,7 +70,6 @@ const CategoryModal = ({ modalOpen, setModalOpen, category }) => {
                 <button
                     disabled={isLoading || upLoading}
                     type='submit'
-                    // onClick={() => setModalOpen(false)}
                     className="w-full flex-colo py-4 rounded bg-subMainn transitions text-white hover:bg-main transitions border-2 border-subMainn"
                 >
                     {
