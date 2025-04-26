@@ -9,10 +9,11 @@ import Loader from '../Components/Notfications/Loader'
 import { RiMovie2Line } from "react-icons/ri";
 import { RiSkipBackFill, RiSkipForwardFill } from "react-icons/ri";
 import { LanguageData, RatesData, TimesData, YearData } from '../Data/FilterData'
+import { useParams } from 'react-router-dom'
 
 const MoviesPage = () => {
     const dispatch = useDispatch();
-
+    const { search } = useParams();
     const [category, setCategory] = useState({ title: "Tất cả thể loại" });
     const [year, setYear] = useState(YearData[0]);
     const [times, setTimes] = useState(TimesData[0]);
@@ -31,10 +32,10 @@ const MoviesPage = () => {
             language: language?.title === 'Sắp xếp theo ngôn ngữ' ? '' : language?.title,
             rate: rates?.title === 'Sắp xếp theo số sao' ? '' : rates?.title.replace(/[^\d]/g, ""),
             year: year?.title === 'Sắp xếp theo năm' ? '' : year?.title,
-            search: '',
+            search: search ? search : '',
         };
         return query;
-    }, [category, language, year, times, rates]);
+    }, [category, language, year, times, rates, search]);
 
     // Effect để xử lý filter changes
     useEffect(() => {
@@ -103,12 +104,14 @@ const MoviesPage = () => {
         setYear: setYear,
     }
 
+    console.log(search);
+
     return (
         <Layout>
             <div className='mx-5 min-h-screen px-2 mb-6'>
                 <Filters data={datas} />
                 <p className='text-lg font-medium my-6'>
-                    Total <span className='font-bold text-subMain'>{movies ? movies?.length : 0}</span> {' '} items Found
+                    <span className='font-bold text-subMain'>{movies ? movies?.length : 0}</span> {' '} mục được tìm thấy {search && `với từ khóa "${search}"`}
                 </p>
                 {
                     isLoading ? (

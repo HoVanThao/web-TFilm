@@ -45,6 +45,7 @@ const App = () => {
           {/* ********************************PUBLIC ROUTERS*************************************** */}
           <Route path="/" element={<HomeScreen />} />
           <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:search" element={<Movies />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/movie/:id" element={<SingleMovie />} />
