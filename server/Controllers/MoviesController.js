@@ -15,25 +15,15 @@ const importMovies = asyncHandler(async (req, res) => {
 
 const getMovies = asyncHandler(async (req, res) => {
     try {
-        const { category, time, language, rate, year, search } = req.query;
+        const { category, language, rate, year, typeFilm, search } = req.query;
         let query = {
             ...(category && { category }),
-            ...(time && { time }),
             ...(language && { language }),
             ...(rate && { rate }),
             ...(year && { year }),
+            ...(typeFilm && { typeFilm }),
             ...(search && { name: { $regex: search, $options: "i" } }),
         }
-
-        // ...(search && {
-        //     $or: [
-        //         { name: { $regex: search, $options: "i" } },
-        //         { description: { $regex: search, $options: "i" } },
-        //         { actors: { $regex: search, $options: "i" } },
-        //         { director: { $regex: search, $options: "i" } },
-        //         { category: { $regex: search, $options: "i" } },
-        //     ]
-        // }),
 
         const page = Number(req.query.pageNumber) || 1;
         const limit = 15;

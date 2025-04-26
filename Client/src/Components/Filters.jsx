@@ -1,5 +1,5 @@
 import React from 'react'
-import { YearData, TimesData, RatesData, LanguageData } from '../Data/FilterData.js'
+import { YearData, TimesData, RatesData, LanguageData, TypeFilmData } from '../Data/FilterData.js'
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
 
@@ -17,6 +17,8 @@ const Filters = (props) => {
         setTimes,
         rates,
         setRates,
+        typefilm,
+        setTypefilm,
     } = props?.data;
 
     const Filter = [
@@ -24,11 +26,6 @@ const Filters = (props) => {
             value: category,
             onChange: setCategory,
             items: categories?.length ? [{ title: "Tất cả thể loại" }, ...categories] : [{ title: "Loading..." }],
-        },
-        {
-            value: times,
-            onChange: setTimes,
-            items: TimesData,
         },
         {
             value: language,
@@ -45,6 +42,12 @@ const Filters = (props) => {
             onChange: setYear,
             items: YearData,
         }
+        ,
+        {
+            value: typefilm,
+            onChange: setTypefilm,
+            items: TypeFilmData,
+        },
     ]
 
     return (

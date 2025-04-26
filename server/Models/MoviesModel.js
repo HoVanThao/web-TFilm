@@ -72,6 +72,33 @@ const moviesSchema = mongoose.Schema(
             required: true,
             default: 0
         },
+        imdbRating: {
+            type: Number,
+            min: 0,
+            max: 10,
+            default: 0,
+        },
+        typeFilm: {
+            type: String,
+            required: true,
+            enum: ["single", "series"], // Single là phim lẻ, Series là phim bộ
+        },
+        filmParts: [
+            {
+                partNumber: { type: Number, required: true }, // Ví dụ: Phần 1, Phần 2, Phần 3...
+                title: { type: String, required: true }, // Tên phần phim
+                numberOfEpisodes: { type: Number, required: true }, // Số lượng tập của mỗi phần
+                episodes: [
+                    {
+                        episodeNumber: { type: Number, required: true }, // Tập số 1, 2, 3...
+                        title: { type: String, required: true },
+                        videoUrl: { type: String }, // VideoUrl của từng tập
+                        duration: { type: Number, required: true }, // Thời gian của tập phim
+                        desc: { type: String }, // Mô tả tập phim
+                    }
+                ]
+            }
+        ],
         reviews: [reviewSchema],
         casts: [
             {
@@ -86,5 +113,13 @@ const moviesSchema = mongoose.Schema(
         timestamps: true,
     },
 );
+
+// Middleware để loại bỏ filmParts nếu là phim lẻ
+moviesSchema.pre('save', function (next) {
+    if (this.typeFilm === 'single') {
+        this.filmParts = undefined; // Xóa filmParts nếu là phim lẻ
+    }
+    next();
+});
 
 export default mongoose.model("Movies", moviesSchema);

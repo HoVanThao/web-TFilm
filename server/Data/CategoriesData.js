@@ -39,7 +39,6 @@ export const CategoriesData = [
         _id: '10',
         title: 'Thriller',
     },
-    ,
     {
         _id: '11',
         title: 'Western',

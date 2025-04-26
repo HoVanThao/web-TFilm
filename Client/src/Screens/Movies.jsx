@@ -8,7 +8,7 @@ import { getAllMoviesAction } from '../Redux/Actions/moviesActions'
 import Loader from '../Components/Notfications/Loader'
 import { RiMovie2Line } from "react-icons/ri";
 import { RiSkipBackFill, RiSkipForwardFill } from "react-icons/ri";
-import { LanguageData, RatesData, TimesData, YearData } from '../Data/FilterData'
+import { LanguageData, RatesData, TimesData, YearData, TypeFilmData } from '../Data/FilterData'
 import { useParams } from 'react-router-dom'
 
 const MoviesPage = () => {
@@ -18,6 +18,7 @@ const MoviesPage = () => {
     const [year, setYear] = useState(YearData[0]);
     const [times, setTimes] = useState(TimesData[0]);
     const [rates, setRates] = useState(RatesData[0]);
+    const [typefilm, setTypefilm] = useState(TypeFilmData[0]);
     const [language, setLanguage] = useState(LanguageData[0]);
 
     const sameClass = "w-full rounded-xl  border-2 border-dryGray gap-6 flex-colo h-48";
@@ -28,14 +29,20 @@ const MoviesPage = () => {
     const queries = useMemo(() => {
         const query = {
             category: category?.title === 'Tất cả thể loại' ? '' : category?.title,
-            time: times?.title === 'Sắp xếp theo thời lượng' ? '' : times?.title.replace(/[^\d]/g, ""),
-            language: language?.title === 'Sắp xếp theo ngôn ngữ' ? '' : language?.title,
+            // time: times?.title === 'Sắp xếp theo thời lượng' ? '' : times?.title.replace(/[^\d]/g, ""),
+            language: language?.title === 'Tất cả quốc gia' ? '' : language?.title,
             rate: rates?.title === 'Sắp xếp theo số sao' ? '' : rates?.title.replace(/[^\d]/g, ""),
             year: year?.title === 'Sắp xếp theo năm' ? '' : year?.title,
+            typeFilm: (() => {
+                if (typefilm?.title === 'Tất cả loại phim') return '';
+                if (typefilm?.title === 'Phim lẻ') return 'single';
+                if (typefilm?.title === 'Phim bộ') return 'series';
+                return '';
+            })(),
             search: search ? search : '',
         };
         return query;
-    }, [category, language, year, times, rates, search]);
+    }, [category, language, year, times, rates, search, typefilm]);
 
     // Effect để xử lý filter changes
     useEffect(() => {
@@ -46,6 +53,8 @@ const MoviesPage = () => {
         const timer = setTimeout(() => {
             dispatch(getAllMoviesAction({ ...queries, pageNumber: 1 }));
         }, 500); // Debounce 500ms
+
+        console.log(queries);
 
         return () => clearTimeout(timer);
 
@@ -102,9 +111,9 @@ const MoviesPage = () => {
         setTimes: setTimes,
         year: year,
         setYear: setYear,
+        typefilm: typefilm,
+        setTypefilm: setTypefilm,
     }
-
-    console.log(search);
 
     return (
         <Layout>

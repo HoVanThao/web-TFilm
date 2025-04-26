@@ -6,10 +6,10 @@ import { ErrorsAction, tokenProtection } from '../protection';
 
 export const getAllMoviesAction = ({
     category = "",
-    time = "",
     language = "",
     rate = "",
     year = "",
+    typeFilm = "",
     search = "",
     pageNumber = "",
 
@@ -17,7 +17,7 @@ export const getAllMoviesAction = ({
     try {
         dispatch({ type: moviesConstants.MOVIES_LIST_REQUEST });
         const response = await moviesApi.getAllMoviesService(
-            category, time, language, rate, year, search, pageNumber
+            category, language, rate, year, typeFilm, search, pageNumber
         );
         dispatch({ type: moviesConstants.MOVIES_LIST_SUCCESS, payload: response });
     } catch (error) {
