@@ -1,13 +1,11 @@
 import {
     combineReducers,
     configureStore,
-    applyMiddleware,
 } from '@reduxjs/toolkit'
 
 import * as User from './Reducers/userReducers'
 import * as Categories from './Reducers/categoriesReducers'
 import * as Movies from './Reducers/moviesReducers'
-// import { thunk } from 'redux-thunk';
 
 const rootReducer = combineReducers({
     // add reducers users
@@ -30,6 +28,9 @@ const rootReducer = combineReducers({
 
     // movies
     getAllMovies: Movies.moviesListReducer,
+    getRandomMovies: Movies.moviesRandomReducer,
+    getMovieById: Movies.movieDetailsReducer,
+    getTopRatedMovie: Movies.movieTopRatedReducer,
 
 });
 
@@ -42,9 +43,4 @@ const initialState = {
 export const store = configureStore({
     reducer: rootReducer,
     preloadedState: initialState,
-    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-    // middleware: (getDefaultMiddleware) =>
-    //     getDefaultMiddleware({
-    //       serializableCheck: false, // Tắt kiểm tra serializable để tránh lỗi với async actions
-    //     }).concat(thunk), // Thêm redux-thunk
 });

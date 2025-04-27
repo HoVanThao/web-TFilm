@@ -29,7 +29,7 @@ const getMovies = asyncHandler(async (req, res) => {
         const limit = 15;
         const skip = (page - 1) * limit;
         const movies = await Movie.find(query)
-            // .sort({ createdAt: -1 })
+            .sort({ year: -1, _id: -1 })
             .skip(skip)
             .limit(limit);
 
@@ -63,7 +63,7 @@ const getMovieById = asyncHandler(async (req, res) => {
 
 const getTopRatedMovies = asyncHandler(async (req, res) => {
     try {
-        const movies = await Movie.find({}).sort({ rate: -1 });
+        const movies = await Movie.find({}).sort({ createdAt: -1, rate: -1 });
         res.json(movies);
     } catch (error) {
         res.status(400).json({ message: error.message });
