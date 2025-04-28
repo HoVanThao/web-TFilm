@@ -3,52 +3,40 @@ import Titles from '../Titles'
 import { FaUserFriends } from 'react-icons/fa'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
-import { usersData } from '../../Data/MovieData'
 
+const MovieCasts = ({ movie }) => {
 
-
-const MovieCasts = () => {
     return (
-        <div className='my-12'>
-            <Titles title="Diễn viên" Icon={FaUserFriends} />
-            <div className='mt-10'>
-                <Swiper autoplay={{
-                    delay: 1000,
-                    disableOnInteraction: false,
-                }} loop={true} speed={1000} modules={[Autoplay]}
-                    spaceBetween={10}
-                    breakpoints={{
-                        0: {
-                            slidesPerView: 1,
-                        },
-                        400: {
-                            slidesPerView: 2,
-                        },
-                        768: {
-                            slidesPerView: 3,
-                        },
-                        1024: {
-                            slidesPerView: 4,
-                        },
-                        1280: {
-                            slidesPerView: 5,
-                            spaceBetween: 30,
-                        },
+        movie?.casts?.length > 0 && (
+            <div className='my-12'>
+                <Titles title="Diễn viên" Icon={FaUserFriends} />
+                <div className='mt-10'>
+                    <Swiper autoplay={{
+                        delay: 1000,
+                        disableOnInteraction: false,
                     }}
-                >
-                    {
-                        usersData.map((user, i) => (
-                            <SwiperSlide key={i}>
-                                <div className='w-full p-3 italic text-xs text-text rounded flex-colo bg-dry border border-gray-800'>
-                                    <img src={`/images/${user.image}`} alt={user.name} className='w-full h-64 object-cover rounded mb-4' />
-                                    <p>{user?.fullname}</p>
-                                </div>
-                            </SwiperSlide>
-                        ))
-                    }
-                </Swiper>
+                        // loop={true} 
+                        speed={1000} modules={[Autoplay]}
+                        spaceBetween={10}
+                        slidesPerView="auto"
+
+                    >
+                        {
+                            movie?.casts?.slice(0, 5).map((cast) => (
+                                <SwiperSlide key={cast?._id} style={{ width: 'auto' }}>
+                                    <div className="w-36 p-1 italic text-xs text-text rounded-xl  flex-colo bg-dry border-2 border-gray-800">
+                                        <img src={cast?.image ? `/images/${cast.image}` : '/images/user.png'} alt={cast?.name} className="w-32 h-32 mt-1 object-cover rounded-xl" />
+                                        <p className="mt-2 text-center truncate">{cast?.name}</p>
+                                    </div>
+
+                                </SwiperSlide>
+                            ))
+                        }
+                    </Swiper>
+                </div>
             </div>
-        </div>
+        )
+
     )
 }
 

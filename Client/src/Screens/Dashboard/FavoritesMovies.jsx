@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import SideBar from './SideBar'
 import Table from '../../Components/Table'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteAllFavoriteMoviesAction, getFavoriteMoviesAction } from '../../Redux/Actions/userActions'
+import { deleteAllFavoriteMoviesAction, deleteFavoriteMovieByIdAction, getFavoriteMoviesAction } from '../../Redux/Actions/userActions'
 import toast from 'react-hot-toast'
 import Loader from '../../Components/Notfications/Loader'
 import Empty from '../../Components/Notfications/Empty'
@@ -11,6 +11,9 @@ import DeleteConfirmModal from '../../Components/Modals/DeleteConfirmModal'
 const FavoritesMovies = () => {
     const dispatch = useDispatch();
     const [modalOpen, setModalOpen] = useState(false);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [confirmTitle, setConfirmTitle] = useState('');
+    const [onConfirmAction, setOnConfirmAction] = useState(() => { });
 
     const { isLoading, isError, likedMovies } = useSelector(
         (state) => state.userGetFavoriteMovies,
@@ -20,16 +23,28 @@ const FavoritesMovies = () => {
         (state) => state.userDeleteAllFavoriteMovies,
     )
 
-    // Hàm mở modal thay vì window.confirm
-    const deleteAllMoviesHandler = () => {
-        setModalOpen(true); // Mở modal xác nhận
+    const { isLoading: deleteOneLoading, isError: deleteOneError, isSuccess: isSuccessOne } = useSelector(
+        (state) => state.userDeleteFavoriteMovie,
+    )
+
+    const handleDeleteAll = () => {
+        setConfirmTitle("Bạn có chắc chắn muốn xóa tất cả phim yêu thích không?");
+        setOnConfirmAction(() => () => {
+            dispatch(deleteAllFavoriteMoviesAction());
+        });
+        setIsConfirmOpen(true);
     };
 
-    // Hàm xử lý xóa sau khi xác nhận trong modal
-    const confirmDeleteHandler = () => {
-        dispatch(deleteAllFavoriteMoviesAction());
-        setModalOpen(false); // Đóng modal sau khi xác nhận xóa
+
+    const handleDeleteOne = (id) => {
+        setConfirmTitle("Bạn có chắc chắn muốn xóa phim này không?");
+        setOnConfirmAction(() => () => {
+            dispatch(deleteFavoriteMovieByIdAction(id));
+        });
+        setIsConfirmOpen(true);
     };
+
+
 
     useEffect(() => {
         dispatch(getFavoriteMoviesAction());
@@ -37,7 +52,11 @@ const FavoritesMovies = () => {
             toast.error(isError || deleteAllError);
             dispatch({ type: isError ? "GET_FAVORITE_MOVIES_RESET" : "DELETE_ALL_FAVORITE_MOVIES_RESET" })
         }
-    }, [dispatch, isError, deleteAllError, isSuccess]);
+        if (deleteOneError) {
+            toast.error(deleteOneError);
+            dispatch({ type: "DELETE_FAVORITE_MOVIE_RESET" })
+        }
+    }, [dispatch, isError, deleteAllError, isSuccess, deleteOneError, isSuccessOne]);
 
     return (
         <SideBar>
@@ -48,7 +67,7 @@ const FavoritesMovies = () => {
                         likedMovies?.length > 0 && (
                             <button
                                 disabled={deleteAllLoading}
-                                onClick={deleteAllMoviesHandler}
+                                onClick={handleDeleteAll}
                                 className='bg-subMainn font-medium transitions hover:text-black border border-subMainn text-white py-3 px-6 rounded'>
                                 {deleteAllLoading ? "Đang xóa..." : "Xóa Tất Cả"}
                             </button>
@@ -57,18 +76,23 @@ const FavoritesMovies = () => {
 
                 </div>
                 {
-                    isLoading ? <Loader /> : likedMovies?.length > 0 ? <Table data={likedMovies} admin={false} /> : <Empty message="không có phim yêu thích nào!" />
+                    isLoading ? <Loader /> : likedMovies?.length > 0 ? <Table data={likedMovies} admin={false} onDelete={handleDeleteOne} /> : <Empty message="Bạn không có phim yêu thích nào!" />
                 }
 
 
             </div>
             {/* Thêm modal xác nhận xóa */}
             <DeleteConfirmModal
-                modalOpen={modalOpen}
-                setModalOpen={setModalOpen}
-                onConfirm={confirmDeleteHandler} // Truyền hàm xác nhận xóa vào modal
-                title={" Bạn có muốn xóa tất cả phim?"}
+                modalOpen={isConfirmOpen}
+                setModalOpen={setIsConfirmOpen}
+                onConfirm={() => {
+                    onConfirmAction();
+                    setIsConfirmOpen(false);
+                }}
+                title={confirmTitle}
             />
+
+
         </SideBar >
     )
 }

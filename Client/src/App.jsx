@@ -23,17 +23,36 @@ import AddMovie from './Screens/Dashboard/Admin/AddMovie';
 import ScrollOnTop from './ScrollOnTop';
 import { ToastContainer } from './Components/Notfications/ToastContainer';
 import { AdminProtectedRouter, ProtectedRouter } from './ProtectedRouter';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllCategoriesAction } from './Redux/Actions/categoriesActions';
+import { getAllMoviesAction } from './Redux/Actions/moviesActions';
+import { getFavoriteMoviesAction } from './Redux/Actions/userActions';
+import toast from 'react-hot-toast';
 
 
 const App = () => {
   Aos.init();
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { isError, isSuccess } = useSelector((state) => state.userLikeMovie);
+  const { isError: cateError } = useSelector((state) => state.categoryGetAll);
+
   // Khởi tạo AOS trong useEffect
   useEffect(() => {
     dispatch(getAllCategoriesAction());
-  }, [dispatch]);
+    dispatch(getAllMoviesAction({}));
+    if (userInfo) {
+      dispatch(getFavoriteMoviesAction())
+    }
+    if (isError || cateError) {
+      toast.error("Xin vui lòng thử lại sau!");
+      dispatch({ type: "LIKE_MOVIE_RESET" });
+    }
+    if (isSuccess) {
+      dispatch({ type: "LIKE_MOVIE_RESET" });
+    }
+
+  }, [dispatch, userInfo, isError, cateError]);
 
 
 

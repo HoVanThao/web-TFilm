@@ -280,14 +280,14 @@ const NavBar = () => {
                         Phim mới
                     </NavLink>
                     <NavLink to="/movies" className={Hover}>
-                        Phim rạp
+                        Phim chiếu rạp
                     </NavLink>
-                    <NavLink to="/about-us" className={Hover}>
+                    {/* <NavLink to="/about-us" className={Hover}>
                         Giới thiệu
                     </NavLink>
                     <NavLink to="/contact-us" className={Hover}>
                         Liên hệ
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink
                         to={userInfo?.isAdmin ? "/dashboard" : userInfo ? "/profile" : "/login"}
                         className={Hover}>

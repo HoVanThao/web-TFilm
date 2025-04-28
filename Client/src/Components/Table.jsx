@@ -8,7 +8,7 @@ const Head = "text-xs text-center text-main font-semibold px-6 py-2 uppercase";
 const Text = "text-sm text-center leading-6 whitespace-nowrap";
 
 
-const Rows = (movie, i, admin) => {
+const Rows = (movie, i, admin, onDelete) => {
     return (
         <tr key={i}>
             <td className={`${Text} px-5 py-3`}>
@@ -35,12 +35,12 @@ const Rows = (movie, i, admin) => {
                         </>
                     ) : (
                         <>
-                            <button className='bg-green-500 text-white  hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
-                                <FaCloudDownloadAlt />
-                            </button>
-                            <Link to={`/movie/${movie?._id}`} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
+                            <Link to={`/movie/${movie?._id}`} className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
                                 <GoEye />
                             </Link>
+                            <button onClick={() => onDelete(movie._id)} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
+                                <MdDelete />
+                            </button>
                         </>
                     )
                 }
@@ -50,7 +50,7 @@ const Rows = (movie, i, admin) => {
     )
 }
 
-const Table = ({ data, admin }) => {
+const Table = ({ data, admin, onDelete }) => {
 
     return (
         <div className='overflow-x-auto relative w-full'>
@@ -82,7 +82,7 @@ const Table = ({ data, admin }) => {
                 </thead>
                 <tbody className='bg-main divide-y divide-gray-800'>
                     {
-                        data.map((movie, i) => Rows(movie, i, admin))
+                        data.map((movie, i) => Rows(movie, i, admin, onDelete))
                     }
                 </tbody>
             </table>

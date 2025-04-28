@@ -100,7 +100,7 @@ const createMovieReview = asyncHandler(async (req, res) => {
 
             if (alreadyReviewed) {
                 res.status(400);
-                throw new Error("Bạn đã review bộ phim nàyyy!")
+                throw new Error("Bạn đã review bộ phim này!")
             }
 
             const review = {

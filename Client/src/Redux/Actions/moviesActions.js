@@ -66,3 +66,25 @@ export const getTopRatedMovieAction = () => async (dispatch) => {
         ErrorsAction(error, dispatch, moviesConstants.MOVIE_TOP_RATED_FAIL);
     }
 }
+
+export const reviewMovieAction = ({ id, review }) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: moviesConstants.CREATE_REVIEW_REQUEST });
+        const response = await moviesApi.reviewMovieService(
+            id,
+            review,
+            tokenProtection(getState),
+        );
+        dispatch({
+            type: moviesConstants.CREATE_REVIEW_SUCCESS,
+            payload: response,
+        });
+        toast.success("Bình luận thành công");
+        dispatch({
+            type: moviesConstants.CREATE_REVIEW_RESET,
+        });
+        dispatch(getMovieByIdAction(id));
+    } catch (error) {
+        ErrorsAction(error, dispatch, moviesConstants.CREATE_REVIEW_FAIL);
+    }
+}

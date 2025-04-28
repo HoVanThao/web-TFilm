@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
     userDeleteFavoriteMovie: User.userDeleteFavoriteMovieReducer,
     adminGetAllUsers: User.adminGetAllUsersReducer,
     adminDeleteUser: User.adminDeleteUserReducer,
+    userLikeMovie: User.userLikeMovieReducer,
 
     // add reducers category
     categoryGetAll: Categories.getAllCategoriesReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     getRandomMovies: Movies.moviesRandomReducer,
     getMovieById: Movies.movieDetailsReducer,
     getTopRatedMovie: Movies.movieTopRatedReducer,
+    createReview: Movies.createReviewReducer,
 
 });
 

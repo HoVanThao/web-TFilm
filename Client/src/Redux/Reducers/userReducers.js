@@ -123,6 +123,21 @@ export const userDeleteFavoriteMovieReducer = (state = {}, action) => {
     }
 }
 
+export const userLikeMovieReducer = (state = {}, action) => {
+    switch (action.type) {
+        case userConstants.LIKE_MOVIE_REQUEST:
+            return { isLoading: true };
+        case userConstants.LIKE_MOVIE_SUCCESS:
+            return { isLoading: false, isSuccess: true };
+        case userConstants.LIKE_MOVIE_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case userConstants.LIKE_MOVIE_RESET:
+            return {};
+        default:
+            return state;
+    }
+}
+
 export const adminGetAllUsersReducer = (state = { users: [] }, action) => {
     switch (action.type) {
         case userConstants.GET_ALL_USERS_REQUEST:

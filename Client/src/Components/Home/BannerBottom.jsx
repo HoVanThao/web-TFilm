@@ -7,9 +7,19 @@ import Titles from '../Titles';
 import { BsFillCollectionFill } from 'react-icons/bs';
 import { RiMovie2Line } from 'react-icons/ri';
 import Loader from '../Notfications/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { LikeMovie } from '../../Context/Functionalities';
 
 const BannerBottom = ({ movies, isLoading }) => {
     const [activeMovie, setActiveMovie] = useState(null); // khởi tạo null
+    const dispatch = useDispatch();
+    const { isLoading: likeLoading } = useSelector((state) => state.userLikeMovie);
+    const { userInfo } = useSelector((state) => state.userLogin);
+    const { likedMovies } = useSelector((state) => state.userGetFavoriteMovies);
+
+    const isLiked = (movie) => {
+        return likedMovies?.some((likedMovie) => likedMovie?._id === movie?._id);
+    }
 
     // Mỗi lần movies thay đổi và có dữ liệu => set lại activeMovie
     useEffect(() => {
@@ -35,7 +45,7 @@ const BannerBottom = ({ movies, isLoading }) => {
                                 {/* Banner chính */}
                                 <div className='relative rounded overflow-hidden'>
                                     <div className='w-full h-48 sm:h-96 xl:h-bannerbottom border-2 bg-dry halftone-effect rounded-3xl'>
-                                        <img src={`/images/movies/${activeMovie?.image}`} alt={activeMovie?.name}
+                                        <img src={activeMovie?.image ? `/images/movies/${activeMovie?.image}` : '/images/user.png'} alt={activeMovie?.name}
                                             className='w-full h-full object-cover rounded-3xl' />
                                     </div>
 
@@ -54,10 +64,11 @@ const BannerBottom = ({ movies, isLoading }) => {
                                             {activeMovie?.desc}
                                         </p>
                                         <div className='flex gap-5 items-center mt-4'>
-                                            <Link to={`/movie/${activeMovie?.name}`} className="bg-subMainn hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs flex items-center gap-2">
+                                            <Link to={`/movie/${activeMovie?._id}`} className="bg-subMainn hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs flex items-center gap-2">
                                                 <FaPlay /> Xem ngay
                                             </Link>
-                                            <button className="bg-white hover:text-subMainn transitions text-white px-3 py-3 rounded text-sm bg-opacity-30">
+                                            <button onClick={() => LikeMovie(activeMovie, dispatch, userInfo)} disabled={isLiked(activeMovie) || likeLoading}
+                                                className={`bg-white hover:text-subMainn transitions ${isLiked(activeMovie) ? 'text-subMainn' : 'text-white'} px-3 py-3 rounded text-sm bg-opacity-30`}>
                                                 <FaHeart />
                                             </button>
                                         </div>
@@ -67,12 +78,12 @@ const BannerBottom = ({ movies, isLoading }) => {
 
                                 {/* Thumbnail List */}
                                 <div className="absolute left-0 -bottom-10  right-0  flex-rows gap-2 my-4 px-4 z-10">
-                                    {movies.slice(0, 10).map((movie, index) => (
+                                    {movies?.slice(0, 10).map((movie, index) => (
                                         <div key={index}
                                             className={`p-1 xl:h-20 xl:w-20 lg:h-14 lg:w-14 sm:h-12 sm:w-12 h-3 w-3 border border-border bg-dry rounded-lg overflow-hidden cursor-pointer transition-transform ${activeMovie === movie ? 'border-2 border-white scale-110' : ''}`}
                                             onClick={() => setActiveMovie(movie)}
                                         >
-                                            <img src={`/images/movies/${movie.image}`} alt={movie.name}
+                                            <img src={`/images/movies/${movie?.image}`} alt={movie?.name}
                                                 className="w-full h-full object-cover rounded" />
                                         </div>
                                     ))}

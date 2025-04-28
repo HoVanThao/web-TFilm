@@ -8,9 +8,21 @@ import { RiMovie2Line } from 'react-icons/ri'
 import { motion } from 'framer-motion'; // Import Framer Motion
 import Loader from '../Notfications/Loader'
 import 'swiper/css';
+import { useDispatch, useSelector } from 'react-redux';
+import { LikeMovie } from '../../Context/Functionalities.js';
 
 const Banner = ({ movies, isLoading }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
+
+    const dispatch = useDispatch();
+    const { isLoading: likeLoading } = useSelector((state) => state.userLikeMovie);
+    const { userInfo } = useSelector((state) => state.userLogin);
+    const { likedMovies } = useSelector((state) => state.userGetFavoriteMovies);
+
+    const isLiked = (movie) => {
+        return likedMovies?.some((likedMovie) => likedMovie?._id === movie._id);
+    }
+
 
     // Định nghĩa các hiệu ứng động
     const fadeIn = (direction = 'up', delay = 0) => ({
@@ -41,15 +53,15 @@ const Banner = ({ movies, isLoading }) => {
                     loop={true}
                     speed={1000}
                     modules={[Autoplay]}
-                    autoplay={{ delay: 20000, disableOnInteraction: false }}
+                    autoplay={{ delay: 10000, disableOnInteraction: false }}
                     onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)} // Theo dõi slide hiện tại
                 >
-                    {movies.slice(0, 10).map((movie, index) => (
+                    {movies?.slice(0, 10).map((movie, index) => (
                         <SwiperSlide key={index} className="relative rounded overflow-hidden ">
                             <div className='w-full xl:h-banner bg-dry sm:h-96 h-48 halftone-effect '>
                                 <img
-                                    src={`/images/movies/${movie.image}`}
-                                    alt={movie.name}
+                                    src={movie?.image ? `/images/movies/${movie?.image}` : '/images/user.png'}
+                                    alt={movie?.name}
                                     className="w-full h-full object-cover "
                                 />
                             </div>
@@ -61,7 +73,7 @@ const Banner = ({ movies, isLoading }) => {
                                     className="xl:text-5xl truncate font-sans sm:text-2xl text-xl font-bold uppercase"
                                     {...fadeIn('up', 0.2)} // Hiệu ứng xuất hiện từ dưới lên
                                 >
-                                    {movie.name}
+                                    {movie?.name}
                                 </motion.h1>
 
                                 {/* FlexMovieItems */}
@@ -81,11 +93,11 @@ const Banner = ({ movies, isLoading }) => {
                                 >
                                     <div className="flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1">
                                         <FaImdb />
-                                        <p>{movie.imdbRating}</p>
+                                        <p>{movie?.imdbRating}</p>
                                     </div>
                                     <div className="flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1">
                                         <FaTheaterMasks />
-                                        <p>{movie.category}</p>
+                                        <p>{movie?.category}</p>
                                     </div>
 
                                     <div className="flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1">
@@ -100,7 +112,7 @@ const Banner = ({ movies, isLoading }) => {
                                     className="w-2/5 text-base break-words text-dryGray  font-normal line-clamp-3 pr-28 hidden lg:block"
                                     {...fadeIn('up', 0.8)} // Hiệu ứng xuất hiện từ dưới lên
                                 >
-                                    {movie.desc}
+                                    {movie?.desc}
                                 </motion.div>
 
                                 {/* Các nút */}
@@ -110,12 +122,14 @@ const Banner = ({ movies, isLoading }) => {
                                     {...fadeIn('up', 1)} // Hiệu ứng xuất hiện từ dưới lên với độ trễ lớn hơn
                                 >
                                     <Link
-                                        to={`/movie/${movie.name}`}
+                                        to={`/movie/${movie?._id}`}
                                         className="bg-subMainn hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs flex items-center gap-2"
                                     >
                                         <FaPlay /> Xem ngay
                                     </Link>
-                                    <button className="bg-white hover:text-subMainn transitions text-white px-3 py-3 rounded text-sm bg-opacity-30">
+                                    <button onClick={() => LikeMovie(movie, dispatch, userInfo)} disabled={isLiked(movie) || likeLoading}
+                                        className={`bg-white ${isLiked(movie) ? 'text-subMainn' : 'text-white'} hover:text-subMainn transitions px-3 py-3 rounded text-sm bg-opacity-30 cursor-pointer`}
+                                    >
                                         <FaHeart />
                                     </button>
                                 </motion.div>

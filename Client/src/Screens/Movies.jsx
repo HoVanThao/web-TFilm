@@ -54,8 +54,6 @@ const MoviesPage = () => {
             dispatch(getAllMoviesAction({ ...queries, pageNumber: 1 }));
         }, 500); // Debounce 500ms
 
-        console.log(queries);
-
         return () => clearTimeout(timer);
 
     }, [dispatch, isError, queries]); // Chỉ phụ thuộc vào queries

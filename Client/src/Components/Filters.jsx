@@ -62,13 +62,13 @@ const Filters = (props) => {
                                 <FaAngleDown className='h-4 w-4' aria-hidden="true" />
                             </span>
                         </ListboxButton>
-                        <ListboxOptions className='absolute z-10 mt-1 w-full bg-main border-gray-800 text-dryGray rounded-md shadow-lg max-h-60 py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm'>
+                        <ListboxOptions className='absolute z-10 mt-1 w-full bg-main border-gray-800 text-dryGray rounded-md shadow-lg max-h-60 py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm overflow-y-scroll scrollbar-custom'>
                             {item.items.map((option, i) => (
                                 <ListboxOption
                                     key={i}
                                     value={option}
                                     className={({ actives }) =>
-                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${actives ? "bg-dry text-subMainn" : "text-dryGray"}`
+                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${actives ? "bg-dry text-subMainn" : "text-dryGray"} `
                                     }
                                 >
                                     {({ selected }) => (

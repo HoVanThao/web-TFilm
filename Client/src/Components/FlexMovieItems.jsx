@@ -14,7 +14,7 @@ const FlexMovieItems = ({ movie }) => {
             </div>
             <div className="flex items-center px-2 py-1 rounded-full  gap-2">
                 <BiTime className='text-dryGray w-3 h-3' />
-                <span className="text-sm font-medium">{movie?.time}</span>
+                <span className="text-sm font-medium">{movie?.time}h 14m</span>
             </div>
 
         </>

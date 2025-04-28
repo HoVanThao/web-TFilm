@@ -33,7 +33,7 @@ const ShareMovieModal = ({ modalOpen, setModalOpen, movie }) => {
         }
     ]
 
-    const url = `${window.location.protocol}//${window.location.host}/movie/${movie.name}`;
+    const url = `${window.location.protocol}//${window.location.host}/movie/${movie?.name}`;
 
     return (
         <MainModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
@@ -41,7 +41,7 @@ const ShareMovieModal = ({ modalOpen, setModalOpen, movie }) => {
             <form className="flex-rows flex-wrap gap-6 mt-6">
                 {
                     shareData.map((data, index) => (
-                        <data.shareButton key={index} url={url} quote="TFilm-Haven | Free Movies Site">
+                        <data.shareButton key={index} url={url} quote="HamPhim | Free Movies Site">
                             <div className='w-12 trainsitions hover:bg-subMainn flex-colo text-lg h-12 bg-white rounded bg-opacity-30'>
                                 <data.icon />
                             </div>

@@ -40,11 +40,11 @@ const HomeScreen = () => {
             <div className='mx-5 min-h-screen mb-6'>
                 <BannerBottom movies={movies} isLoading={isLoading} />
 
-                <PopularMovies movies={randomMovies} isLoading={randomLoading} />
-                <TopRated movies={topMovies} isLoading={topLoading} />
+                <PopularMovies movies={randomMovies} isLoading={randomLoading} title={'Phim thịnh hành'} />
+                <TopRated movies={topMovies} isLoading={topLoading} title={'Phim hay hôm nay'} />
 
-                <PopularMovies />
-                <TopRated />
+                {/* <PopularMovies />
+                <TopRated /> */}
                 {/* <Promos /> */}
 
             </div>

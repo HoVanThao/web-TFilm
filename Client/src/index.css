@@ -65,6 +65,30 @@ select:focus {
     pointer-events: none;
 }
 
+/* Cải thiện thanh cuộn */
+.scrollbar-custom {
+    scrollbar-width: thin;
+    scrollbar-color: #4b5563 #191B24;
+    /* Thumb màu xám, track màu xám đậm */
+}
+
+/* Dành cho webkit (Chrome, Safari, Edge) */
+.scrollbar-custom::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+    background-color: #191B24;
+    /* Track màu xám đậm */
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background-color: #4b5563;
+    /* Thumb màu xám */
+    border-radius: 8px;
+}
+
+
 
 
 
