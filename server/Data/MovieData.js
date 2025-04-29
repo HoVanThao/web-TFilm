@@ -296,8 +296,8 @@ export const MoviesData = [
     {
         name: 'Stranger Things',
         desc: 'Một nhóm trẻ em tại thị trấn nhỏ khám phá những bí mật siêu nhiên.',
-        titleImage: 'stranger_things.jpg',
-        image: 'stranger_things.jpg',
+        titleImage: 't11.jpg',
+        image: 't11.jpg',
         category: 'Khoa Học', // Khoa học viễn tưởng, mang yếu tố siêu nhiên và bí ẩn
         language: 'Mỹ',
         year: 2016,
@@ -345,8 +345,8 @@ export const MoviesData = [
     {
         name: 'Breaking Bad',
         desc: 'Giáo viên hóa học trung học chuyển sang sản xuất ma túy đá.',
-        titleImage: 'breaking_bad.jpg',
-        image: 'breaking_bad.jpg',
+        titleImage: 't12.jpg',
+        image: 't12.jpg',
         category: 'Chính Kịch', // Drama tội phạm, tập trung vào tâm lý và xung đột đạo đức
         language: 'Mỹ',
         year: 2008,
@@ -394,8 +394,8 @@ export const MoviesData = [
     {
         name: 'Game of Thrones',
         desc: 'Các gia đình quý tộc tranh giành quyền kiểm soát Bảy Vương quốc Westeros.',
-        titleImage: 'game_of_thrones.jpg',
-        image: 'game_of_thrones.jpg',
+        titleImage: 't13.jpg',
+        image: 't13.jpg',
         category: 'Kỳ Ảo', // Fantasy, bối cảnh giả tưởng với rồng và ma thuật
         language: 'Mỹ',
         year: 2011,

@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
-import SideBar from '../SideBar'
-import Table from '../../../Components/Table'
-import { useDispatch, useSelector } from 'react-redux'
-import { deleteAllMoviesAction, deleteMovieByIdAction, getAllMoviesAction } from '../../../Redux/Actions/moviesActions'
-import toast from 'react-hot-toast'
-import Loader from '../../../Components/Notfications/Loader'
-import Empty from '../../../Components/Notfications/Empty'
-import { RiSkipBackFill, RiSkipForwardFill } from 'react-icons/ri'
+import React, { useEffect, useState } from 'react';
+import SideBar from '../SideBar';
+import Table from '../../../Components/Table';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteAllMoviesAction, deleteMovieByIdAction, getAllMoviesAction } from '../../../Redux/Actions/moviesActions';
+import toast from 'react-hot-toast';
+import Loader from '../../../Components/Notfications/Loader';
+import Empty from '../../../Components/Notfications/Empty';
+import DeleteConfirmModal from '../../../Components/Modals/DeleteConfirmModal';
+import { RiSkipBackFill, RiSkipForwardFill } from 'react-icons/ri';
 
 const MovieList = () => {
   const dispatch = useDispatch();
@@ -14,21 +15,32 @@ const MovieList = () => {
   const { isLoading: deleteLoading, isError: deleteError } = useSelector((state) => state.deleteMovie);
   const { isLoading: deleteAllLoading, isError: deleteAllError } = useSelector((state) => state.deleteAllMovies);
 
-  // delete movie handler
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [confirmTitle, setConfirmTitle] = useState('');
+  const [onConfirmAction, setOnConfirmAction] = useState(() => () => { });
+
   const deleteMovieHandle = (id) => {
-    window.confirm("Bạn có chắc muốn xóa?") && dispatch(deleteMovieByIdAction(id));
+    setConfirmTitle("Bạn có chắc muốn xóa?");
+    setOnConfirmAction(() => () => {
+      dispatch(deleteMovieByIdAction(id));
+    });
+    setIsConfirmOpen(true);
   }
 
   const deleteAllMoviesHandle = () => {
-    window.confirm("Bạn có chắc muốn xóa?") && dispatch(deleteAllMoviesAction());
+    setConfirmTitle("Bạn có chắc muốn xóa tất cả?");
+    setOnConfirmAction(() => () => {
+      dispatch(deleteAllMoviesAction());
+    });
+    setIsConfirmOpen(true);
   }
 
   useEffect(() => {
-
+    dispatch(getAllMoviesAction({}));
     if (isError || deleteError || deleteAllError) {
       toast.error(isError || deleteError || deleteAllError);
     }
-    dispatch(getAllMoviesAction({}));
+
   }, [dispatch, isError, deleteError, deleteAllError]);
 
   const nextPage = () => {
@@ -46,8 +58,6 @@ const MovieList = () => {
       })
     );
   }
-
-
 
   return (
     <SideBar>
@@ -88,8 +98,18 @@ const MovieList = () => {
         }
 
       </div>
-    </SideBar >
+      {/* Modal xác nhận xóa */}
+      <DeleteConfirmModal
+        modalOpen={isConfirmOpen}
+        setModalOpen={setIsConfirmOpen}
+        onConfirm={() => {
+          onConfirmAction();
+          setIsConfirmOpen(false);
+        }}
+        title={confirmTitle}
+      />
+    </SideBar>
   )
 }
 
-export default MovieList
+export default MovieList;
