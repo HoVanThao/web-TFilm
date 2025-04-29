@@ -10,7 +10,6 @@ import DeleteConfirmModal from '../../Components/Modals/DeleteConfirmModal'
 
 const FavoritesMovies = () => {
     const dispatch = useDispatch();
-    const [modalOpen, setModalOpen] = useState(false);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [confirmTitle, setConfirmTitle] = useState('');
     const [onConfirmAction, setOnConfirmAction] = useState(() => { });

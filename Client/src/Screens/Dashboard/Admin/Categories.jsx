@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import SideBar from '../SideBar'
-import { CategoriesData } from '../../../Data/CategoriesData'
 import Table2 from '../../../Components/Table2'
 import { HiPlusCircle } from 'react-icons/hi'
 import CategoryModal from '../../../Components/Modals/CategoryModal'
@@ -28,12 +27,6 @@ const Categories = () => {
     const { isSuccess, isError } = useSelector(
         (state) => state.categoryDelete,
     );
-
-    // const adminDeleteCaterogy = (id) => {
-    //     if (window.confirm("Bạn có muốn xóa?")) {
-    //         dispatch(deleteCategoryAction(id));
-    //     }
-    // };
 
     // Hàm mở modal thay vì window.confirm
     const deleteCategoryHandler = (categoryId) => {

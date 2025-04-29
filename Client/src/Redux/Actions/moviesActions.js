@@ -88,3 +88,29 @@ export const reviewMovieAction = ({ id, review }) => async (dispatch, getState) 
         ErrorsAction(error, dispatch, moviesConstants.CREATE_REVIEW_FAIL);
     }
 }
+
+// delete movie action
+export const deleteMovieByIdAction = (movieId) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: moviesConstants.DELETE_MOVIE_REQUEST });
+        const response = await moviesApi.deleteMovieByIdService(movieId, tokenProtection(getState));
+        dispatch({ type: moviesConstants.DELETE_MOVIE_SUCCESS, payload: response, });
+        toast.success("Xóa thành công!");
+        dispatch(getAllMoviesAction({}));
+    } catch (error) {
+        ErrorsAction(error, dispatch, moviesConstants.DELETE_MOVIE_FAIL);
+    }
+};
+
+// delete all movies action
+export const deleteAllMoviesAction = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: moviesConstants.DELETE_ALL_MOVIES_REQUEST });
+        const response = await moviesApi.deleteMoviesService(tokenProtection(getState));
+        dispatch({ type: moviesConstants.DELETE_ALL_MOVIES_SUCCESS, payload: response, });
+        toast.success("Tất cả phim đã bị xóa!")
+        dispatch(getAllMoviesAction({}));
+    } catch (error) {
+        ErrorsAction(error, dispatch, moviesConstants.DELETE_ALL_MOVIES_FAIL);
+    }
+};

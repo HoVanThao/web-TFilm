@@ -29,7 +29,7 @@ const Rows = (movie, i, admin, onDelete) => {
                             <button className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
                                 <FaEdit />
                             </button>
-                            <button className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
+                            <button onClick={() => onDelete(movie?._id)} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
                                 <MdDelete />
                             </button>
                         </>
@@ -38,7 +38,7 @@ const Rows = (movie, i, admin, onDelete) => {
                             <Link to={`/movie/${movie?._id}`} className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
                                 <GoEye />
                             </Link>
-                            <button onClick={() => onDelete(movie._id)} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
+                            <button onClick={() => onDelete(movie?._id)} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
                                 <MdDelete />
                             </button>
                         </>

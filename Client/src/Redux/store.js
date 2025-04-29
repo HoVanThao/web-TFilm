@@ -33,6 +33,8 @@ const rootReducer = combineReducers({
     getMovieById: Movies.movieDetailsReducer,
     getTopRatedMovie: Movies.movieTopRatedReducer,
     createReview: Movies.createReviewReducer,
+    deleteMovie: Movies.deleteMovieReducer,
+    deleteAllMovies: Movies.deleteAllMovieReducer,
 
 });
 

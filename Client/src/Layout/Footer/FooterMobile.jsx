@@ -13,7 +13,8 @@ const FooterMobile = () => {
 
     const toggleDrawer = () => setDrawerOpen(!drawerOpen);
 
-    const active = " bg-subMain text-white "
+    // const active = " bg-subMain text-white "
+    const active = " bg-white text-main "
     const inActive = " transitions text-2xl flex-colo hover:bg-white hover:text-main rounded-md px-4 py-3 "
 
     const Hover = ({ isActive }) => isActive ? `${active} ${inActive}` : inActive
