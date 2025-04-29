@@ -1,30 +1,56 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../SideBar'
 import { FaRegListAlt, FaUser } from 'react-icons/fa'
 import { HiViewGridAdd } from 'react-icons/hi'
 import Table from '../../../Components/Table'
-import { Movies } from '../../../Data/MovieData'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllUsersAction } from '../../../Redux/Actions/userActions'
+import toast from 'react-hot-toast'
+import Loader from '../../../Components/Notfications/Loader'
+import Empty from '../../../Components/Notfications/Empty'
 
 const Dashboard = () => {
+
+    const dispatch = useDispatch();
+    const { isLoading: cateLoading, isError: cateError, categories } = useSelector(
+        (state) => state.categoryGetAll
+    );
+
+    const { isLoading: userLoading, isError: userError, users } = useSelector(
+        (state) => state.adminGetAllUsers
+    );
+
+    const { isLoading, isError, movies, totalMovies } = useSelector(
+        (state) => state.getAllMovies
+    );
+
+    useEffect(() => {
+        dispatch(getAllUsersAction());
+
+        if (isError || cateError || userError) {
+            toast.error("Đã có lỗi sảy ra HomeScreen!")
+        }
+
+    }, [dispatch, isError, cateError, userError]);
 
     const DashboardData = [
         {
             bg: "bg-orange-600",
             icon: FaRegListAlt,
             title: "Tổng số phim",
-            total: 90,
+            total: isLoading ? "Loading..." : totalMovies || 0,
         },
         {
             bg: "bg-blue-700",
             icon: HiViewGridAdd,
-            title: "Tổng số danh mục",
-            total: 8,
+            title: "Tổng số thể loại",
+            total: cateLoading ? "Loading..." : categories?.length || 0,
         },
         {
             bg: "bg-green-600",
             icon: FaUser,
             title: "Tổng số người dùng",
-            total: 134,
+            total: userLoading ? "Loading..." : users?.length || 0,
         }
     ]
 
@@ -48,8 +74,12 @@ const Dashboard = () => {
                     ))
                 }
             </div>
-            <h3 className="text-md font-medium my-6 text-border">Phim mới nhất</h3>
-            <Table data={Movies.slice(0, 5)} admin={true} />
+            <h3 className="text-md font-medium my-6 text-border">Phim mới cập nhật</h3>
+            {
+                isLoading ? <Loader /> : movies?.length > 0 ? <Table data={movies.slice(0, 5)} admin={true}
+                // onDelete={handleDeleteOne} 
+                /> : <Empty message="Bạn không có phim nào!" />
+            }
         </SideBar>
     )
 }

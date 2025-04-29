@@ -45,7 +45,7 @@ const App = () => {
       dispatch(getFavoriteMoviesAction())
     }
     if (isError || cateError) {
-      toast.error("Xin vui lòng thử lại sau!");
+      toast.error(isError || cateError);
       dispatch({ type: "LIKE_MOVIE_RESET" });
     }
     if (isSuccess) {

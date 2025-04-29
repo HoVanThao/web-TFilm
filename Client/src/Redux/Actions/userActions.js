@@ -26,6 +26,7 @@ const registerAction = (datas) => async (dispatch) => {
 
 const logoutAction = () => (dispatch) => {
     userApi.logoutService();
+    dispatch({ type: userConstants.LIKE_MOVIE_RESET });
     dispatch({ type: userConstants.USER_LOGOUT });
     dispatch({ type: userConstants.USER_LOGIN_RESET });
     dispatch({ type: userConstants.USER_REGISTER_RESET });
