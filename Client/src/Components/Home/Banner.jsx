@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import FlexMovieItems from '../FlexMovieItems';
@@ -13,7 +13,6 @@ import { LikeMovie } from '../../Context/Functionalities.js';
 
 const Banner = ({ movies, isLoading }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
-
     const dispatch = useDispatch();
     const { isLoading: likeLoading } = useSelector((state) => state.userLikeMovie);
     const { userInfo } = useSelector((state) => state.userLogin);
@@ -22,7 +21,6 @@ const Banner = ({ movies, isLoading }) => {
     const isLiked = (movie) => {
         return likedMovies?.some((likedMovie) => likedMovie?._id === movie._id);
     }
-
 
     // Định nghĩa các hiệu ứng động
     const fadeIn = (direction = 'up', delay = 0) => ({

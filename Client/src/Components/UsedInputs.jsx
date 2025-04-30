@@ -38,6 +38,26 @@ export const Select = ({ label, options, register, name }) => {
     )
 }
 
+export const SelectPartFilm = ({ label, options, value, onChange }) => {
+    return (
+        <div>
+            <label className="text-border font-semibold">{label}</label>
+            <select
+                className="w-full mt-2 px-6 py-4 text-text bg-main border border-border rounded overflow-y-scroll scrollbar-custom"
+                value={value}
+                onChange={(e) => onChange(parseInt(e.target.value))}
+            >
+                {options.map((o, i) => (
+                    <option key={i} value={o.value}>
+                        {o.title}
+                    </option>
+                ))}
+            </select>
+        </div>
+    );
+};
+
+
 export const Input = ({ label, placeholder, type, bg, register, name, value, onChange }) => {
     return (
         <>

@@ -237,3 +237,24 @@ export const getAnimeMoviesAction = () => async (dispatch) => {
         ErrorsAction(error, dispatch, moviesConstants.MOVIES_ANIME_FAIL);
     }
 };
+
+export const getHomePageDataAction = () => async (dispatch) => {
+    try {
+        dispatch({ type: moviesConstants.HOME_PAGE_DATA_REQUEST });
+        const response = await moviesApi.getHomePageDataService();
+        dispatch({
+            type: moviesConstants.HOME_PAGE_DATA_SUCCESS,
+            payload: {
+                randomMovies: response.randomMovies,
+                topRatedMovies: response.topRatedMovies,
+                allMovies: response.allMovies,
+                cinemaMovies: response.cinemaMovies,
+                singleMovies: response.singleMovies,
+                seriesMovies: response.seriesMovies,
+                animeMovies: response.animeMovies
+            }
+        });
+    } catch (error) {
+        ErrorsAction(error, dispatch, moviesConstants.HOME_PAGE_DATA_FAIL);
+    }
+};

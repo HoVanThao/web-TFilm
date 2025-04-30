@@ -245,5 +245,38 @@ export const moviesAnimeReducer = (state = { movies: [] }, action) => {
     }
 };
 
+////////////////
+// Thêm reducer mới
+export const homePageDataReducer = (state = {
+    randomMovies: [],
+    topRatedMovies: [],
+    allMovies: [],
+    cinemaMovies: [],
+    singleMovies: [],
+    seriesMovies: [],
+    animeMovies: []
+}, action) => {
+    switch (action.type) {
+        case MoviesConstants.HOME_PAGE_DATA_REQUEST:
+            return { ...state, isLoading: true };
+        case MoviesConstants.HOME_PAGE_DATA_SUCCESS:
+            return {
+                isLoading: false,
+                isSuccess: true,
+                randomMovies: action.payload.randomMovies,
+                topRatedMovies: action.payload.topRatedMovies,
+                allMovies: action.payload.allMovies,
+                cinemaMovies: action.payload.cinemaMovies,
+                singleMovies: action.payload.singleMovies,
+                seriesMovies: action.payload.seriesMovies,
+                animeMovies: action.payload.animeMovies
+            };
+        case MoviesConstants.HOME_PAGE_DATA_FAIL:
+            return { ...state, isLoading: false, isError: action.payload };
+        default:
+            return state;
+    }
+};
+
 
 

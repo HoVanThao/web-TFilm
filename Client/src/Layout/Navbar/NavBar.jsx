@@ -231,7 +231,7 @@ const NavBar = () => {
     const { likedMovies } = useSelector(
         (state) => state.userGetFavoriteMovies,
     )
-    const Hover = ({ isActive }) => (isActive ? 'hover:text-gray-300' : 'hover:text-subMainn transitions text-white');
+    const Hover = ({ isActive }) => (isActive ? 'hover:text-subMainn transitions text-white' : 'hover:text-subMainn transitions text-white');
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -273,16 +273,16 @@ const NavBar = () => {
                     <NavLink to="/movies" className={Hover}>
                         Duyệt phim
                     </NavLink>
-                    <NavLink to="/movies" className={Hover}>
+                    <NavLink to="/movies?typeFilm=series" className={Hover}>
                         Phim bộ
                     </NavLink>
-                    <NavLink to="/movies" className={Hover}>
+                    <NavLink to="/movies?typeFilm=single" className={Hover}>
                         Phim lẻ
                     </NavLink>
-                    <NavLink to="/movies" className={Hover}>
+                    <NavLink to="/movies?category=Chiếu rạp" className={Hover}>
                         Phim chiếu rạp
                     </NavLink>
-                    <NavLink to="/movies" className={Hover}>
+                    <NavLink to="/movies?category=Anime" className={Hover}>
                         Phim hoạt hình
                     </NavLink>
                     <NavLink

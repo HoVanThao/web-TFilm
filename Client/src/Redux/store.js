@@ -43,6 +43,7 @@ const rootReducer = combineReducers({
     getSingleMovies: Movies.moviesSingleReducer,
     getSeriesMovies: Movies.moviesSeriesReducer,
     getAnimeMovies: Movies.moviesAnimeReducer,
+    homePageData: Movies.homePageDataReducer,
 
 });
 

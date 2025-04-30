@@ -21,7 +21,7 @@ const Rows = (movie, i, admin, onDelete) => {
             <td className={`${Text} px-5 py-3`}> {movie.category}</td >
             <td className={`${Text} px-5 py-3`}>{movie.language}</td>
             <td className={`${Text} px-5 py-3`}>{movie.year}</td>
-            <td className={`${Text} px-5 py-3`}>{movie.time}h</td>
+            <td className={`${Text} px-5 py-3`}>{movie?.time && `${Math.floor(movie.time / 60)}h ${String(movie.time % 60).padStart(2, "0")}m`}</td>
             <td className={`${Text} flex-rows gap-2 ps-6 py-6`}>
                 {
                     admin ? (

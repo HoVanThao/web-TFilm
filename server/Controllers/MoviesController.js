@@ -83,6 +83,57 @@ const getRandomMovies = asyncHandler(async (req, res) => {
     }
 })
 
+const getHomePageData = asyncHandler(async (req, res) => {
+    try {
+        // Sử dụng Promise.all để chạy song song các truy vấn
+        const [
+            randomMovies,
+            topRatedMovies,
+            allMovies,
+            cinemaMovies,
+            singleMovies,
+            seriesMovies,
+            animeMovies
+        ] = await Promise.all([
+            // Lấy phim ngẫu nhiên
+            Movie.aggregate([{ $sample: { size: 16 } }]).sort({ createdAt: -1, rate: -1 }),
+
+            // Lấy phim đánh giá cao
+            Movie.find({}).sort({ rate: -1, createdAt: -1 }).limit(16),
+
+            // Lấy tất cả phim (cho banner)
+            Movie.find({}).sort({ year: -1, _id: -1 }).limit(16),
+
+            // Lấy phim chiếu rạp
+            Movie.find({ category: "Chiếu rạp" }).sort({ year: -1, _id: -1 }).limit(16),
+
+            // Lấy phim lẻ
+            Movie.find({ typeFilm: "single" }).sort({ year: -1, _id: -1 }).limit(16),
+
+            // Lấy phim bộ
+            Movie.find({ typeFilm: "series" }).sort({ year: -1, _id: -1 }).limit(16),
+
+            // Lấy anime
+            Movie.find({ category: "Anime" }).sort({ year: -1, _id: -1 }).limit(16)
+        ]);
+
+        res.json({
+            randomMovies,
+            topRatedMovies,
+            allMovies,
+            cinemaMovies,
+            singleMovies,
+            seriesMovies,
+            animeMovies
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+});
+
 
 // ***************Private Routes controller***************
 
@@ -244,5 +295,5 @@ const deteleAllMovie = asyncHandler(async (req, res) => {
     }
 });
 
-export { importMovies, getMovies, getMovieById, getTopRatedMovies, getRandomMovies, createMovieReview, updateMovie, deleteMovie, deteleAllMovie, createMovie };
+export { importMovies, getMovies, getMovieById, getTopRatedMovies, getRandomMovies, createMovieReview, updateMovie, deleteMovie, deteleAllMovie, createMovie, getHomePageData };
 

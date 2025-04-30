@@ -14,7 +14,7 @@ import Loader from '../Notfications/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { LikeMovie } from '../../Context/Functionalities';
 
-const TopRated = ({ movies, isLoading, title }) => {
+const TopRated = ({ movies, isLoading, title, to }) => {
     const dispatch = useDispatch();
     const { isLoading: likeLoading } = useSelector((state) => state.userLikeMovie);
     const { userInfo } = useSelector((state) => state.userLogin);
@@ -27,7 +27,7 @@ const TopRated = ({ movies, isLoading, title }) => {
     const sameClass = "w-full flex-colo xl:h-96 bg-dry lg:h-64 h-48"
     return (
         <div className='my-10 '>
-            <Titles title={title} Icon={BsBookmarkStarFill} />
+            <Titles title={title} Icon={BsBookmarkStarFill} to={to} />
             <div className='sm:mt-6 xl:mt-4 mt-2'>
                 {isLoading ? (
                     <div className={sameClass}>
@@ -54,7 +54,7 @@ const TopRated = ({ movies, isLoading, title }) => {
                                 spaceBetween: 20,
                             },
                             1280: {
-                                slidesPerView: 7,
+                                slidesPerView: 5,
                                 spaceBetween: 10,
                             },
                         }}

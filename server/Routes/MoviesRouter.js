@@ -1,6 +1,6 @@
 import express from 'express'
 import { admin, protect } from '../middlewares/authMiddleware.js';
-import { createMovieReview, deteleAllMovie, deleteMovie, getMovieById, getMovies, getRandomMovies, getTopRatedMovies, importMovies, updateMovie, createMovie } from '../Controllers/MoviesController.js';
+import { createMovieReview, deteleAllMovie, deleteMovie, getMovieById, getMovies, getRandomMovies, getTopRatedMovies, importMovies, updateMovie, createMovie, getHomePageData } from '../Controllers/MoviesController.js';
 
 
 const router = express.Router();
@@ -8,9 +8,11 @@ const router = express.Router();
 // ***************Public Routes***************
 router.post("/import", importMovies);
 router.get("/", getMovies);
+router.get('/home-page-data', getHomePageData);
 router.get("/:movieId", getMovieById);
 router.get("/rated/top", getTopRatedMovies);
 router.get("/random/all", getRandomMovies);
+
 
 // ***************Private Routes***************
 router.post("/:movieId/reviews", protect, createMovieReview);

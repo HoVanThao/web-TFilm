@@ -6,11 +6,11 @@ import Loader from '../Notfications/Loader'
 import Empty from '../Notfications/Empty'
 
 
-const PopularMovies = ({ movies, isLoading, title }) => {
+const PopularMovies = ({ movies, isLoading, title, to }) => {
     return (
         <>
             <div className='my-10'>
-                <Titles title={title} Icon={BsCollectionFill} />
+                <Titles title={title} Icon={BsCollectionFill} to={to} />
                 {
                     isLoading ? <Loader /> :
                         movies?.length > 0 ? (

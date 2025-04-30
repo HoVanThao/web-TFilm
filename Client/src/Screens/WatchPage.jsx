@@ -22,7 +22,7 @@ const WatchPage = () => {
     const { likedMovies } = useSelector((state) => state.userGetFavoriteMovies);
 
     const isLiked = (movie) => {
-        return likedMovies?.some((likedMovie) => likedMovie?._id === movie._id);
+        return likedMovies?.some((likedMovie) => likedMovie?._id === movie?._id);
     }
 
     useEffect(() => {
@@ -79,7 +79,7 @@ const WatchPage = () => {
                                                     <FaPlay />
                                                 </button>
                                             </div>
-                                            <img src={movie?.image ? `/images/movies/${movie.image}` : "images/user.png"} className="w-full h-full object-cover rounded-lg" />
+                                            <img src={movie?.image ? `/images/movies/${movie?.image}` : "images/user.png"} className="w-full h-full object-cover rounded-lg" />
                                         </>
                                     )
                             }

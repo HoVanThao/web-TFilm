@@ -83,3 +83,9 @@ export const createMovieService = async (movie, token) => {
     });
     return data;
 };
+
+
+export const getHomePageDataService = async () => {
+    const { data } = await Axios.get('/movies/home-page-data');
+    return data;
+};
