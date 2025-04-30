@@ -10,13 +10,12 @@ import asyncHandler from "express-async-handler";
 
 const getCategories = asyncHandler(async (req, res) => {
     try {
-        const categories = await Categories.find({});
+        const categories = await Categories.find({}).sort({ createdAt: -1, _id: -1 });;
         res.json(categories);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-}
-);
+});
 
 // ***************Admin Routes***************
 

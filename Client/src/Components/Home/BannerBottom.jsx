@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FlexMovieItems from '../FlexMovieItems';
 import { Link } from 'react-router-dom';
-import { FaHeart, FaImdb, FaPlay } from 'react-icons/fa';
+import { FaHeart, FaImdb, FaPlay, FaFilm, FaTheaterMasks } from 'react-icons/fa';
 import 'swiper/css';
 import Titles from '../Titles';
 import { BsFillCollectionFill } from 'react-icons/bs';
@@ -57,8 +57,8 @@ const BannerBottom = ({ movies, isLoading }) => {
                                         </div>
                                         <div className='flex gap-2 items-center mt-2'>
                                             <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full  border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1'><FaImdb /><p>{activeMovie?.imdbRating}</p></div>
-                                            <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1'><p>{activeMovie?.category}</p></div>
-                                            <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1'><p>{activeMovie?.typeFilm == 'single' ? 'Phim lẻ' : 'phim bộ'}</p></div>
+                                            <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1'> <FaTheaterMasks /><p>{activeMovie?.category}</p></div>
+                                            <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1'><FaFilm /><p>{activeMovie?.typeFilm == 'single' ? 'Phim lẻ' : 'phim bộ'}</p></div>
                                         </div>
                                         <p className='text-gray-300 w-2/5 text-sm mt-4 hidden lg:block'>
                                             {activeMovie?.desc}

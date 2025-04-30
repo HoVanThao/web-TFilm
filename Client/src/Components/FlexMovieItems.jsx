@@ -14,7 +14,7 @@ const FlexMovieItems = ({ movie }) => {
             </div>
             <div className="flex items-center px-2 py-1 rounded-full  gap-2">
                 <BiTime className='text-dryGray w-3 h-3' />
-                <span className="text-sm font-medium">{movie?.time}h 14m</span>
+                <span className="text-sm font-medium">{movie?.time && `${Math.floor(movie.time / 60)}h ${String(movie.time % 60).padStart(2, "0")}m`}</span>
             </div>
 
         </>

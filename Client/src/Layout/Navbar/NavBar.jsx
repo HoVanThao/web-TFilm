@@ -274,20 +274,17 @@ const NavBar = () => {
                         Duyệt phim
                     </NavLink>
                     <NavLink to="/movies" className={Hover}>
-                        Phim hay
+                        Phim bộ
                     </NavLink>
                     <NavLink to="/movies" className={Hover}>
-                        Phim mới
+                        Phim lẻ
                     </NavLink>
                     <NavLink to="/movies" className={Hover}>
                         Phim chiếu rạp
                     </NavLink>
-                    {/* <NavLink to="/about-us" className={Hover}>
-                        Giới thiệu
+                    <NavLink to="/movies" className={Hover}>
+                        Phim hoạt hình
                     </NavLink>
-                    <NavLink to="/contact-us" className={Hover}>
-                        Liên hệ
-                    </NavLink> */}
                     <NavLink
                         to={userInfo?.isAdmin ? "/dashboard" : userInfo ? "/profile" : "/login"}
                         className={Hover}>

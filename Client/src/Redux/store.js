@@ -35,6 +35,14 @@ const rootReducer = combineReducers({
     createReview: Movies.createReviewReducer,
     deleteMovie: Movies.deleteMovieReducer,
     deleteAllMovies: Movies.deleteAllMovieReducer,
+    createMovie: Movies.createMovieReducer,
+    casts: Movies.castsReducer,
+
+    // mới
+    getCinemaMovies: Movies.moviesCinemaReducer,
+    getSingleMovies: Movies.moviesSingleReducer,
+    getSeriesMovies: Movies.moviesSeriesReducer,
+    getAnimeMovies: Movies.moviesAnimeReducer,
 
 });
 

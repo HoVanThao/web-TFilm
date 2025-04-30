@@ -21,7 +21,7 @@ export const Select = ({ label, options, register, name }) => {
         <>
             <label className="text-border font-semibold">{label}</label>
             <select
-                className="w-full mt-2 px-6 py-4 text-text bg-main border border-border rounded"
+                className="w-full mt-2 px-6 py-4 text-text bg-main border border-border rounded overflow-y-scroll scrollbar-custom"
                 {...register}
                 name={name}
             >

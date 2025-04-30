@@ -1,6 +1,6 @@
 import React from 'react'
 import FlexMovieItems from '../FlexMovieItems'
-import { FaImdb, FaPlay, FaShareAlt } from 'react-icons/fa'
+import { FaImdb, FaPlay, FaShareAlt, FaFilm, FaTheaterMasks } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { FiLogIn } from 'react-icons/fi'
 import Rating from '../Stars'
@@ -29,15 +29,17 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                                     <p>{movie?.imdbRating}</p>
                                 </div>
                                 <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
+                                    <FaTheaterMasks />
                                     <p>{movie?.category}</p>
                                 </div>
-                                <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
+                                {/* <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
                                     <p>{movie?.year}</p>
                                 </div>
                                 <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
-                                    <p>{movie?.time}h 14m</p>
-                                </div>
+                                    <p>{movie?.time && `${Math.floor(movie.time / 60)}h ${String(movie.time % 60).padStart(2, "0")}m`}</p>
+                                </div> */}
                                 <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full bg-yellow-500/10 text-yellow-500 px-2 py-1'>
+                                    <FaFilm />
                                     <p>{movie?.typeFilm == 'single' ? 'Phim lẻ' : 'phim bộ'}</p>
                                 </div>
                             </div>

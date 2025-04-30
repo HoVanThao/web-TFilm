@@ -113,4 +113,137 @@ export const deleteAllMovieReducer = (state = {}, action) => {
     }
 }
 
+// create movie
+export const createMovieReducer = (state = {}, action) => {
+    switch (action.type) {
+        case MoviesConstants.CREATE_MOVIE_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.CREATE_MOVIE_SUCCESS:
+            return { isLoading: false, isSuccess: true };
+        case MoviesConstants.CREATE_MOVIE_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.CREATE_MOVIE_RESET:
+            return {};
+        default:
+            return state;
+    }
+}
+
+export const castsReducer = (state = { casts: [] }, action) => {
+    switch (action.type) {
+        case MoviesConstants.ADD_CAST:
+            return { casts: [...state.casts, action.payload] };
+        case MoviesConstants.EDIT_CAST:
+            const updatedCasts = state.casts.map((cast) => {
+                cast.id === action.payload.id ? action.payload : cast
+            });
+            return {
+                casts: updatedCasts,
+            }
+        case MoviesConstants.DELETE_CAST:
+            return {
+                ...state,
+                casts: state.casts.filter((cast) => cast.id !== action.payload)
+            }
+        case MoviesConstants.RESET_CAST:
+            return { casts: [] }
+        default:
+            return state;
+    }
+}
+
+// homeScreen
+// Reducer cho phim chiếu rạp
+export const moviesCinemaReducer = (state = { movies: [] }, action) => {
+    switch (action.type) {
+        case MoviesConstants.MOVIES_CINEMA_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.MOVIES_CINEMA_SUCCESS:
+            return {
+                isLoading: false,
+                isSuccess: true,
+                movies: action.payload.movies,
+                page: action.payload.page,
+                pages: action.payload.pages,
+                totalMovies: action.payload.totalMovies,
+            };
+        case MoviesConstants.MOVIES_CINEMA_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.MOVIES_CINEMA_RESET:
+            return { movies: [] };
+        default:
+            return state;
+    }
+};
+
+// Reducer cho phim lẻ
+export const moviesSingleReducer = (state = { movies: [] }, action) => {
+    switch (action.type) {
+        case MoviesConstants.MOVIES_SINGLE_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.MOVIES_SINGLE_SUCCESS:
+            return {
+                isLoading: false,
+                isSuccess: true,
+                movies: action.payload.movies,
+                page: action.payload.page,
+                pages: action.payload.pages,
+                totalMovies: action.payload.totalMovies,
+            };
+        case MoviesConstants.MOVIES_SINGLE_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.MOVIES_SINGLE_RESET:
+            return { movies: [] };
+        default:
+            return state;
+    }
+};
+
+// Reducer cho phim bộ
+export const moviesSeriesReducer = (state = { movies: [] }, action) => {
+    switch (action.type) {
+        case MoviesConstants.MOVIES_SERIES_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.MOVIES_SERIES_SUCCESS:
+            return {
+                isLoading: false,
+                isSuccess: true,
+                movies: action.payload.movies,
+                page: action.payload.page,
+                pages: action.payload.pages,
+                totalMovies: action.payload.totalMovies,
+            };
+        case MoviesConstants.MOVIES_SERIES_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.MOVIES_SERIES_RESET:
+            return { movies: [] };
+        default:
+            return state;
+    }
+};
+
+// Reducer cho anime
+export const moviesAnimeReducer = (state = { movies: [] }, action) => {
+    switch (action.type) {
+        case MoviesConstants.MOVIES_ANIME_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.MOVIES_ANIME_SUCCESS:
+            return {
+                isLoading: false,
+                isSuccess: true,
+                movies: action.payload.movies,
+                page: action.payload.page,
+                pages: action.payload.pages,
+                totalMovies: action.payload.totalMovies,
+            };
+        case MoviesConstants.MOVIES_ANIME_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.MOVIES_ANIME_RESET:
+            return { movies: [] };
+        default:
+            return state;
+    }
+};
+
+
 

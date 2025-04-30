@@ -76,7 +76,7 @@ const getRandomMovies = asyncHandler(async (req, res) => {
             {
                 $sample: { size: 16 }
             }
-        ]);
+        ]).sort({ createdAt: -1, rate: -1 });
         res.json(movies);
     } catch (error) {
         res.status(400).json({ message: error.message });
