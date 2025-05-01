@@ -102,7 +102,7 @@ import { SelectPartFilm } from '../Components/UsedInputs'
 
 const SingleMovie = () => {
     const [modalOpen, setModalOpen] = useState(false);
-    const [selectedPart, setSelectedPart] = useState(0); // Chỉ số phần phim được chọn
+    const [selectedPart, setSelectedPart] = useState(1); // Chỉ số phần phim được chọn
     const { id } = useParams();
     const dispatch = useDispatch();
     const sameClass = 'w-full gap-6 flex-colo min-h-screen';
@@ -117,12 +117,11 @@ const SingleMovie = () => {
 
     useEffect(() => {
         dispatch(getMovieByIdAction(id));
-        setSelectedPart(0);
     }, [dispatch, id]);
 
     // Hàm xử lý khi chọn phần phim
-    const handlePartChange = (newValue) => {
-        setSelectedPart(parseInt(newValue));
+    const handlePartChange = (partNumber) => {
+        setSelectedPart(parseInt(partNumber));
     };
 
     return (
@@ -154,9 +153,9 @@ const SingleMovie = () => {
                                                 <div className="w-full md:w-1/3 mb-6">
                                                     <SelectPartFilm
                                                         label="Chọn phần phim"
-                                                        options={movie?.filmParts?.map((part, index) => ({
+                                                        options={movie?.filmParts?.map((part) => ({
                                                             title: part.title,
-                                                            value: index
+                                                            value: part.partNumber,
                                                         }))}
                                                         onChange={handlePartChange}
                                                         value={selectedPart}
@@ -165,17 +164,21 @@ const SingleMovie = () => {
 
                                                 {/* Grid hiển thị các tập phim */}
                                                 <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
-                                                    {movie?.filmParts[selectedPart]?.episodes?.map((episode) => (
-                                                        <Link
-                                                            to={`/watch/${episode?._id}`}
-                                                            key={episode.episodeNumber}
-                                                            className="bg-dry border-2  rounded-md overflow-hidden border-border hover:text-subMain transition cursor-pointer"
-                                                        >
-                                                            <div className="p-3">
-                                                                <h3 className="text-sm font-semibold truncate flex-row">Tập {episode.episodeNumber}: {episode.title}</h3>
-                                                            </div>
-                                                        </Link>
-                                                    ))}
+                                                    {movie.filmParts
+                                                        .find((part) => part.partNumber === selectedPart)
+                                                        ?.episodes?.length > 0
+                                                        ? movie.filmParts.find((part) => part.partNumber === selectedPart).episodes.map((episode) => (
+                                                            <Link
+                                                                to={`/watch/${movie._id}?ss=${selectedPart}&ep=${episode.episodeNumber}`}
+                                                                key={episode.episodeNumber}
+                                                                className="bg-dry border-2  rounded-md overflow-hidden border-border hover:text-subMain transition cursor-pointer"
+                                                            >
+                                                                <div className="p-3">
+                                                                    <h3 className="text-sm font-semibold truncate flex-row">Tập {episode.episodeNumber}: {episode.title}</h3>
+                                                                </div>
+                                                            </Link>
+                                                        )) : <p className="text-border">Không có tập phim nào cho phần này.</p>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>

@@ -987,7 +987,7 @@ export const MoviesData = [
                 title: 'Phần 1',
                 numberOfEpisodes: 3,
                 episodes: [
-                    { episodeNumber: 1, title: 'Bắt đầu trò chơi', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 50, desc: 'Arisu bị đưa vào một Tokyo trống rỗng.' },
+                    { episodeNumber: 1, title: 'Bắt đầu trò chơi', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746094874/o87fksgsmhgjbudikxcs.mp4', duration: 50, desc: 'Arisu bị đưa vào một Tokyo trống rỗng.' },
                     { episodeNumber: 2, title: 'Chơi để sống', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 48, desc: 'Họ buộc phải tham gia trò chơi sinh tử.' },
                     { episodeNumber: 3, title: 'Đối đầu sự thật', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 52, desc: 'Ai đứng sau tất cả những điều này?' },
                 ]
@@ -1024,7 +1024,7 @@ export const MoviesData = [
                 numberOfEpisodes: 3,
                 episodes: [
                     { episodeNumber: 1, title: 'Lời mời', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 55, desc: 'Gi-hun nhận lời mời kỳ lạ.' },
-                    { episodeNumber: 2, title: 'Trò chơi đầu tiên', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 53, desc: 'Người chơi sốc với luật chơi sinh tử.' },
+                    { episodeNumber: 2, title: 'Trò chơi đầu tiên', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746094874/o87fksgsmhgjbudikxcs.mp4', duration: 53, desc: 'Người chơi sốc với luật chơi sinh tử.' },
                     { episodeNumber: 3, title: 'Niềm tin và phản bội', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 56, desc: 'Các liên minh bắt đầu hình thành.' },
                 ]
             },
@@ -1035,7 +1035,7 @@ export const MoviesData = [
                 episodes: [
                     { episodeNumber: 1, title: 'Ký ức máu', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 54, desc: 'Trò chơi tiếp tục với độ tàn khốc tăng dần.' },
                     { episodeNumber: 2, title: 'Bên kia mặt nạ', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 52, desc: 'Gi-hun nghi ngờ danh tính tổ chức.' },
-                    { episodeNumber: 3, title: 'Người chiến thắng', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746012816/kjc6z0oj3mn5ofevxpdn.mp4', duration: 57, desc: 'Cuộc đối đầu cuối cùng.' },
+                    { episodeNumber: 3, title: 'Người chiến thắng', videoUrl: 'https://res.cloudinary.com/dvahzrx5i/video/upload/v1746094874/o87fksgsmhgjbudikxcs.mp4', duration: 57, desc: 'Cuộc đối đầu cuối cùng.' },
                 ]
             }
         ]

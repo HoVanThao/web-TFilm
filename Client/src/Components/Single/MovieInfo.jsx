@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import FlexMovieItems from '../FlexMovieItems'
-import { FaImdb, FaPlay, FaShareAlt, FaFilm, FaTheaterMasks } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { FiLogIn } from 'react-icons/fi'
+import { FaImdb, FaPlay, FaShareAlt, FaFilm, FaTheaterMasks, FaHeart } from 'react-icons/fa'
+import { Link, useParams } from 'react-router-dom'
 import Rating from '../Stars'
+import { useDispatch, useSelector } from 'react-redux'
+import { LikeMovie } from '../../Context/Functionalities'
+import { getMovieByIdAction } from '../../Redux/Actions/moviesActions'
 const MovieInfo = ({ movie, setModalOpen }) => {
+
+    const dispatch = useDispatch();
+    const { isLoading: likeLoading } = useSelector((state) => state.userLikeMovie);
+    const { userInfo } = useSelector((state) => state.userLogin);
+    const { likedMovies } = useSelector((state) => state.userGetFavoriteMovies);
+
+    const isLiked = (movie) => {
+        return likedMovies?.some((likedMovie) => likedMovie?._id === movie?._id);
+    }
+
     return (
         <div className='w-full xl:h-screen relative text-white'>
             <img src={movie?.image ? `/images/movies/${movie?.image}` : '/images/user.png'} alt={movie?.name} className='w-full hidden xl:inline-block h-full object-cover' />
@@ -15,7 +27,7 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                     </div>
 
                     <div className='col-span-2 md:grid grid-cols-5 gap-4 items-center'>
-                        <div className='col-span-3 flex flex-col gap-10'>
+                        <div className='col-span-4 flex flex-col gap-10'>
                             <h1 className='xl:text-4xl capitalize font-sans text-2xl font-bold'>{movie?.name}</h1>
                             <div className='flex items-center gap-4 font-medium text-dryGray'>
                                 <div className='flex-colo bg-subMainn text-xs px-2 py-1'>
@@ -44,7 +56,7 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                                 </div>
                             </div>
                             <p className="text-text text-sm leading-7">{movie?.desc}</p>
-                            <div className="grid sm:grid-cols-5 grid-cols-3 gap-4 p-6 bg-main border border-gray-800 rounded-lg">
+                            <div className="grid sm:grid-cols-7 grid-cols-3 gap-4 p-6 bg-main border border-gray-800 rounded-lg">
                                 <div className="col-span-1 flex-colo border-r border-border">
                                     <button onClick={() => setModalOpen(true)} className="w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20">
                                         <FaShareAlt />
@@ -52,17 +64,36 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                                 </div>
                                 <div className="col-span-2 flex-colo font-medium text-sm">
                                     <p>
-                                        Ngôn Ngữ : {" "}
+                                        Quốc Gia : {" "}
                                         <span className="ml-2 truncate">{movie?.language}</span>
                                     </p>
                                 </div>
-                                <div className="sm:col-span-2 col-span-3 flex justify-end font-medium text-sm">
+                                <div className="sm:col-span-3 col-span-3 flex justify-end font-medium text-sm gap-6">
                                     <Link
-                                        to={`/watch/${movie?._id}`}
-                                        className='bg-dry py-4 hover:bg-subMainn transitions border-2 border-subMainn rounded-full flex-rows gap-4 w-full sm:py-3' >
+                                        // to={`/watch/${movie?._id}`}
+                                        to={
+                                            movie?.typeFilm === 'single'
+                                                ? `/watch/${movie?._id}`
+                                                : movie?.filmParts?.length > 0 &&
+                                                    movie.filmParts[0].episodes?.length > 0
+                                                    ? `/watch/${movie._id}?ss=${movie.filmParts[0].partNumber}&ep=${movie.filmParts[0].episodes[0].episodeNumber}`
+                                                    : `/watch/${movie._id}` // fallback nếu thiếu dữ liệu
+                                        }
+
+                                        className='bg-dry py-4 hover:bg-subMainn transitions border-2 border-subMainn rounded-xl flex-rows gap-4 w-full sm:py-3' >
                                         <FaPlay className='w-3 h-3' />
                                         Xem ngay
                                     </Link>
+                                </div>
+                                <div className="flex-btn sm:w-auto w-full col-span-1">
+                                    <button
+                                        onClick={() => LikeMovie(movie, dispatch, userInfo)}
+                                        disabled={isLiked(movie) || likeLoading}
+                                        className={`w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20 ${isLiked(movie) ? 'text-subMainn' : 'text-white'
+                                            } hover:text-subMainn transitions`}
+                                    >
+                                        <FaHeart />
+                                    </button>
                                 </div>
 
                             </div>
