@@ -2,13 +2,19 @@ import React, { useState } from 'react'
 import { BiHomeHeart } from 'react-icons/bi'
 import { BsCollectionPlay } from 'react-icons/bs'
 import { FiHeart, FiUserCheck } from 'react-icons/fi'
-import { CgMenuBoxed } from 'react-icons/cg';
+import { CgMenuBoxed, CgUser } from 'react-icons/cg';
 import { NavLink } from 'react-router-dom'
 import MenuDrawer from '../../Components/Drawer/MenuDrawer';
+import { useSelector } from 'react-redux';
+import { FaHeart } from 'react-icons/fa';
 
 
 const FooterMobile = () => {
 
+    const { userInfo } = useSelector((state) => state.userLogin);
+    const { likedMovies } = useSelector(
+        (state) => state.userGetFavoriteMovies,
+    )
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const toggleDrawer = () => setDrawerOpen(!drawerOpen);
@@ -35,16 +41,27 @@ const FooterMobile = () => {
                     <NavLink to="/movies" className={Hover}>
                         <BsCollectionPlay />
                     </NavLink>
-                    <NavLink to="/favorites" className={Hover}>
+                    <NavLink to={userInfo?.isAdmin ? "/favorites" : userInfo ? "/favorites" : "/favorites-login"}
+                        className={Hover}>
                         <div className='relative'>
-                            <FiHeart className='w-6 h-6' />
+                            <FaHeart className='w-6 h-6' />
                             <div className='w-6 h-6 flex-colo rounded-full text-xs bg-subMainn text-white absolute -top-4 -right-4'>
-                                3
+                                {
+                                    likedMovies?.length
+                                }
                             </div>
                         </div>
                     </NavLink>
-                    <NavLink to="/login" className={Hover}>
-                        <FiUserCheck />
+                    <NavLink to={userInfo?.isAdmin ? "/dashboard" : userInfo ? "/profile" : "/login"}
+                        className={Hover}>
+                        {
+                            userInfo ? (
+                                <img src={userInfo?.image ? userInfo?.image : "/images/user.png"} alt={userInfo?.fullName} className='w-8 h-8 rounded-full border object-cover border-dryGray' />
+                            ) : (
+                                <CgUser className='w-6 h-6' />
+                            )
+                        }
+
                     </NavLink>
                     <button onClick={toggleDrawer} className={inActive}>
                         <CgMenuBoxed />

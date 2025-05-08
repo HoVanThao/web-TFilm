@@ -107,7 +107,7 @@ const WatchPage = () => {
                     !isError && (
                         <div className="flex-btn flex-wrap mb-6 gap-2 bg-main rounded-xl border border-border p-6">
                             <Link to={`/movie/${movie?._id}`} className='md:text-xl text-sm flex gap-3 items-center font-bold text-dryGray hover:text-subMainn transitions'>
-                                <BiArrowBack /> {movie?.name}
+                                <BiArrowBack /> {movie?.nameVn}
                             </Link>
                             <div className="flex-btn sm:w-auto w-full gap-5">
                                 <button onClick={() => LikeMovie(movie, dispatch, userInfo)} disabled={isLiked(movie) || likeLoading}
@@ -162,7 +162,7 @@ const WatchPage = () => {
                                                     <FaPlay />
                                                 </button>
                                             </div>
-                                            <img src={movie?.image ? `/images/movies/${movie?.image}` : "images/user.png"} className="w-full h-full object-cover rounded-lg" />
+                                            <img src={movie?.image ? movie?.image : "images/user.png"} className="w-full h-full object-cover rounded-lg" />
                                         </>
                                     )
                             }

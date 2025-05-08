@@ -38,6 +38,27 @@ export const Select = ({ label, options, register, name }) => {
     )
 }
 
+export const CheckboxGroup = ({ label, options, register, name }) => {
+    return (
+        <div className="text-sm w-full">
+            <label className="text-border font-semibold">{label}</label>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
+                {options?.map((category) => (
+                    <label key={category._id} className="flex items-center space-x-2">
+                        <input
+                            type="checkbox"
+                            value={category.title}
+                            {...register(name)}
+                            className="form-checkbox h-5 w-5 text-subMainn rounded focus:ring-subMainn border-border"
+                        />
+                        <span>{category.title}</span>
+                    </label>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 export const SelectPartFilm = ({ label, options, value, onChange }) => {
     return (
         <div>

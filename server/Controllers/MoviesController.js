@@ -13,21 +13,65 @@ const importMovies = asyncHandler(async (req, res) => {
     res.status(201).json(movies)
 })
 
+// const getMovies = asyncHandler(async (req, res) => {
+//     try {
+//         const { category, language, rate, year, typeFilm, search } = req.query;
+//         let query = {
+//             ...(category && { category }),
+//             ...(language && { language }),
+//             ...(rate && { rate }),
+//             ...(year && { year }),
+//             ...(typeFilm && { typeFilm }),
+//             ...(search && { name: { $regex: search, $options: "i" } }),
+//         }
+
+//         const page = Number(req.query.pageNumber) || 1;
+//         const limit = 15;
+//         const skip = (page - 1) * limit;
+//         const movies = await Movie.find(query)
+//             .sort({ year: -1, _id: -1 })
+//             .skip(skip)
+//             .limit(limit);
+
+//         const count = await Movie.countDocuments(query);
+
+//         res.json({
+//             movies,
+//             page,
+//             pages: Math.ceil(count / limit),
+//             totalMovies: count,
+//         });
+
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// })
+
 const getMovies = asyncHandler(async (req, res) => {
     try {
         const { category, language, rate, year, typeFilm, search } = req.query;
-        let query = {
-            ...(category && { category }),
-            ...(language && { language }),
-            ...(rate && { rate }),
-            ...(year && { year }),
-            ...(typeFilm && { typeFilm }),
-            ...(search && { name: { $regex: search, $options: "i" } }),
+
+        // Xây dựng query object
+        let query = {};
+
+        // Xử lý category (nếu có)
+        if (category) {
+            query.category = { $in: [category] }; // Tìm các phim có category chứa giá trị được truyền vào
         }
 
+        // Thêm các điều kiện khác
+        if (language) query.language = language;
+        if (rate) query.rate = rate;
+        if (year) query.year = year;
+        if (typeFilm) query.typeFilm = typeFilm;
+        if (search) query.name = { $regex: search, $options: "i" };
+
+        // Phân trang
         const page = Number(req.query.pageNumber) || 1;
         const limit = 15;
         const skip = (page - 1) * limit;
+
+        // Thực hiện truy vấn
         const movies = await Movie.find(query)
             .sort({ year: -1, _id: -1 })
             .skip(skip)
@@ -45,7 +89,7 @@ const getMovies = asyncHandler(async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-})
+});
 
 const getMovieById = asyncHandler(async (req, res) => {
     try {
@@ -83,6 +127,60 @@ const getRandomMovies = asyncHandler(async (req, res) => {
     }
 })
 
+// const getHomePageData = asyncHandler(async (req, res) => {
+//     try {
+//         // Sử dụng Promise.all để chạy song song các truy vấn
+//         const [
+//             randomMovies,
+//             topRatedMovies,
+//             allMovies,
+//             cinemaMovies,
+//             singleMovies,
+//             seriesMovies,
+//             animeMovies
+//         ] = await Promise.all([
+//             // Lấy phim ngẫu nhiên
+//             Movie.aggregate([{ $sample: { size: 16 } }]).sort({ createdAt: -1, rate: -1 }),
+
+//             // Lấy phim đánh giá cao
+//             Movie.find({}).sort({ rate: -1, createdAt: -1 }).limit(16),
+
+//             // Lấy tất cả phim (cho banner)
+//             Movie.find({}).sort({ year: -1, _id: -1 }).limit(16),
+
+//             // Lấy phim chiếu rạp
+//             Movie.find({ category: "Chiếu rạp" }).sort({ year: -1, _id: -1 }).limit(16),
+
+//             // Lấy phim lẻ
+//             Movie.find({ typeFilm: "single" }).sort({ year: -1, _id: -1 }).limit(16),
+
+//             // Lấy phim bộ
+//             Movie.find({ typeFilm: "series" }).sort({ year: -1, _id: -1 }).limit(16),
+
+//             // Lấy anime
+//             Movie.find({ category: "Anime" }).sort({ year: -1, _id: -1 }).limit(16)
+//         ]);
+
+//         res.json({
+//             randomMovies,
+//             topRatedMovies,
+//             allMovies,
+//             cinemaMovies,
+//             singleMovies,
+//             seriesMovies,
+//             animeMovies
+//         });
+
+//     } catch (error) {
+//         res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+
+
+// ***************Private Routes controller***************
+
 const getHomePageData = asyncHandler(async (req, res) => {
     try {
         // Sử dụng Promise.all để chạy song song các truy vấn
@@ -104,8 +202,8 @@ const getHomePageData = asyncHandler(async (req, res) => {
             // Lấy tất cả phim (cho banner)
             Movie.find({}).sort({ year: -1, _id: -1 }).limit(16),
 
-            // Lấy phim chiếu rạp
-            Movie.find({ category: "Chiếu rạp" }).sort({ year: -1, _id: -1 }).limit(16),
+            // Lấy phim chiếu rạp (category chứa "Chiếu rạp")
+            Movie.find({ category: { $in: ["Chiếu Rạp"] } }).sort({ year: -1, _id: -1 }).limit(16),
 
             // Lấy phim lẻ
             Movie.find({ typeFilm: "single" }).sort({ year: -1, _id: -1 }).limit(16),
@@ -113,8 +211,8 @@ const getHomePageData = asyncHandler(async (req, res) => {
             // Lấy phim bộ
             Movie.find({ typeFilm: "series" }).sort({ year: -1, _id: -1 }).limit(16),
 
-            // Lấy anime
-            Movie.find({ category: "Anime" }).sort({ year: -1, _id: -1 }).limit(16)
+            // Lấy anime (category chứa "Anime")
+            Movie.find({ category: { $in: ["Anime"] } }).sort({ year: -1, _id: -1 }).limit(16)
         ]);
 
         res.json({
@@ -133,9 +231,6 @@ const getHomePageData = asyncHandler(async (req, res) => {
         });
     }
 });
-
-
-// ***************Private Routes controller***************
 
 const createMovieReview = asyncHandler(async (req, res) => {
     const { rating, comment } = req.body;
@@ -231,21 +326,7 @@ const createMovie = asyncHandler(async (req, res) => {
     try {
         const {
             name,
-            desc,
-            image,
-            titleImage,
-            category,
-            language,
-            year,
-            time,
-            video,
-            rate,
-            numberOfReviews,
-            casts
-        } = req.body;
-
-        const movie = new Movie({
-            name,
+            nameVn,
             desc,
             image,
             titleImage,
@@ -257,6 +338,26 @@ const createMovie = asyncHandler(async (req, res) => {
             rate,
             numberOfReviews,
             casts,
+            typeFilm,
+            imdbRating,
+        } = req.body;
+
+        const movie = new Movie({
+            name,
+            nameVn,
+            desc,
+            image,
+            titleImage,
+            category,
+            language,
+            year,
+            time,
+            video,
+            rate,
+            numberOfReviews,
+            casts,
+            typeFilm,
+            imdbRating,
             userId: req.user._id,
         })
 

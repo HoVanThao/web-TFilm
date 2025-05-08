@@ -70,6 +70,7 @@ const App = () => {
           <Route path="/movie/:id" element={<SingleMovie />} />
           <Route path="/watch/:id" element={<WatchPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/favorites-login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
           {/* ********************************PRIVATE ROUTERS*************************************** */}

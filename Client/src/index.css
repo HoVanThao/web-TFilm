@@ -38,6 +38,12 @@ select:focus {
     background-blend-mode: overlay;
 }
 
+/* Tạo file CSS hoặc thêm vào style global */
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+
 .linear-bannerbottom-bg {
     background: linear-gradient(269.82deg, #07091c00 0.17%, #080a1ad6 99.87%);
 
@@ -88,7 +94,10 @@ select:focus {
     border-radius: 8px;
 }
 
-
+input[type="checkbox"]:checked {
+    background-color: #4f46e5;
+    /* Màu khi được chọn */
+}
 
 
 

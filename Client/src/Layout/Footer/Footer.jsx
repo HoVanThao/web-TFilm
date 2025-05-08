@@ -55,21 +55,21 @@ const Footer = () => {
             links: [
                 {
                     name: 'Bảng điều khiển',
-                    link: '/dashboard',
+                    link: '#',
 
                 },
                 {
                     name: 'Danh sách yêu thích',
-                    link: '/favorite',
+                    link: '#',
                 },
                 {
                     name: 'Hồ sơ',
-                    link: '/profile',
+                    link: '#',
 
                 },
                 {
                     name: 'Đổi mật khẩu',
-                    link: '/change-password',
+                    link: '#',
                 },
             ]
         }

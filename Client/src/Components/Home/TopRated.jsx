@@ -63,7 +63,7 @@ const TopRated = ({ movies, isLoading, title, to }) => {
                             <SwiperSlide key={index}>
                                 <div className='p-1 h-72 hovered border border-border bg-dry rounded-lg overflow-hidden'>
                                     <img
-                                        src={movie?.image ? `/images/movies/${movie?.image}` : '/images/user.png'}
+                                        src={movie?.image ? movie?.image : '/images/user.png'}
                                         alt={movie?.name}
                                         className='w-full h-full object-cover rounded-lg'
                                     />
@@ -77,7 +77,7 @@ const TopRated = ({ movies, isLoading, title, to }) => {
                                             className='font-semibold text-xl transform-cpu transitions hover:text-subMain line-clamp-2'
                                             to={`/movie/${movie?._id}`}
                                         >
-                                            {movie?.name}
+                                            {movie?.nameVn}
                                         </Link>
                                         <div className='flex gap-2 text-star'>
                                             <Rating value={movie?.rate} />

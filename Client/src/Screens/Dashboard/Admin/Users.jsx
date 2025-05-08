@@ -22,13 +22,6 @@ const Users = () => {
         (state) => state.adminDeleteUser,
     )
 
-    // const deleteUserHandler = (userId) => {
-    //     if (window.confirm("Bạn có chắc muốn xóa?")) {
-    //         dispatch(deleteUsersAction(userId));
-    //     }
-    // };
-
-
     // Hàm mở modal thay vì window.confirm
     const deleteUserHandler = (userId) => {
         setUserIdToDelete(userId);

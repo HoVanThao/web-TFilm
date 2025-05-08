@@ -37,7 +37,7 @@ const SideBar = ({ children }) => {
                     icon: FaListAlt,
                 },
                 {
-                    name: "Thêm phim mới",
+                    name: "Thêm phim lẻ",
                     link: "/addmovie",
                     icon: RiMovie2Fill,
                 },

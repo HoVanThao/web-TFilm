@@ -4,7 +4,7 @@ import { FiUploadCloud } from 'react-icons/fi';
 import Loader from './Notfications/Loader';
 import { uploadImageService } from '../Redux/APIs/imageUploadService';
 
-const Uploder = ({ setImageUrl }) => {
+const UploderCast = ({ setImageUrl, setCastId }) => {
 
     const [loading, setLoading] = useState(false);
 
@@ -15,7 +15,9 @@ const Uploder = ({ setImageUrl }) => {
             file.append("files", acceptedFiles[0]);
             const data = await uploadImageService(file, setLoading);
             setImageUrl(data.files[0].fileUrl);
-        }, [setImageUrl]
+            setCastId(data.files[0].idFile)
+            //console.log(data.files[0].fileUrl);
+        }, [setImageUrl, setCastId]
     )
 
     const { getRootProps, getInputProps, isDragActive, isDragReject } =
@@ -56,4 +58,4 @@ const Uploder = ({ setImageUrl }) => {
     )
 }
 
-export default Uploder
+export default UploderCast

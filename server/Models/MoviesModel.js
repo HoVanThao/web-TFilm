@@ -30,6 +30,10 @@ const moviesSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        nameVn: {
+            type: String,
+            required: true,
+        },
         desc: {
             type: String,
             required: true,
@@ -43,7 +47,7 @@ const moviesSchema = mongoose.Schema(
             required: true,
         },
         category: {
-            type: String,
+            type: [String],
             required: true
         },
         language: {

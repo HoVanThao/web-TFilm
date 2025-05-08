@@ -13,12 +13,13 @@ const Rows = (movie, i, admin, onDelete) => {
         <tr key={i}>
             <td className={`${Text} px-5 py-3`}>
                 <div className='w-12 p-1 bg-dry border border-border h-12 rounded overflow-hidden'>
-                    {/* <img className="h-full w-full object-cover" src={movie?.image ? movie?.image : "/images/user.png"} alt={movie?.name} /> */}
-                    <img className="h-full w-full object-cover" src={`/images/movies/${movie?.image}`} alt={movie?.name} />
+                    <img className="h-full w-full object-cover" src={movie?.image ? movie?.image : "/images/user.png"} alt={movie?.name} />
                 </div>
             </td>
             <td className={`${Text} px-5 py-3 truncate`}>{movie.name}</td>
-            <td className={`${Text} px-5 py-3`}> {movie.category}</td >
+            <td className={`${Text} px-5 py-3`}>
+                {Array.isArray(movie.category) ? movie.category.join(', ') : movie.category}
+            </td>
             <td className={`${Text} px-5 py-3`}>{movie.language}</td>
             <td className={`${Text} px-5 py-3`}>{movie.year}</td>
             <td className={`${Text} px-5 py-3`}>{movie?.time && `${Math.floor(movie.time / 60)}h ${String(movie.time % 60).padStart(2, "0")}m`}</td>

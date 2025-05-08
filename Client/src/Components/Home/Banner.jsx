@@ -58,7 +58,7 @@ const Banner = ({ movies, isLoading }) => {
                         <SwiperSlide key={index} className="relative rounded overflow-hidden ">
                             <div className='w-full xl:h-banner bg-dry sm:h-96 h-48 halftone-effect '>
                                 <img
-                                    src={movie?.image ? `/images/movies/${movie?.image}` : '/images/user.png'}
+                                    src={movie?.image ? movie?.image : '/images/user.png'}
                                     alt={movie?.name}
                                     className="w-full h-full object-cover "
                                 />
@@ -68,16 +68,25 @@ const Banner = ({ movies, isLoading }) => {
                                 {/* Movie Name */}
                                 <motion.h1
                                     key={`title-${currentSlide}`} // Dựa trên slide hiện tại
-                                    className="xl:text-5xl truncate font-sans sm:text-2xl text-xl font-bold uppercase"
+                                    className="xl:text-5xl truncate font-sans sm:text-2xl text-xl font-bold uppercase text-shadow"
                                     {...fadeIn('up', 0.2)} // Hiệu ứng xuất hiện từ dưới lên
                                 >
-                                    {movie?.name}
+                                    {movie?.nameVn}
                                 </motion.h1>
+
+                                <motion.div
+                                    key={`titleGoc-${currentSlide}`} // Dựa trên slide hiện tại
+                                    className="w-2/5 text-base break-words font-bold line-clamp-3 pr-28 hidden lg:block text-shadow"
+                                    {...fadeIn('right', 0.3)} // Hiệu ứng xuất hiện từ dưới lên
+                                >
+                                    {movie?.name}
+                                </motion.div>
+
 
                                 {/* FlexMovieItems */}
                                 <motion.div
                                     key={`items-${currentSlide}`} // Dựa trên slide hiện tại
-                                    className="flex gap-2 items-center text-dryGray"
+                                    className="flex gap-3 items-center font-bold text-shadow"
                                     {...fadeIn('left', 0.4)} // Hiệu ứng xuất hiện từ trái
                                 >
                                     <FlexMovieItems movie={movie} />
@@ -89,25 +98,24 @@ const Banner = ({ movies, isLoading }) => {
                                     className="flex gap-2 items-center"
                                     {...fadeIn('right', 0.6)} // Hiệu ứng xuất hiện từ phải
                                 >
-                                    <div className="flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1">
-                                        <FaImdb />
-                                        <p>{movie?.imdbRating}</p>
-                                    </div>
-                                    <div className="flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1">
-                                        <FaTheaterMasks />
-                                        <p>{movie?.category}</p>
-                                    </div>
-
-                                    <div className="flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1">
-                                        <FaFilm />
-                                        <p>{movie?.typeFilm == 'single' ? 'Phim lẻ' : 'phim bộ'}</p>
-                                    </div>
+                                    {(Array.isArray(movie?.category) ? movie.category : [movie?.category])
+                                        .filter(cat => cat) // Lọc bỏ các giá trị null/undefined
+                                        .map((cat, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex items-center font-bold text-shadow sm:text-sm text-xs gap-x-1.5 rounded-lg border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1"
+                                            >
+                                                {index === 0 && <FaTheaterMasks />}
+                                                <p>{cat}</p>
+                                            </div>
+                                        ))
+                                    }
                                 </motion.div>
 
                                 {/* Mô tả */}
                                 <motion.div
                                     key={`description-${currentSlide}`} // Dựa trên slide hiện tại
-                                    className="w-2/5 text-base break-words text-dryGray  font-normal line-clamp-3 pr-28 hidden lg:block"
+                                    className="w-2/5 text-base break-words font-normal text-shadow line-clamp-3 pr-28 hidden lg:block"
                                     {...fadeIn('up', 0.8)} // Hiệu ứng xuất hiện từ dưới lên
                                 >
                                     {movie?.desc}
@@ -121,7 +129,7 @@ const Banner = ({ movies, isLoading }) => {
                                 >
                                     <Link
                                         to={`/movie/${movie?._id}`}
-                                        className="bg-subMainn hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs flex items-center gap-2"
+                                        className="bg-subMainn hover:text-main transitions rounded-lg text-white px-8 py-3 font-medium sm:text-sm text-xs flex items-center gap-2"
                                     >
                                         <FaPlay /> Xem ngay
                                     </Link>

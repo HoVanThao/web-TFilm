@@ -60,7 +60,7 @@ const Login = () => {
                     <div className='w-full'>
                         <Input
                             label="Email"
-                            placeholder="hovanthao0611cs@gmail.com"
+                            placeholder="Email"
                             type="email"
                             name='email'
                             register={register("email")}
@@ -88,14 +88,14 @@ const Login = () => {
                     <button type='submit' disabled={isLoading} className='w-full bg-subMainn hover:text-main transitions flex-rows gap-4 text-white p-4 rounded-lg'>
                         {isLoading ? ("Loading...") : (
                             <>
-                                <FiLogIn /> Sign In
+                                <FiLogIn /> Đăng nhập
                             </>
                         )}
                     </button>
                     <p className='text-center text-border'>
                         Bạn chưa có tài khoản?{" "}
                         <Link to='/register' className='text-dryGray font-semibold ml-2 transitions hover:text-subMain'>
-                            Sign Up
+                            Đăng kí
                         </Link>
                     </p>
                 </form>

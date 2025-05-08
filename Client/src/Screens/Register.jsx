@@ -62,7 +62,7 @@ const Register = () => {
                     <div className='w-full'>
                         <Input
                             label="Họ và tên"
-                            placeholder="Hồ Văn Thảo"
+                            placeholder="Nhập họ và tên"
                             type="text"
                             name='fullName'
                             register={register("fullName")}
@@ -75,7 +75,7 @@ const Register = () => {
                     <div className='w-full'>
                         <Input
                             label="Email"
-                            placeholder="hovanthao0611cs@gmail.com"
+                            placeholder="Nhập email"
                             type="email"
                             name='email'
                             register={register("email")}
@@ -114,14 +114,14 @@ const Register = () => {
                     <button type='submit' disabled={isLoading} className='w-full bg-subMainn hover:text-main transitions flex-rows gap-4 text-white p-4 rounded-lg'>
                         {isLoading ? ("Loading...") : (
                             <>
-                                <FiLogIn /> Sign Up
+                                <FiLogIn /> Đăng kí
                             </>
                         )}
                     </button>
                     <p className='text-center text-border'>
                         Bạn đã có tài khoản?{" "}
                         <Link to='/login' className='text-dryGray font-semibold ml-2 transitions hover:text-subMain'>
-                            Sign In
+                            Đăng nhập
                         </Link>
                     </p>
                 </form>

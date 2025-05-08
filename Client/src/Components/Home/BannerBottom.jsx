@@ -45,26 +45,36 @@ const BannerBottom = ({ movies, isLoading }) => {
                                 {/* Banner chính */}
                                 <div className='relative rounded overflow-hidden'>
                                     <div className='w-full h-48 sm:h-96 xl:h-bannerbottom border-2 bg-dry halftone-effect rounded-3xl'>
-                                        <img src={activeMovie?.image ? `/images/movies/${activeMovie?.image}` : '/images/user.png'} alt={activeMovie?.name}
+                                        <img src={activeMovie?.image ? activeMovie?.image : '/images/user.png'} alt={activeMovie?.name}
                                             className='w-full h-full object-cover rounded-3xl' />
                                     </div>
 
 
-                                    <div className='absolute linear-bg rounded-3xl top-0 bottom-0 left-0 right-0 flex flex-col justify-center xl:pl-20 sm:pl-12 pl-6 text-white'>
-                                        <h1 className='xl:text-3xl sm:text-2xl text-xl font-bold uppercase'>{activeMovie?.name}</h1>
-                                        <div className='flex gap-5 mt-2 items-center text-gray-300'>
+                                    <div className='absolute  rounded-3xl top-0 bottom-0 left-0 right-0 flex flex-col justify-center xl:pl-20 sm:pl-12 pl-6 text-white'>
+                                        <h1 className='xl:text-3xl sm:text-2xl text-xl font-bold text-shadow uppercase'>{activeMovie?.nameVn}</h1>
+                                        <p className='xl:text-xl sm:text-lg text-md font-bold text-shadow uppercase mt-2'>{activeMovie?.name}</p>
+                                        <div className='flex gap-4 mt-2 items-center font-bold text-shadow'>
                                             <FlexMovieItems movie={activeMovie} />
                                         </div>
-                                        <div className='flex gap-2 items-center mt-2'>
-                                            <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full  border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1'><FaImdb /><p>{activeMovie?.imdbRating}</p></div>
-                                            <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1'> <FaTheaterMasks /><p>{activeMovie?.category}</p></div>
-                                            <div className='flex items-center font-medium sm:text-sm text-xs gap-x-1.5 rounded-full border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1'><FaFilm /><p>{activeMovie?.typeFilm == 'single' ? 'Phim lẻ' : 'phim bộ'}</p></div>
+                                        <div className="flex items-center mt-2 gap-2">
+                                            {(Array.isArray(activeMovie?.category) ? activeMovie.category : [activeMovie?.category])
+                                                .filter(cat => cat) // Lọc bỏ các giá trị null/undefined
+                                                .map((cat, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className="flex items-center font-bold text-shadow sm:text-sm text-xs gap-x-1.5 rounded-lg border-2 border-yellow-500 bg-yellow-500/10 text-yellow-500 px-2 py-1"
+                                                    >
+                                                        {index === 0 && <FaTheaterMasks />}
+                                                        <p>{cat}</p>
+                                                    </div>
+                                                ))
+                                            }
                                         </div>
-                                        <p className='text-gray-300 w-2/5 text-sm mt-4 hidden lg:block'>
+                                        <p className=' w-2/5 text-sm mt-4 hidden lg:block font-normal text-shadow'>
                                             {activeMovie?.desc}
                                         </p>
                                         <div className='flex gap-5 items-center mt-4'>
-                                            <Link to={`/movie/${activeMovie?._id}`} className="bg-subMainn hover:text-main transitions rounded text-white px-8 py-3 font-medium sm:text-sm text-xs flex items-center gap-2">
+                                            <Link to={`/movie/${activeMovie?._id}`} className="bg-subMainn hover:text-main transitions rounded-lg text-white px-8 py-3 font-medium sm:text-sm text-xs flex items-center gap-2">
                                                 <FaPlay /> Xem ngay
                                             </Link>
                                             <button onClick={() => LikeMovie(activeMovie, dispatch, userInfo)} disabled={isLiked(activeMovie) || likeLoading}
@@ -83,7 +93,7 @@ const BannerBottom = ({ movies, isLoading }) => {
                                             className={`p-1 xl:h-20 xl:w-20 lg:h-14 lg:w-14 sm:h-12 sm:w-12 h-3 w-3 border border-border bg-dry rounded-lg overflow-hidden cursor-pointer transition-transform ${activeMovie === movie ? 'border-2 border-white scale-110' : ''}`}
                                             onClick={() => setActiveMovie(movie)}
                                         >
-                                            <img src={`/images/movies/${movie?.image}`} alt={movie?.name}
+                                            <img src={movie?.image} alt={movie?.name}
                                                 className="w-full h-full object-cover rounded" />
                                         </div>
                                     ))}

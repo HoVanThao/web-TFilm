@@ -25,7 +25,7 @@ const MovieCasts = ({ movie }) => {
                             movie?.casts?.slice(0, 5).map((cast) => (
                                 <SwiperSlide key={cast?._id} style={{ width: 'auto' }}>
                                     <div className="w-36 p-1 italic text-xs text-text rounded-xl  flex-colo bg-dry border-2 border-gray-800">
-                                        <img src={cast?.image ? `/images/${cast.image}` : '/images/user.png'} alt={cast?.name} className="w-32 h-32 mt-1 object-cover rounded-xl" />
+                                        <img src={cast?.image ? cast.image : '/images/user.png'} alt={cast?.name} className="w-32 h-32 mt-1 object-cover rounded-xl" />
                                         <p className="mt-2 text-center truncate">{cast?.name}</p>
                                     </div>
 
