@@ -39,7 +39,7 @@ const NavBar = () => {
                         type="search"
                         value={search || ''}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Tìm kiếm phim, diễn viên"
+                        placeholder="Tìm kiếm phim..."
                         className="w-full h-10 pl-10 pr-4 text-white font-medium text-sm bg-dry border border-gray-600 rounded-lg
                   focus:outline-none focus:border-white focus:ring-2 focus:ring-white focus:ring-opacity-50
                   transition-all duration-200 ease-in-out"

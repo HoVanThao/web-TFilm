@@ -64,7 +64,14 @@ const getMovies = asyncHandler(async (req, res) => {
         if (rate) query.rate = rate;
         if (year) query.year = year;
         if (typeFilm) query.typeFilm = typeFilm;
-        if (search) query.name = { $regex: search, $options: "i" };
+        // if (search) query.name = { $regex: search, $options: "i" };
+
+        if (search) {
+            query.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { nameVn: { $regex: search, $options: 'i' } },
+            ];
+        }
 
         // Phân trang
         const page = Number(req.query.pageNumber) || 1;
