@@ -397,6 +397,110 @@ const createMovie = asyncHandler(async (req, res) => {
     }
 });
 
+const createSeries = asyncHandler(async (req, res) => {
+    try {
+        const {
+            name,
+            nameVn,
+            desc,
+            image,
+            titleImage,
+            category,
+            language,
+            year,
+            time,
+            video,
+            rate,
+            numberOfReviews,
+            casts,
+            imdbRating,
+            typeFilm,
+            filmParts,
+        } = req.body;
+
+        const movie = new Movie({
+            name,
+            nameVn,
+            desc,
+            image,
+            titleImage,
+            category,
+            language,
+            year,
+            time,
+            video,
+            rate,
+            numberOfReviews,
+            casts,
+            imdbRating,
+            typeFilm,
+            filmParts,
+            userId: req.user._id,
+        });
+
+        if (!movie) {
+            res.status(400).json("Invalid movie data");
+        }
+
+        const createdSeries = await movie.save();
+        res.status(201).json(createdSeries);
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+const updateSeries = asyncHandler(async (req, res) => {
+    try {
+        const {
+            name,
+            nameVn,
+            desc,
+            image,
+            titleImage,
+            category,
+            language,
+            year,
+            time,
+            rate,
+            numberOfReviews,
+            casts,
+            imdbRating,
+            typeFilm,
+            filmParts,
+        } = req.body;
+
+        const movieId = req.params.movieId;
+
+        const movie = await Movie.findById(movieId);
+
+        if (!movie) {
+            return res.status(404).json({ message: "Series not found" });
+        }
+
+        movie.name = name || movie.name;
+        movie.nameVn = nameVn || movie.nameVn;
+        movie.desc = desc || movie.desc;
+        movie.image = image || movie.image;
+        movie.titleImage = titleImage || movie.titleImage;
+        movie.category = category || movie.category;
+        movie.language = language || movie.language;
+        movie.year = year || movie.year;
+        movie.time = time || movie.time;
+        movie.rate = rate || movie.rate;
+        movie.numberOfReviews = numberOfReviews || movie.numberOfReviews;
+        movie.casts = casts || movie.casts;
+        movie.imdbRating = imdbRating || movie.imdbRating;
+        movie.typeFilm = typeFilm || movie.typeFilm;
+        movie.filmParts = filmParts || movie.filmParts;
+
+        const updatedSeries = await movie.save();
+        res.status(200).json(updatedSeries);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
 const deleteMovie = asyncHandler(async (req, res) => {
     try {
         const movie = await Movie.findById(req.params.movieId);
@@ -410,7 +514,6 @@ const deleteMovie = asyncHandler(async (req, res) => {
     }
 });
 
-
 const deteleAllMovie = asyncHandler(async (req, res) => {
     try {
         await Movie.deleteMany({});
@@ -420,5 +523,5 @@ const deteleAllMovie = asyncHandler(async (req, res) => {
     }
 });
 
-export { importMovies, getMovies, getMovieById, getTopRatedMovies, getRandomMovies, createMovieReview, updateMovie, deleteMovie, deteleAllMovie, createMovie, getHomePageData };
+export { importMovies, getMovies, getMovieById, getTopRatedMovies, getRandomMovies, createMovieReview, updateMovie, deleteMovie, deteleAllMovie, createMovie, getHomePageData, createSeries, updateSeries };
 

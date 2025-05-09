@@ -1,6 +1,6 @@
 import express from 'express'
 import { admin, protect } from '../middlewares/authMiddleware.js';
-import { createMovieReview, deteleAllMovie, deleteMovie, getMovieById, getMovies, getRandomMovies, getTopRatedMovies, importMovies, updateMovie, createMovie, getHomePageData } from '../Controllers/MoviesController.js';
+import { createMovieReview, deteleAllMovie, deleteMovie, getMovieById, getMovies, getRandomMovies, getTopRatedMovies, importMovies, updateMovie, createMovie, getHomePageData, createSeries, updateSeries } from '../Controllers/MoviesController.js';
 
 
 const router = express.Router();
@@ -22,7 +22,7 @@ router.put("/:movieId", protect, admin, updateMovie);
 router.delete("/:movieId", protect, admin, deleteMovie);
 router.delete("/", protect, admin, deteleAllMovie);
 router.post("/", protect, admin, createMovie);
-
-
+router.post("/series", protect, admin, createSeries);
+router.put("/series/:movieId", protect, admin, updateSeries);
 
 export default router;

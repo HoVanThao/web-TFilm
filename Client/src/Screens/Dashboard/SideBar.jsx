@@ -33,8 +33,13 @@ const SideBar = ({ children }) => {
                 },
                 {
                     name: "Danh sách phim bộ",
-                    link: "/movieslistSeries",
+                    link: "/movieslistseries",
                     icon: FaLayerGroup,
+                },
+                {
+                    name: "Thêm phim bộ",
+                    link: "/addseries",
+                    icon: RiMovie2Fill,
                 },
                 {
                     name: "Danh sách phim lẻ",

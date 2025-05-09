@@ -84,12 +84,31 @@ export const createMovieService = async (movie, token) => {
     return data;
 };
 
+// create series
+export const createSeriesService = async (series, token) => {
+    const { data } = await Axios.post(`/movies/series`, series, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return data;
+};
+
 // edit movie
 export const updateMovieService = async (token, id, movie) => {
     const { data } = await Axios.put(`/movies/${id}`, movie, {
         headers: {
             Authorization: `Bearer ${token}`,
 
+        },
+    });
+    return data;
+};
+
+export const updateSeriesService = async (movieId, series, token) => {
+    const { data } = await Axios.put(`/movies/series/${movieId}`, series, {
+        headers: {
+            Authorization: `Bearer ${token}`,
         },
     });
     return data;

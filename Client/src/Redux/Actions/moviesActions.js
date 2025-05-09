@@ -137,6 +137,50 @@ export const createMovieAction = (movie) => async (dispatch, getState) => {
     }
 }
 
+
+export const createSeriesAction = (series) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: moviesConstants.CREATE_SERIES_REQUEST });
+        const response = await moviesApi.createSeriesService(
+            series,
+            tokenProtection(getState),
+        )
+
+        dispatch({
+            type: moviesConstants.CREATE_SERIES_SUCCESS,
+            payload: response,
+        })
+
+        toast.success("Thêm phim bộ thành công");
+        dispatch(deleteAllCastAction());
+    } catch (error) {
+        ErrorsAction(error, dispatch, moviesConstants.CREATE_SERIES_FAIL);
+    }
+}
+
+export const updateSeriesAction = (movieId, series) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: moviesConstants.UPDATE_SERIES_REQUEST });
+        const response = await moviesApi.updateSeriesService(
+            movieId,
+            series,
+            tokenProtection(getState)
+        );
+
+        dispatch({
+            type: moviesConstants.UPDATE_SERIES_SUCCESS,
+            payload: response,
+        });
+
+        toast.success("Cập nhật thành công");
+        dispatch(getMovieByIdAction(movieId));
+        dispatch(deleteAllCastAction());
+    } catch (error) {
+        console.log(error);
+        ErrorsAction(error, dispatch, moviesConstants.UPDATE_SERIES_FAIL);
+    }
+};
+
 export const updateMovieAction = (id, movie) => async (dispatch, getState) => {
     try {
         dispatch({ type: moviesConstants.UPDATE_MOVIE_REQUEST });

@@ -51,7 +51,7 @@ const MovieInfo = ({ movie, setModalOpen }) => {
                                 }
                             </div>
                             <p className="text-shadow text-sm leading-7">{movie?.desc}</p>
-                            <div className="grid sm:grid-cols-7 grid-cols-3 gap-4 p-6 bg-main border border-gray-800 rounded-lg">
+                            <div className="grid sm:grid-cols-7 grid-cols-3 gap-4 p-4 bg-main border border-gray-800 rounded-lg">
                                 <div className="col-span-1 flex-colo border-r border-border">
                                     <button onClick={() => setModalOpen(true)} className="w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20">
                                         <FaShareAlt />

@@ -130,6 +130,37 @@ export const createMovieReducer = (state = {}, action) => {
     }
 }
 
+// create series
+export const createSeriesReducer = (state = {}, action) => {
+    switch (action.type) {
+        case MoviesConstants.CREATE_SERIES_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.CREATE_SERIES_SUCCESS:
+            return { isLoading: false, isSuccess: true, series: action.payload };//
+        case MoviesConstants.CREATE_SERIES_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.CREATE_SERIES_RESET:
+            return {};
+        default:
+            return state;
+    }
+}
+
+export const updateSeriesReducer = (state = {}, action) => {
+    switch (action.type) {
+        case MoviesConstants.UPDATE_SERIES_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.UPDATE_SERIES_SUCCESS:
+            return { isLoading: false, isSuccess: true, series: action.payload };
+        case MoviesConstants.UPDATE_SERIES_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.UPDATE_SERIES_RESET:
+            return {};
+        default:
+            return state;
+    }
+};
+
 //update movie
 export const updateMovieReducer = (state = {}, action) => {
     switch (action.type) {

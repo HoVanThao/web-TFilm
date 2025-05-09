@@ -95,8 +95,9 @@ const WatchPage = () => {
     };
 
     // Lấy phim liên quan
-    const RelatedMovies = movies?.filter((m) => m.category === movie?.category && m._id !== movie?._id);
-
+    const RelatedMovies = movies?.filter((m) =>
+        m?.category?.some((cat) => movie?.category?.includes(cat)) && m?._id !== movie?._id
+    ) || [];
 
 
     return (

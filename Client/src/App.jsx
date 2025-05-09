@@ -30,6 +30,8 @@ import { getAllMoviesAction } from './Redux/Actions/moviesActions';
 import { getFavoriteMoviesAction } from './Redux/Actions/userActions';
 import toast from 'react-hot-toast';
 import MovieListSeries from './Screens/Dashboard/Admin/MovieListSeries';
+import AddSeries from './Screens/Dashboard/Admin/AddSeries';
+import EditMovieSeries from './Screens/Dashboard/Admin/EditMovieSeries';
 
 
 const App = () => {
@@ -83,12 +85,14 @@ const App = () => {
             <Route element={<AdminProtectedRouter />}>
               {/* ********************************ADMIN ROUTERS*************************************** */}
               <Route path="/movieslist" element={<MovieList />} />
-              <Route path="/movieslistSeries" element={<MovieListSeries />} />
+              <Route path="/movieslistseries" element={<MovieListSeries />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/users" element={<Users />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/addmovie" element={<AddMovie />} />
+              <Route path="/addseries" element={<AddSeries />} />
               <Route path="/edit/:id" element={<EditMovie />} />
+              <Route path="/edit/series/:id" element={<EditMovieSeries />} />
             </Route>
           </Route>
 

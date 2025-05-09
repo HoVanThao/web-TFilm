@@ -257,7 +257,7 @@ const AddMovie = () => {
                     {
                         isLoading ? ("Please Wait...") : (
                             <>
-                                <ImUpload /> Thêm phim mới
+                                <ImUpload /> Thêm phim lẻ
                             </>
                         )
                     }

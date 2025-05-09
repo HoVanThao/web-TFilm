@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from '../SideBar';
-import Table from '../../../Components/Table';
+import TableSeries from '../../../Components/TableSeries';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAllMoviesAction, deleteMovieByIdAction, getAllMoviesAction, getSeriesMoviesAction, getSingleMoviesAction } from '../../../Redux/Actions/moviesActions';
 import toast from 'react-hot-toast';
@@ -98,7 +98,7 @@ const MovieListSeries = () => {
           isLoading || deleteLoading ? <Loader /> : movies?.length > 0 ?
             (
               <>
-                <Table data={movies} admin={true} onDelete={deleteMovieHandle} />
+                <TableSeries data={movies} admin={true} onDelete={deleteMovieHandle} />
                 <div className='w-full flex-rows gap-6 my-5'>
                   <button onClick={prevPage} disabled={page === 1}
                     className='text-white p-2 rounded-xl font-semibold border-2 border-dryGray hover:text-subMainn'

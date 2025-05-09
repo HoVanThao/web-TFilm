@@ -70,7 +70,7 @@ export const SelectPartFilm = ({ label, options, value, onChange }) => {
             >
                 {options.map((o, i) => (
                     <option key={i} value={o.value}>
-                        {o.title}
+                        Phần {o.value}: {o.title}
                     </option>
                 ))}
             </select>
@@ -92,7 +92,7 @@ export const Input = ({ label, placeholder, type, bg, register, name, value, onC
                     {...register}
                     type={type}
                     placeholder={placeholder}
-                    className={`w-full text-sm mt-2 p-5 border border-border rounded text-white ${bg ? "bg-main" : "bg-dry"
+                    className={`w-full text-sm my-2 p-5 border border-border rounded text-white ${bg ? "bg-main" : "bg-dry"
                         }`}
                 />
             </div>

@@ -262,7 +262,8 @@ const EditMovie = () => {
 
                                         <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-4 grid-cols-2 gap-4">
                                             {
-                                                casts?.length > 0 && casts.map((user) => (
+                                                // casts?.length > 0 && casts.map((user) => (
+                                                (casts?.length > 0 ? casts : movie?.casts || []).map((user) => (
                                                     <div key={user?.id} className="p-2 italic text-xs text-text rounded flex-colo bg-main border border-border">
                                                         <img
                                                             src={user?.image ? user?.image : "/images/user.png"}
@@ -271,10 +272,12 @@ const EditMovie = () => {
                                                         />
                                                         <p>{user?.name}</p>
                                                         <div className="flex-rows mt-2 w-full gap-2">
-                                                            <button onClick={() => deleteCastHandler(user?.id)} className="w-6 h-6 flex-colo bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded">
+                                                            <button onClick={() => deleteCastHandler(user?.id)}
+                                                                className="w-6 h-6 flex-colo bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded">
                                                                 <MdDelete />
                                                             </button>
-                                                            <button onClick={() => { setCast(user); setModalOpen(true); }} className="w-6 h-6 flex-colo bg-green-500 text-white hover:bg-main transitions border border-green-600 rounded">
+                                                            <button onClick={() => { setCast(user); setModalOpen(true); }}
+                                                                className="w-6 h-6 flex-colo bg-green-500 text-white hover:bg-main transitions border border-green-600 rounded">
                                                                 <FaEdit />
                                                             </button>
                                                         </div>
