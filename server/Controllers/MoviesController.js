@@ -79,11 +79,29 @@ const getMovies = asyncHandler(async (req, res) => {
 
         const count = await Movie.countDocuments(query);
 
+        // Thống kê số lượng phim lẻ (single) và phim bộ (series)
+        const stats = await Movie.aggregate([
+            { $match: query }, // Áp dụng cùng query tìm kiếm
+            {
+                $group: {
+                    _id: "$typeFilm", // Nhóm theo typeFilm
+                    count: { $sum: 1 } // Đếm số lượng
+                }
+            }
+        ]);
+
+        // Chuyển kết quả aggregation thành object dễ đọc
+        const typeFilmStats = {
+            single: stats.find(stat => stat._id === "single")?.count || 0,
+            series: stats.find(stat => stat._id === "series")?.count || 0
+        };
+
         res.json({
             movies,
             page,
             pages: Math.ceil(count / limit),
             totalMovies: count,
+            typeFilmStats, // Trả về số lượng phim lẻ và phim bộ
         });
 
     } catch (error) {
@@ -200,10 +218,10 @@ const getHomePageData = asyncHandler(async (req, res) => {
             Movie.find({}).sort({ rate: -1, createdAt: -1 }).limit(16),
 
             // Lấy tất cả phim (cho banner)
-            Movie.find({}).sort({ year: -1, _id: -1 }).limit(16),
+            Movie.find({}).sort({ year: -1, _id: -1 }).limit(10),
 
             // Lấy phim chiếu rạp (category chứa "Chiếu rạp")
-            Movie.find({ category: { $in: ["Chiếu Rạp"] } }).sort({ year: -1, _id: -1 }).limit(16),
+            Movie.find({ category: { $in: ["Chiếu Rạp"] } }).sort({ year: -1, _id: -1 }).limit(10),
 
             // Lấy phim lẻ
             Movie.find({ typeFilm: "single" }).sort({ year: -1, _id: -1 }).limit(16),
@@ -212,7 +230,7 @@ const getHomePageData = asyncHandler(async (req, res) => {
             Movie.find({ typeFilm: "series" }).sort({ year: -1, _id: -1 }).limit(16),
 
             // Lấy anime (category chứa "Anime")
-            Movie.find({ category: { $in: ["Anime"] } }).sort({ year: -1, _id: -1 }).limit(16)
+            Movie.find({ category: { $in: ["Anime"] } }).sort({ year: -1, _id: -1 }).limit(10)
         ]);
 
         res.json({
@@ -281,6 +299,7 @@ const createMovieReview = asyncHandler(async (req, res) => {
 const updateMovie = asyncHandler(async (req, res) => {
     try {
         const {
+            nameVn,
             name,
             desc,
             image,
@@ -292,12 +311,15 @@ const updateMovie = asyncHandler(async (req, res) => {
             video,
             rate,
             numberOfReviews,
-            casts
+            casts,
+            typeFilm,
+            imdbRating,
         } = req.body;
 
         const movie = await Movie.findById(req.params.movieId);
 
         if (movie) {
+            movie.nameVn = nameVn || movie.nameVn;
             movie.name = name || movie.name;
             movie.desc = desc || movie.desc;
             movie.image = image || movie.image;
@@ -310,6 +332,8 @@ const updateMovie = asyncHandler(async (req, res) => {
             movie.year = year || movie.year;
             movie.video = video || movie.video;
             movie.casts = casts || movie.casts;
+            movie.typeFilm = typeFilm || movie.typeFilm;
+            movie.imdbRating = imdbRating || movie.imdbRating;
 
             const updateMovie = await movie.save();
             res.status(201).json(updateMovie);

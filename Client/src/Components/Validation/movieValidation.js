@@ -27,13 +27,10 @@ const movieValidation = yup.object().shape({
     video: yup.string().required("Video URL không được để trống").url("Không đúng định dạng url"),
     imdbRating: yup
         .number()
+        .required('Vui lòng nhập điểm imdb')
         .typeError('Điểm IMDb phải là số')
         .min(0, 'Điểm IMDb không được nhỏ hơn 0')
-        .max(10, 'Điểm IMDb không được lớn hơn 10')
-        .nullable()
-        .transform((value, originalValue) =>
-            originalValue === '' ? null : value
-        ),
+        .max(10, 'Điểm IMDb không được lớn hơn 10'),
 });
 
 export { ReviewValidation, movieValidation }

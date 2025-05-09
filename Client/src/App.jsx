@@ -20,6 +20,7 @@ import 'aos/dist/aos.css';
 import Users from './Screens/Dashboard/Admin/Users';
 import Categories from './Screens/Dashboard/Admin/Categories';
 import AddMovie from './Screens/Dashboard/Admin/AddMovie';
+import EditMovie from './Screens/Dashboard/Admin/EditMovie';
 import ScrollOnTop from './ScrollOnTop';
 import { ToastContainer } from './Components/Notfications/ToastContainer';
 import { AdminProtectedRouter, ProtectedRouter } from './ProtectedRouter';
@@ -28,6 +29,7 @@ import { getAllCategoriesAction } from './Redux/Actions/categoriesActions';
 import { getAllMoviesAction } from './Redux/Actions/moviesActions';
 import { getFavoriteMoviesAction } from './Redux/Actions/userActions';
 import toast from 'react-hot-toast';
+import MovieListSeries from './Screens/Dashboard/Admin/MovieListSeries';
 
 
 const App = () => {
@@ -81,10 +83,12 @@ const App = () => {
             <Route element={<AdminProtectedRouter />}>
               {/* ********************************ADMIN ROUTERS*************************************** */}
               <Route path="/movieslist" element={<MovieList />} />
+              <Route path="/movieslistSeries" element={<MovieListSeries />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/users" element={<Users />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/addmovie" element={<AddMovie />} />
+              <Route path="/edit/:id" element={<EditMovie />} />
             </Route>
           </Route>
 

@@ -97,6 +97,7 @@ export const deleteMovieByIdAction = (movieId) => async (dispatch, getState) => 
         dispatch({ type: moviesConstants.DELETE_MOVIE_SUCCESS, payload: response, });
         toast.success("Xóa thành công!");
         dispatch(getAllMoviesAction({}));
+        dispatch(getSingleMoviesAction({}));
     } catch (error) {
         ErrorsAction(error, dispatch, moviesConstants.DELETE_MOVIE_FAIL);
     }
@@ -110,6 +111,7 @@ export const deleteAllMoviesAction = () => async (dispatch, getState) => {
         dispatch({ type: moviesConstants.DELETE_ALL_MOVIES_SUCCESS, payload: response, });
         toast.success("Tất cả phim đã bị xóa!")
         dispatch(getAllMoviesAction({}));
+        dispatch(getSingleMoviesAction({}));
     } catch (error) {
         ErrorsAction(error, dispatch, moviesConstants.DELETE_ALL_MOVIES_FAIL);
     }
@@ -132,6 +134,28 @@ export const createMovieAction = (movie) => async (dispatch, getState) => {
         dispatch(deleteAllCastAction());
     } catch (error) {
         ErrorsAction(error, dispatch, moviesConstants.CREATE_MOVIE_FAIL);
+    }
+}
+
+export const updateMovieAction = (id, movie) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: moviesConstants.UPDATE_MOVIE_REQUEST });
+        const response = await moviesApi.updateMovieService(
+            tokenProtection(getState),
+            id,
+            movie,
+        )
+
+        dispatch({
+            type: moviesConstants.UPDATE_MOVIE_SUCCESS,
+            payload: response,
+        })
+
+        toast.success("Update thành công");
+        dispatch(getMovieByIdAction(id));
+        dispatch(deleteAllCastAction());
+    } catch (error) {
+        ErrorsAction(error, dispatch, moviesConstants.UPDATE_MOVIE_FAIL);
     }
 }
 
@@ -167,7 +191,7 @@ export const getCinemaMoviesAction = () => async (dispatch) => {
     try {
         dispatch({ type: moviesConstants.MOVIES_CINEMA_REQUEST });
         const response = await moviesApi.getAllMoviesService(
-            "Chiếu rạp", // category
+            "Chiếu Rạp", // category
             "", // language
             "", // rate
             "", // year
@@ -182,17 +206,19 @@ export const getCinemaMoviesAction = () => async (dispatch) => {
 };
 
 // Get single movies action
-export const getSingleMoviesAction = () => async (dispatch) => {
+export const getSingleMoviesAction = ({
+    category = "",
+    language = "",
+    rate = "",
+    year = "",
+    typeFilm = "single",
+    search = "",
+    pageNumber = "",
+}) => async (dispatch) => {
     try {
         dispatch({ type: moviesConstants.MOVIES_SINGLE_REQUEST });
         const response = await moviesApi.getAllMoviesService(
-            "", // category
-            "", // language
-            "", // rate
-            "", // year
-            "single", // typeFilm
-            "", // search
-            ""  // pageNumber
+            category, language, rate, year, typeFilm, search, pageNumber
         );
         dispatch({ type: moviesConstants.MOVIES_SINGLE_SUCCESS, payload: response });
     } catch (error) {
@@ -200,18 +226,23 @@ export const getSingleMoviesAction = () => async (dispatch) => {
     }
 };
 
+
 // Get series movies action
-export const getSeriesMoviesAction = () => async (dispatch) => {
+export const getSeriesMoviesAction = (
+    {
+        category = "",
+        language = "",
+        rate = "",
+        year = "",
+        typeFilm = "series",
+        search = "",
+        pageNumber = "",
+    }
+) => async (dispatch) => {
     try {
         dispatch({ type: moviesConstants.MOVIES_SERIES_REQUEST });
         const response = await moviesApi.getAllMoviesService(
-            "", // category
-            "", // language
-            "", // rate
-            "", // year
-            "series", // typeFilm
-            "", // search
-            ""  // pageNumber
+            category, language, rate, year, typeFilm, search, pageNumber
         );
         dispatch({ type: moviesConstants.MOVIES_SERIES_SUCCESS, payload: response });
     } catch (error) {

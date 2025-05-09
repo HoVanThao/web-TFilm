@@ -1,6 +1,6 @@
 import React from 'react'
 import { BsFillGridFill } from 'react-icons/bs'
-import { FaHeart, FaListAlt, FaUsers } from 'react-icons/fa'
+import { FaHeart, FaLayerGroup, FaListAlt, FaUsers } from 'react-icons/fa'
 import { FiSettings } from 'react-icons/fi'
 import { HiViewGridAdd } from 'react-icons/hi'
 import { RiLockPasswordLine, RiLogoutCircleLine, RiMovie2Fill } from 'react-icons/ri'
@@ -32,7 +32,12 @@ const SideBar = ({ children }) => {
                     icon: BsFillGridFill,
                 },
                 {
-                    name: "Danh sách phim",
+                    name: "Danh sách phim bộ",
+                    link: "/movieslistSeries",
+                    icon: FaLayerGroup,
+                },
+                {
+                    name: "Danh sách phim lẻ",
                     link: "/movieslist",
                     icon: FaListAlt,
                 },

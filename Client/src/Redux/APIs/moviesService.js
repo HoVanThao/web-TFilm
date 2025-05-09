@@ -84,6 +84,18 @@ export const createMovieService = async (movie, token) => {
     return data;
 };
 
+// edit movie
+export const updateMovieService = async (token, id, movie) => {
+    const { data } = await Axios.put(`/movies/${id}`, movie, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+
+        },
+    });
+    return data;
+};
+
+
 
 export const getHomePageDataService = async () => {
     const { data } = await Axios.get('/movies/home-page-data');

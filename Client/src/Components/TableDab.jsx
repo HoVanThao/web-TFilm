@@ -8,7 +8,7 @@ const Head = "text-xs text-center text-main font-semibold px-6 py-2 uppercase";
 const Text = "text-sm text-center leading-6 whitespace-nowrap";
 
 
-const Rows = (movie, i, admin, onDelete) => {
+const Rows = (movie, i) => {
     return (
         <tr key={i}>
             <td className={`${Text} px-5 py-3`}>
@@ -17,44 +17,17 @@ const Rows = (movie, i, admin, onDelete) => {
                 </div>
             </td>
             <td className={`${Text} px-5 py-3 truncate`}>{movie.name}</td>
-            {/* <td className={`${Text} px-5 py-3`}>
-                {Array.isArray(movie.category) ? movie.category.join(', ') : movie.category}
-            </td> */}
             <td className={`${Text} px-5 py-3 truncate`}>
                 {movie.category[0]}
             </td>
             <td className={`${Text} px-5 py-3`}>{movie.language}</td>
             <td className={`${Text} px-5 py-3`}>{movie.year}</td>
             <td className={`${Text} px-5 py-3`}>{movie?.time && `${Math.floor(movie.time / 60)}h ${String(movie.time % 60).padStart(2, "0")}m`}</td>
-            <td className={`${Text} flex-rows gap-2 ps-6 py-6`}>
-                {
-                    admin ? (
-                        <>
-                            <Link to={`/edit/${movie?._id}`} className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
-                                <FaEdit />
-                            </Link>
-                            <button onClick={() => onDelete(movie?._id)} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
-                                <MdDelete />
-                            </button>
-                        </>
-                    ) : (
-                        <>
-                            <Link to={`/movie/${movie?._id}`} className='bg-green-500 text-white hover:bg-main transitions border border-green-500 rounded flex-colo w-6 h-6'>
-                                <GoEye />
-                            </Link>
-                            <button onClick={() => onDelete(movie?._id)} className='bg-subMainn text-white hover:bg-main transitions border border-subMainn rounded flex-colo w-6 h-6'>
-                                <MdDelete />
-                            </button>
-                        </>
-                    )
-                }
-
-            </td>
         </tr>
     )
 }
 
-const Table = ({ data, admin, onDelete }) => {
+const Table = ({ data }) => {
 
     return (
         <div className='overflow-x-auto relative w-full'>
@@ -79,14 +52,11 @@ const Table = ({ data, admin, onDelete }) => {
                         <th scope='col' className={`${Head} `}>
                             Giờ
                         </th>
-                        <th scope='col' className={`${Head} text-end`}>
-                            Hành động
-                        </th>
                     </tr>
                 </thead>
                 <tbody className='bg-main divide-y divide-gray-800'>
                     {
-                        data.map((movie, i) => Rows(movie, i, admin, onDelete))
+                        data.map((movie, i) => Rows(movie, i))
                     }
                 </tbody>
             </table>

@@ -12,6 +12,7 @@ export const moviesListReducer = (state = { movies: [] }, action) => {
                 page: action.payload.page,
                 pages: action.payload.pages,
                 totalMovies: action.payload.totalMovies,
+                typeFilmStats: action.payload.typeFilmStats,
             };
         case MoviesConstants.MOVIES_LIST_FAIL:
             return { isLoading: false, isError: action.payload };
@@ -129,6 +130,22 @@ export const createMovieReducer = (state = {}, action) => {
     }
 }
 
+//update movie
+export const updateMovieReducer = (state = {}, action) => {
+    switch (action.type) {
+        case MoviesConstants.UPDATE_MOVIE_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.UPDATE_MOVIE_SUCCESS:
+            return { isLoading: false, isSuccess: true };
+        case MoviesConstants.UPDATE_MOVIE_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.UPDATE_MOVIE_RESET:
+            return {};
+        default:
+            return state;
+    }
+}
+
 export const castsReducer = (state = { casts: [] }, action) => {
     switch (action.type) {
         case MoviesConstants.ADD_CAST:
@@ -198,6 +215,8 @@ export const moviesSingleReducer = (state = { movies: [] }, action) => {
             return state;
     }
 };
+
+
 
 // Reducer cho phim bộ
 export const moviesSeriesReducer = (state = { movies: [] }, action) => {

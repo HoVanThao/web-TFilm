@@ -87,29 +87,23 @@
 // export default Dashboard
 
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../SideBar'
-import { FaRegListAlt, FaUser } from 'react-icons/fa'
+import { FaFilm, FaLayerGroup, FaRegListAlt, FaUser } from 'react-icons/fa'
 import { HiViewGridAdd } from 'react-icons/hi'
-import Table from '../../../Components/Table'
+import TableDab from '../../../Components/TableDab'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsersAction } from '../../../Redux/Actions/userActions'
-import { deleteMovieByIdAction } from '../../../Redux/Actions/moviesActions'
 import toast from 'react-hot-toast'
 import Loader from '../../../Components/Notfications/Loader'
 import Empty from '../../../Components/Notfications/Empty'
-import DeleteConfirmModal from '../../../Components/Modals/DeleteConfirmModal'
+
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [confirmTitle, setConfirmTitle] = useState('');
-    const [onConfirmAction, setOnConfirmAction] = useState(() => () => { });
-
     const { isLoading: cateLoading, isError: cateError, categories } = useSelector((state) => state.categoryGetAll);
     const { isLoading: userLoading, isError: userError, users } = useSelector((state) => state.adminGetAllUsers);
-    const { isLoading, isError, movies, totalMovies } = useSelector((state) => state.getAllMovies);
+    const { isLoading, isError, movies, totalMovies, typeFilmStats } = useSelector((state) => state.getAllMovies);
 
     useEffect(() => {
         dispatch(getAllUsersAction());
@@ -120,13 +114,7 @@ const Dashboard = () => {
 
     }, [dispatch, isError, cateError, userError]);
 
-    const handleDeleteOne = (id) => {
-        setConfirmTitle("Bạn có chắc chắn muốn xóa phim này không?");
-        setOnConfirmAction(() => () => {
-            dispatch(deleteMovieByIdAction(id));
-        });
-        setIsConfirmOpen(true);
-    };
+
 
     const DashboardData = [
         {
@@ -134,6 +122,18 @@ const Dashboard = () => {
             icon: FaRegListAlt,
             title: "Tổng số phim",
             total: isLoading ? "Loading..." : totalMovies || 0,
+        },
+        {
+            bg: "bg-red-600",
+            icon: FaFilm,
+            title: "Số phim lẻ",
+            total: isLoading ? "Loading..." : typeFilmStats?.single || 0,
+        },
+        {
+            bg: "bg-purple-600",
+            icon: FaLayerGroup,
+            title: "Số phim bộ",
+            total: isLoading ? "Loading..." : typeFilmStats?.series || 0,
         },
         {
             bg: "bg-blue-700",
@@ -171,19 +171,10 @@ const Dashboard = () => {
             <h3 className="text-md font-medium my-6 text-border">Phim mới cập nhật</h3>
             {
                 isLoading ? <Loader /> : movies?.length > 0 ?
-                    <Table data={movies.slice(0, 5)} admin={true} onDelete={handleDeleteOne} />
+                    <TableDab data={movies.slice(0, 5)} />
                     : <Empty message="Bạn không có phim nào!" />
             }
 
-            <DeleteConfirmModal
-                modalOpen={isConfirmOpen}
-                setModalOpen={setIsConfirmOpen}
-                onConfirm={() => {
-                    onConfirmAction();
-                    setIsConfirmOpen(false);
-                }}
-                title={confirmTitle}
-            />
         </SideBar>
     )
 }

@@ -50,7 +50,7 @@ const BannerBottom = ({ movies, isLoading }) => {
                                     </div>
 
 
-                                    <div className='absolute  rounded-3xl top-0 bottom-0 left-0 right-0 flex flex-col justify-center xl:pl-20 sm:pl-12 pl-6 text-white'>
+                                    <div className='absolute linear-bg-bottom rounded-3xl top-0 bottom-0 left-0 right-0 flex flex-col justify-center xl:pl-20 sm:pl-12 pl-6 text-white'>
                                         <h1 className='xl:text-3xl sm:text-2xl text-xl font-bold text-shadow uppercase'>{activeMovie?.nameVn}</h1>
                                         <p className='xl:text-xl sm:text-lg text-md font-bold text-shadow uppercase mt-2'>{activeMovie?.name}</p>
                                         <div className='flex gap-4 mt-2 items-center font-bold text-shadow'>

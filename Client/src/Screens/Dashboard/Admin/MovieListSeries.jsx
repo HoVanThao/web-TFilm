@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../SideBar';
 import Table from '../../../Components/Table';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteAllMoviesAction, deleteMovieByIdAction, getAllMoviesAction, getSingleMoviesAction } from '../../../Redux/Actions/moviesActions';
+import { deleteAllMoviesAction, deleteMovieByIdAction, getAllMoviesAction, getSeriesMoviesAction, getSingleMoviesAction } from '../../../Redux/Actions/moviesActions';
 import toast from 'react-hot-toast';
 import Loader from '../../../Components/Notfications/Loader';
 import Empty from '../../../Components/Notfications/Empty';
 import DeleteConfirmModal from '../../../Components/Modals/DeleteConfirmModal';
 import { RiSkipBackFill, RiSkipForwardFill } from 'react-icons/ri';
 
-const MovieList = () => {
+const MovieListSeries = () => {
   const dispatch = useDispatch();
-  const { isLoading, isError, isSuccess, movies, pages, page, totalMovies } = useSelector((state) => state.getSingleMovies);
+  const { isLoading, isError, isSuccess, movies, pages, page, totalMovies } = useSelector((state) => state.getSeriesMovies);
   const { isLoading: deleteLoading, isError: deleteError } = useSelector((state) => state.deleteMovie);
   const { isLoading: deleteAllLoading, isError: deleteAllError } = useSelector((state) => state.deleteAllMovies);
 
@@ -37,7 +37,7 @@ const MovieList = () => {
   }
 
   useEffect(() => {
-    dispatch(getSingleMoviesAction({}));
+    dispatch(getSeriesMoviesAction({}));
     if (isError || deleteError || deleteAllError) {
       toast.error(isError || deleteError || deleteAllError);
     }
@@ -51,7 +51,7 @@ const MovieList = () => {
 
   const nextPage = () => {
     dispatch(
-      getSingleMoviesAction({
+      getSeriesMoviesAction({
         pageNumber: page + 1,
       })
     );
@@ -59,7 +59,7 @@ const MovieList = () => {
 
   const prevPage = () => {
     dispatch(
-      getSingleMoviesAction({
+      getSeriesMoviesAction({
         pageNumber: page - 1,
       })
     );
@@ -74,7 +74,7 @@ const MovieList = () => {
 
   const handleGoToPage = () => {
     if (pageInput !== page) {
-      dispatch(getSingleMoviesAction({
+      dispatch(getSeriesMoviesAction({
         pageNumber: pageInput
       }));
     }
@@ -84,7 +84,7 @@ const MovieList = () => {
     <SideBar>
       <div className="flex flex-col gap-6">
         <div className='flex-btn gap-2'>
-          <h2 className="text-xl font-bold">  Danh sách phim lẻ có <span className="text-subMain">{totalMovies ?? 0}</span> Bộ</h2>
+          <h2 className="text-xl font-bold">  Danh sách phim bộ có <span className="text-subMain">{totalMovies ?? 0}</span> Bộ</h2>
           {
             movies?.length > 0 && <button disabled={deleteAllLoading} onClick={deleteAllMoviesHandle} className='bg-subMainn font-medium transitions hover:text-black border border-subMainn text-white py-3 px-6 rounded'>
               {
@@ -149,4 +149,4 @@ const MovieList = () => {
   )
 }
 
-export default MovieList;
+export default MovieListSeries;

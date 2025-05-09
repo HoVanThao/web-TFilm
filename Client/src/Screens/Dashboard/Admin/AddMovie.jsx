@@ -45,7 +45,10 @@ const AddMovie = () => {
 
     // on submit
     const onSubmit = (data) => {
-        console.log(data);
+        if (!imageWithoutTitle || !imageTitle) {
+            toast.error("Vui lòng tải lên đầy đủ ảnh poster");
+            return;
+        }
         dispatch(createMovieAction({
             ...data,
             image: imageWithoutTitle,
