@@ -70,7 +70,7 @@ export const SelectPartFilm = ({ label, options, value, onChange }) => {
             >
                 {options.map((o, i) => (
                     <option key={i} value={o.value}>
-                        Phần {o.value}: {o.title}
+                        {o.title}
                     </option>
                 ))}
             </select>

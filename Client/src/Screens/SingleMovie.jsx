@@ -91,7 +91,7 @@ const SingleMovie = () => {
                                                                 className="bg-dry border-2  rounded-md overflow-hidden border-border hover:text-subMain transition cursor-pointer"
                                                             >
                                                                 <div className="p-3">
-                                                                    <h3 className="text-sm font-semibold truncate flex-row">Tập {episode.episodeNumber}: {episode.title}</h3>
+                                                                    <h3 className="text-sm font-semibold truncate flex-row">{episode.title}</h3>
                                                                 </div>
                                                             </Link>
                                                         )) : <p className="text-border">Không có tập phim nào cho phần này.</p>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../SideBar';
 import { CheckboxGroup, Input, Message } from '../../../Components/UsedInputs';
 import Uploder from '../../../Components/Uploder';
-import { MdDelete, MdAdd } from 'react-icons/md';
+import { MdDelete, MdAdd, MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
 import { ImUpload } from 'react-icons/im';
 import CastModal from '../../../Components/Modals/CastModal';
@@ -22,6 +22,10 @@ const AddSeries = () => {
     const [cast, setCast] = useState(null);
     const [imageWithoutTitle, setImageWithoutTitle] = useState("");
     const [imageTitle, setImageTitle] = useState("");
+
+    // Trạng thái mở rộng/thu gọn cho từng phần phim
+    const [expandedParts, setExpandedParts] = useState({});
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -45,6 +49,14 @@ const AddSeries = () => {
         control,
         name: "filmParts",
     });
+
+    // Chuyển đổi trạng thái mở rộng/thu gọn của phần phim
+    const togglePart = (partId) => {
+        setExpandedParts((prev) => ({
+            ...prev,
+            [partId]: !prev[partId],
+        }));
+    };
 
     const onSubmit = (data) => {
         if (!imageWithoutTitle || !imageTitle) {
@@ -207,59 +219,81 @@ const AddSeries = () => {
                     <h3 className="text-lg font-semibold mb-4">Phần phim</h3>
                     {filmParts.map((part, index) => (
                         <div key={part.id} className="border border-border p-4 rounded mb-4">
-                            <div className="flex justify-between items-center mb-4">
-                                <h4 className="text-md font-medium">Phần {index + 1}</h4>
-                                <button
-                                    type="button"
-                                    onClick={() => removePart(index)}
-                                    className="text-subMainn hover:text-dryGray"
-                                >
-                                    <MdDelete size={20} />
-                                </button>
+                            <div className="flex justify-between items-center mb-4 cursor-pointer" onClick={() => togglePart(part.id)}>
+                                <h4 className="text-md font-medium">{part.title || `Phần ${index + 1}`}</h4>
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Ngăn sự kiện click lan sang toggle
+                                            removePart(index);
+                                        }}
+                                        className="text-subMainn hover:text-dryGray"
+                                    >
+                                        <MdDelete size={20} />
+                                    </button>
+                                    {expandedParts[part.id] ? (
+                                        <MdExpandLess size={20} />
+                                    ) : (
+                                        <MdExpandMore size={20} />
+                                    )}
+                                </div>
                             </div>
-                            <Input
-                                label="Tên phần"
-                                placeholder="Ví dụ: Phần 1: Hoa sơn luận kiếm"
-                                type="text"
-                                name={`filmParts[${index}].title`}
-                                register={register(`filmParts[${index}].title`)}
-                                bg={true}
-                            />
-                            {errors.filmParts?.[index]?.title && (
-                                <InlineError text={errors.filmParts[index].title.message} />
+                            {expandedParts[part.id] && (
+                                <div>
+                                    <Input
+                                        label="Tên phần"
+                                        placeholder="Ví dụ: Phần 1: Hoa sơn luận kiếm"
+                                        type="text"
+                                        name={`filmParts[${index}].title`}
+                                        register={register(`filmParts[${index}].title`)}
+                                        bg={true}
+                                    />
+                                    {errors.filmParts?.[index]?.title && (
+                                        <InlineError text={errors.filmParts[index].title.message} />
+                                    )}
+                                    <Input
+                                        label="Số tập của phần này"
+                                        placeholder="Số lượng tập"
+                                        type="number"
+                                        name={`filmParts[${index}].numberOfEpisodes`}
+                                        register={register(`filmParts[${index}].numberOfEpisodes`)}
+                                        bg={true}
+                                    />
+                                    {errors.filmParts?.[index]?.numberOfEpisodes && (
+                                        <InlineError text={errors.filmParts[index].numberOfEpisodes.message} />
+                                    )}
+                                    <div className="mt-4">
+                                        <h5 className="text-sm font-semibold mb-2">Tập phim</h5>
+                                        <EpisodeFields
+                                            control={control}
+                                            register={register}
+                                            errors={errors}
+                                            partIndex={index}
+                                        />
+                                    </div>
+                                </div>
                             )}
-                            <Input
-                                label="Số tập của phần này"
-                                placeholder="Số lượng tập"
-                                type="number"
-                                name={`filmParts[${index}].numberOfEpisodes`}
-                                register={register(`filmParts[${index}].numberOfEpisodes`)}
-                                bg={true}
-                            />
-                            {errors.filmParts?.[index]?.numberOfEpisodes && (
-                                <InlineError text={errors.filmParts[index].numberOfEpisodes.message} />
-                            )}
-                            <div className="mt-4">
-                                <h5 className="text-sm font-semibold mb-2">Tập phim</h5>
-                                <EpisodeFields
-                                    control={control}
-                                    register={register}
-                                    errors={errors}
-                                    partIndex={index}
-                                />
-                            </div>
+
                         </div>
                     ))}
                     <button
                         type="button"
-                        onClick={() =>
-                            appendPart({
+                        onClick={() => {
+                            const newPart = {
                                 partNumber: filmParts.length + 1,
                                 title: `Phần ${filmParts.length + 1}`,
                                 numberOfEpisodes: 1,
                                 episodes: [{ episodeNumber: 1, title: "", videoUrl: "", duration: 0 }],
-                            })
-                        }
+                            };
+                            appendPart(newPart);
+                            // Mở rộng phần phim mới thêm
+                            setExpandedParts((prev) => ({
+                                ...prev,
+                                [newPart.id || `part-${filmParts.length}`]: true,
+                            }));
+                            toast.success("Thêm phần phim mới thành công");
+                        }}
                         className="flex items-center gap-2 py-2 px-4 bg-main hover:text-green-500 text-dryGray rounded border-2 border-border"
                     >
                         <MdAdd /> Thêm phần mới

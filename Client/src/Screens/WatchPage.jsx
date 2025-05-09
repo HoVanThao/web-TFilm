@@ -210,7 +210,7 @@ const WatchPage = () => {
                                                     }`}
                                             >
                                                 <div className="p-3">
-                                                    <h3 className="text-sm font-semibold truncate flex-row">Tập {episode.episodeNumber}: {episode.title}</h3>
+                                                    <h3 className="text-sm font-semibold truncate flex-row">{episode.title}</h3>
                                                 </div>
                                             </div>
                                         )) : <p className="text-border">Không có tập phim nào cho phần này.</p>
