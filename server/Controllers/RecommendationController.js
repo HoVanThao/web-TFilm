@@ -1,7 +1,6 @@
 // server/Controllers/RecommendationController.js
 import asyncHandler from 'express-async-handler';
 import RecommendationService from '../service/RecommendationService.js';
-import FeatureExtractionService from '../service/FeatureExtractionService.js'
 import User from '../Models/UserModels.js';
 import Movies from '../Models/MoviesModel.js';
 
@@ -41,12 +40,12 @@ const getRecommendations = asyncHandler(async (req, res) => {
             // Cập nhật recommendations nếu đã quá thời gian quy định từ lần cập nhật cuối
             if (!lastRecommendationsUpdate || lastRecommendationsUpdate < tenSecondsAgo) {
                 needsUpdate = true;
-                console.log('Recommendations cũ hơn thời gian quy định, cần cập nhật lại');
+                console.log('|------------Recommendations cũ hơn thời gian quy định, cần cập nhật lại------------|');
             }
             // Kiểm tra dựa trên thời gian cập nhật user và thời điểm cuối cùng recommendations được cập nhật
             else if (userUpdateTime > lastUpdateTime) {
                 needsUpdate = true;
-                console.log('Người dùng đã thay đổi, cần cập nhật lại recommendations');
+                console.log('|------------Người dùng đã thay đổi, cần cập nhật lại recommendations------------|');
             }
             // Kiểm tra xem người dùng có đánh giá phim mới không
             else {
@@ -58,13 +57,13 @@ const getRecommendations = asyncHandler(async (req, res) => {
 
                 if (hasNewRatings) {
                     needsUpdate = true;
-                    console.log('Người dùng đã đánh giá phim mới, cần cập nhật lại recommendations');
+                    console.log('|------------Người dùng đã đánh giá phim mới, cần cập nhật lại recommendations|------------');
                 }
             }
         }
 
         if (needsUpdate) {
-            console.log('Bắt đầu cập nhật recommendations cho user');
+            console.log('|------------Bắt đầu cập nhật recommendations cho user------------|');
 
             // Xóa recommendations cũ nếu có
             if (user.recommendations?.movies) {
@@ -80,17 +79,17 @@ const getRecommendations = asyncHandler(async (req, res) => {
                 if (hasLikedMovies || hasReviews) {
                     // Nếu đã có tương tác, dùng ML để gợi ý
                     await RecommendationService.generateRecommendations(userId);
-                    console.log('Đã tạo recommendations bằng ML cho user');
+                    console.log('<-----------Đã tạo recommendations bằng ML cho user----------->');
                 } else {
                     // Nếu chưa có tương tác, dùng phương pháp legacy
                     await RecommendationService.generateRecommendationsLegacy(userId);
-                    console.log('Đã tạo recommendations bằng phương pháp truyền thống');
+                    console.log('<-----------Đã tạo recommendations bằng phương pháp truyền thống----------->');
                 }
             } catch (mlError) {
-                console.error('Lỗi khi tạo gợi ý:', mlError);
+                console.error('<-----------Lỗi khi tạo gợi ý:', mlError);
                 // Fallback: Sử dụng phương pháp cũ
                 await RecommendationService.generateRecommendationsLegacy(userId);
-                console.log('Đã fallback về phương pháp cũ');
+                console.log('<-----------Đã fallback về phương pháp cũ----------->');
             }
         }
 
