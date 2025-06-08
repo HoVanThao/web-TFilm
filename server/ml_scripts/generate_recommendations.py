@@ -17,7 +17,14 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 # Content-based weight: 0.3
 # Collaborative weight: 0.7
 # Cập nhật recommendations vào MongoDB
+# cd server/ml_scripts
+# python -m venv venv
 # .\venv\Scripts\activate
+# python -m pip install --upgrade pip
+# pip install -r requirements.txt
+# python train_collaborative.py
+# python train_content_based.py
+# python generate_recommendations.py
 # deactivate
 
 def load_models():
@@ -216,6 +223,28 @@ def get_user_movie_history(db, user_id):
         print(f"Loi khi lay lich su phim: {str(e)}")
         return []
 
+# Quá trình kết hợp gồm các bước:
+# 1. Lấy kết quả từ hai mô hình:
+# content_recs: Danh sách phim gợi ý từ mô hình content-based
+# collab_recs: Danh sách phim gợi ý từ mô hình collaborative filtering
+
+# 2. Áp dụng trọng số:
+# Content-based: score * 0.3 (30% trọng số)
+# Collaborative: score * 0.7 (70% trọng số)
+
+# 3.Kết hợp điểm số:
+# Nếu một phim xuất hiện trong cả hai danh sách, điểm số sẽ được cộng lại
+# Ví dụ: Phim A có điểm content = 0.8, điểm collab = 0.9
+# Điểm cuối cùng = 0.8 * 0.3 + 0.9 * 0.7 = 0.24 + 0.63 = 0.87
+
+# 4. Sắp xếp kết quả:
+# Sắp xếp phim theo điểm số từ cao xuống thấp
+# Lấy top phim có điểm cao nhất
+
+# Cách tiếp cận hybrid này kết hợp ưu điểm của cả hai phương pháp:
+# Collaborative filtering: Học từ hành vi người dùng (70% trọng số)
+# Content-based: Dựa trên nội dung phim (30% trọng số)
+# Điều này giúp hệ thống gợi ý vừa phù hợp với sở thích người dùng, vừa có thể giới thiệu phim mới dựa trên nội dung.
 def main():
     """Hàm chính để generate recommendations"""
     import sys

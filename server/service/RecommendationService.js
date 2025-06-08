@@ -293,6 +293,51 @@ class RecommendationService {
     }
 
     // Tạo gợi ý theo phương pháp legacy (không sử dụng ML)
+    // 1. Phương pháp dựa trên quy tắc (Legacy):
+    // Sử dụng các quy tắc cứng được lập trình sẵn
+    // Tính điểm dựa trên các tiêu chí đơn giản:
+    // Thể loại phù hợp: +0.1 điểm
+    // Năm sản xuất tương tự: +0.1 điểm
+    // Ngôn ngữ ưa thích: +0.1 điểm
+    // Đánh giá cao (≥7): +0.1 điểm
+    // Phim mới (trong 2 năm): +0.1 điểm
+    // Không học từ dữ liệu, không cần huấn luyện mô hình
+
+    // 2. Phương pháp ML:
+    // Collaborative filtering (ALS): Học từ hành vi người dùng, tìm mối liên hệ ẩn
+    // Content-based: Phân tích nội dung phim bằng TF-IDF, tìm phim tương tự
+    // Cả hai đều yêu cầu huấn luyện mô hình phức tạp
+
+    // 3. Ưu/nhược điểm:
+    // Legacy: Đơn giản, dễ hiểu, không cần dữ liệu lớn, nhưng kém chính xác
+    // ML: Chính xác hơn, cá nhân hóa tốt hơn, nhưng phức tạp và cần dữ liệu lớn
+    // Phương pháp legacy có thể được sử dụng làm phương án dự phòng khi không có đủ dữ liệu cho các phương pháp ML hoặc khi hệ thống ML gặp sự cố.
+
+    //     Nguyên lý hoạt động
+    // 1. Thu thập dữ liệu đầu vào:
+    // Lấy danh sách phim người dùng đã thích
+    // Lấy tất cả phim trong hệ thống
+
+    // 2. Xây dựng hồ sơ người dùng:
+    // Tạo tập hợp thể loại phim yêu thích
+    // Xác định ngôn ngữ ưa thích
+
+    // 3. Tính điểm cho từng phim:
+    // Thể loại phù hợp (+0.1 điểm):
+    // Phim có thể loại trùng với thể loại yêu thích của người dùng
+    // Năm sản xuất tương tự (+0.1 điểm):
+    // Phim có năm sản xuất gần với phim người dùng đã thích (±5 năm)
+    // Ngôn ngữ ưa thích (+0.1 điểm):
+    // Phim có ngôn ngữ trùng với ngôn ngữ của phim người dùng đã thích
+    // Đánh giá cao (+0.1 điểm):
+    // Phim có điểm đánh giá từ 7 trở lên
+    // Phim mới (+0.1 điểm):
+    // Phim được sản xuất trong vòng 2 năm gần đây
+
+    // 4. Sắp xếp và chọn kết quả:
+    // Sắp xếp phim theo điểm số từ cao xuống thấp
+    // Chọn 6 phim có điểm cao nhất
+
     async generateRecommendationsLegacy(userId) {
         try {
             const userObjectId = new mongoose.Types.ObjectId(userId);

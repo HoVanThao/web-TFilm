@@ -104,6 +104,34 @@ def save_model(cosine_sim, indices, tfidf, df):
     with open(metadata_path, 'w', encoding='utf-8') as f:
         json.dump(movie_data, f, ensure_ascii=False, cls=JSONEncoder)
 
+
+#  xây dựng mô hình gợi ý dựa trên nội dung (content-based recommendation). 
+# Đây là cách tiếp cận khác so với mô hình ALS, tập trung vào đặc điểm của phim thay vì hành vi người dùng.
+# 1. Quá trình thu thập dữ liệu
+# Lấy thông tin từ MongoDB: tên phim, mô tả, thể loại, ngôn ngữ, năm sản xuất, diễn viên...
+
+# 2. Tiền xử lý dữ liệu
+# Gộp tất cả thông tin thành một chuỗi văn bản duy nhất cho mỗi phim
+# Ví dụ: "Avengers Endgame Biệt đội siêu anh hùng Phim về các siêu anh hùng... Action SciFi English 2019 Robert Downey Jr Chris Evans"
+
+# 3. Xây dựng mô hình
+# TF-IDF Vectorizer: Chuyển đổi văn bản thành vector số học
+# TF (Term Frequency): Tần suất xuất hiện của từ trong văn bản
+# IDF (Inverse Document Frequency): Đánh giá mức độ quan trọng của từ
+# Cosine Similarity: Tính độ tương đồng giữa các phim dựa trên vector đặc trưng
+# Kết quả là ma trận (số_phim × số_phim) thể hiện độ tương đồng giữa từng cặp phim
+
+# 4. Lưu trữ mô hình
+# Lưu ma trận tương đồng (similarity matrix) dạng numpy
+# Lưu bộ chuyển đổi TF-IDF dạng pickle
+# Lưu ánh xạ ID và thông tin phim dạng JSON
+
+# Cách hoạt động của mô hình này
+# Xây dựng đặc trưng: Mỗi phim được biểu diễn bằng vector TF-IDF dựa trên nội dung
+# Tính toán tương đồng: Tính độ tương đồng giữa các phim dựa trên vector đặc trưng
+# Gợi ý phim: Khi người dùng thích một phim, hệ thống sẽ gợi ý các phim có độ tương đồng cao
+
+
 def main():
     print("Bắt đầu training content-based model...")
     
