@@ -167,7 +167,7 @@ import { FaSearch } from 'react-icons/fa';
 const MovieListSeries = () => {
   const dispatch = useDispatch();
   const { isLoading, isError, isSuccess, movies, pages, page, totalMovies } = useSelector((state) => state.getSeriesMovies);
-  const { isLoading: deleteLoading, isError: deleteError } = useSelector((state) => state.deleteMovie);
+  const { isLoading: deleteLoading, isSuccess: deleteIsSuccess, isError: deleteError } = useSelector((state) => state.deleteMovie);
   const { isLoading: deleteAllLoading, isError: deleteAllError } = useSelector((state) => state.deleteAllMovies);
 
   const [pageInput, setPageInput] = useState(page || 1);
@@ -202,7 +202,7 @@ const MovieListSeries = () => {
     if (isError || deleteError || deleteAllError) {
       toast.error(isError || deleteError || deleteAllError);
     }
-  }, [dispatch, isError, deleteError, deleteAllError]);
+  }, [dispatch, isError, deleteError, deleteAllError, deleteIsSuccess]);
 
   // Cập nhật page input khi page thay đổi
   useEffect(() => {

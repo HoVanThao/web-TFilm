@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import User from '../Models/UserModels.js'
 import bcrypt from 'bcryptjs'
 import { generateToken } from '../middlewares/authMiddleware.js';
+import RecommendationService from '../service/RecommendationService.js';
 
 // guest
 const registerUser = asyncHandler(async (req, res) => {
@@ -179,7 +180,14 @@ const addLikedMovie = asyncHandler(async (req, res) => {
 
             // Nếu chưa, thêm phim vào danh sách phim đã thích và lưu vào cơ sở dữ liệu
             user.likedMovies.push(movieId);
+            // Đảm bảo updatedAt sẽ được cập nhật
+            user.markModified('likedMovies');
             await user.save();
+
+            // Chỉ cập nhật preferences mà không train lại models
+            await RecommendationService.updateUserPreferencesOnly(user._id);
+            // Không cần tạo recommendations ngay, sẽ tạo khi người dùng xem trang gợi ý
+
             res.json({ message: "Phim đã được thêm vào danh sách yêu thích", data: user.likedMovies });
 
             // Nếu không tìm thấy người dùng, gửi thông báo lỗi
@@ -198,7 +206,13 @@ const deleteLikedMovies = asyncHandler(async (req, res) => {
         // if user exists delete all liked movies and save it in DB
         if (user) {
             user.likedMovies = [];
+            // Đảm bảo updatedAt sẽ được cập nhật
+            user.markModified('likedMovies');
             await user.save();
+            // Chỉ cập nhật preferences mà không train lại models
+            await RecommendationService.updateUserPreferencesOnly(user._id);
+            // Không cần tạo recommendations ngay, sẽ tạo khi người dùng xem trang gợi ý
+
             res.json({ message: "All liked movies deleted successfully" });
         }
         // else send error message
@@ -232,8 +246,14 @@ const deleteLikeMovieById = asyncHandler(async (req, res) => {
         // Xóa movieId khỏi mảng likedMovies
         user.likedMovies.splice(movieIndex, 1);
 
+        // Đảm bảo updatedAt sẽ được cập nhật
+        user.markModified('likedMovies');
         // Lưu thay đổi
         await user.save();
+
+        // Chỉ cập nhật preferences mà không train lại models
+        await RecommendationService.updateUserPreferencesOnly(user._id);
+        // Không cần tạo recommendations ngay, sẽ tạo khi người dùng xem trang gợi ý
 
         res.json({
             message: "Xóa thành công",

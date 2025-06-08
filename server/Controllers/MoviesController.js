@@ -1,7 +1,8 @@
 import asyncHandler from "express-async-handler";
 import Movie from "../Models/MoviesModel.js"
 import { MoviesData } from "../Data/MovieData.js"
-
+import RecommendationService from '../service/RecommendationService.js';
+import FeatureExtractionService from '../service/FeatureExtractionService.js';
 
 // ***************Public Routes***************
 
@@ -260,13 +261,19 @@ const getHomePageData = asyncHandler(async (req, res) => {
 const createMovieReview = asyncHandler(async (req, res) => {
     const { rating, comment } = req.body;
     try {
-        const movie = await Movie.findById(req.params.movieId);
+        // Lấy phim với đầy đủ features
+        const movie = await Movie.findById(req.params.movieId).select('+features');
 
         if (movie) {
+            // Kiểm tra xem phim có features chưa
+            if (!movie.features || Object.keys(movie.features).length === 0) {
+                console.log(`Phim ${movie.name} chưa có features, đang cập nhật...`);
+                movie.features = await FeatureExtractionService.extractMovieFeatures(movie);
+                await movie.save();
+            }
+
             const alreadyReviewed = movie.reviews.find(
-                (r) => {
-                    return r.userId.toString() === req.user._id.toString();
-                }
+                (r) => r.userId.toString() === req.user._id.toString()
             );
 
             if (alreadyReviewed) {
@@ -280,8 +287,9 @@ const createMovieReview = asyncHandler(async (req, res) => {
                 userImage: req.user.image,
                 rating: Number(rating),
                 comment,
+                impactScore: 1.0,  // Thêm impactScore mặc định
+                processedByML: false // Đánh dấu chưa được xử lý
             }
-
 
             movie.reviews.push(review);
             movie.numberOfReviews = movie.reviews.length;
@@ -289,12 +297,15 @@ const createMovieReview = asyncHandler(async (req, res) => {
 
             await movie.save();
 
+            // Chỉ cập nhật preferences mà không train lại models
+            await RecommendationService.updateUserPreferencesOnly(req.user._id);
+            // Không cần tạo recommendations ngay, sẽ tạo khi người dùng xem trang gợi ý
+
             res.status(201).json({ message: "Review đã được tạo" });
         } else {
             res.status(404);
             throw new Error("Bộ phim không tồn tại!");
         }
-
 
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -342,7 +353,15 @@ const updateMovie = asyncHandler(async (req, res) => {
             movie.typeFilm = typeFilm || movie.typeFilm;
             movie.imdbRating = imdbRating || movie.imdbRating;
 
+            // Cập nhật lại features vì thông tin phim đã thay đổi
+            const features = await FeatureExtractionService.extractMovieFeatures(movie);
+            movie.features = features;
+
             const updateMovie = await movie.save();
+
+            // Cập nhật similarMovies cho tất cả phim
+            await FeatureExtractionService.updateSimilarMovies();
+
             res.status(201).json(updateMovie);
         } else {
             res.status(404);
@@ -397,6 +416,15 @@ const createMovie = asyncHandler(async (req, res) => {
         }
 
         const createMovie = await movie.save();
+
+        // Cập nhật features và similar movies
+        const features = await FeatureExtractionService.extractMovieFeatures(createMovie);
+        createMovie.features = features;
+        await createMovie.save();
+
+        // Cập nhật similar movies cho tất cả phim
+        await FeatureExtractionService.updateSimilarMovies();
+
         res.status(201).json(createMovie);
 
     } catch (error) {
@@ -450,6 +478,15 @@ const createSeries = asyncHandler(async (req, res) => {
         }
 
         const createdSeries = await movie.save();
+
+        // Cập nhật features và similar movies
+        const features = await FeatureExtractionService.extractMovieFeatures(createdSeries);
+        createdSeries.features = features;
+        await createdSeries.save();
+
+        // Cập nhật similar movies cho tất cả phim
+        await FeatureExtractionService.updateSimilarMovies();
+
         res.status(201).json(createdSeries);
 
     } catch (error) {
@@ -500,8 +537,15 @@ const updateSeries = asyncHandler(async (req, res) => {
         movie.imdbRating = imdbRating || movie.imdbRating;
         movie.typeFilm = typeFilm || movie.typeFilm;
         movie.filmParts = filmParts || movie.filmParts;
+        // Cập nhật lại features vì thông tin phim đã thay đổi
+        const features = await FeatureExtractionService.extractMovieFeatures(movie);
+        movie.features = features;
 
         const updatedSeries = await movie.save();
+
+        // Cập nhật similarMovies cho tất cả phim
+        await FeatureExtractionService.updateSimilarMovies();
+
         res.status(200).json(updatedSeries);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -514,7 +558,29 @@ const deleteMovie = asyncHandler(async (req, res) => {
         if (!movie) {
             return res.status(404).json({ message: "Movie not found" });
         }
+
+        // 1. Xóa phim khỏi likedMovies của tất cả users
+        await User.updateMany(
+            { likedMovies: movie._id },
+            { $pull: { likedMovies: movie._id } }
+        );
+
+        // 2. Xóa phim khỏi recommendations của tất cả users
+        await User.updateMany(
+            { "recommendations.movies.movieId": movie._id },
+            { $pull: { "recommendations.movies": { movieId: movie._id } } }
+        );
+
+        // 3. Xóa phim khỏi similarMovies của các phim khác
+        await Movie.updateMany(
+            { "similarMovies.movieId": movie._id },
+            { $pull: { similarMovies: { movieId: movie._id } } }
+        );
         await movie.deleteOne();
+
+        // 5. Cập nhật lại similarMovies cho tất cả phim
+        await FeatureExtractionService.updateSimilarMovies();
+
         res.json({ message: "Movie removed" });
     } catch (error) {
         res.status(400).json({ message: error.message });

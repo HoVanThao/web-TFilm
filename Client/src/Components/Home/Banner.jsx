@@ -51,7 +51,7 @@ const Banner = ({ movies, isLoading }) => {
                     loop={true}
                     speed={1000}
                     modules={[Autoplay]}
-                    autoplay={{ delay: 10000, disableOnInteraction: false }}
+                    autoplay={{ delay: 5000, disableOnInteraction: false }}
                     onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)} // Theo dõi slide hiện tại
                 >
                     {movies?.slice(0, 10).map((movie, index) => (

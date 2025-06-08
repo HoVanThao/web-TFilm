@@ -48,6 +48,11 @@ const rootReducer = combineReducers({
     getAnimeMovies: Movies.moviesAnimeReducer,
     homePageData: Movies.homePageDataReducer,
 
+    // recommended movies
+    recommendedMovies: Movies.moviesRecommendedReducer,
+    // admin features
+    adminUpdateFeatures: Movies.adminUpdateFeaturesReducer,
+
 });
 
 const userInfoFromLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;

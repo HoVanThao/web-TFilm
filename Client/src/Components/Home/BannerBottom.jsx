@@ -32,7 +32,7 @@ const BannerBottom = ({ movies, isLoading }) => {
 
         <>
             <div className='my-6'>
-                <Titles title="Phim Chiếu Rạp" Icon={BsFillCollectionFill} to="/movies?category=Chiếu rạp" />
+                <Titles title="Phim Chiếu Rạp" Icon={BsFillCollectionFill} to="/movies?category=Chiếu Rạp" />
                 <div className='relative w-full overflow-visible sm:mt-6 xl:mt-4 mt-2'>
                     {
                         isLoading ? (

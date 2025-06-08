@@ -1,5 +1,6 @@
 import * as moviesConstants from '../Constants/moviesConstants';
 import * as moviesApi from '../APIs/moviesService';
+import { getRecommendedMoviesService, updateAllFeaturesService } from '../APIs/RecommendationService';
 import toast from 'react-hot-toast';
 import { ErrorsAction, tokenProtection } from '../protection';
 
@@ -331,5 +332,39 @@ export const getHomePageDataAction = () => async (dispatch) => {
         });
     } catch (error) {
         ErrorsAction(error, dispatch, moviesConstants.HOME_PAGE_DATA_FAIL);
+    }
+};
+
+
+// Get recommendations action
+// action lấy recommended movies
+export const getRecommendedMoviesAction = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: moviesConstants.MOVIES_RECOMMENDED_REQUEST });
+        const response = await getRecommendedMoviesService(tokenProtection(getState));
+        dispatch({
+            type: moviesConstants.MOVIES_RECOMMENDED_SUCCESS,
+            payload: response
+        });
+    } catch (error) {
+        ErrorsAction(error, dispatch, moviesConstants.MOVIES_RECOMMENDED_FAIL);
+    }
+};
+
+// Admin update features action
+export const adminUpdateFeaturesAction = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: moviesConstants.ADMIN_UPDATE_FEATURES_REQUEST });
+
+        const response = await updateAllFeaturesService(tokenProtection(getState));
+
+        dispatch({
+            type: moviesConstants.ADMIN_UPDATE_FEATURES_SUCCESS,
+            payload: response
+        });
+
+        toast.success("Cập nhật features thành công");
+    } catch (error) {
+        ErrorsAction(error, dispatch, moviesConstants.ADMIN_UPDATE_FEATURES_FAIL);
     }
 };

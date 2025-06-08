@@ -1,0 +1,9 @@
+{
+    "ignore": [
+        "ml_scripts/models/**",
+        "ml_scripts/**/*.npy",
+        "ml_scripts/**/*.pkl",
+        "ml_scripts/**/*.json"
+    ],
+    "delay": 1000
+}

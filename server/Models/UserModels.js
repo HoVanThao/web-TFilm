@@ -25,12 +25,27 @@ const UserSchema = mongoose.Schema({
     },
     likedMovies: [
         {
-
             type: mongoose.Schema.Types.ObjectId,
             ref: "Movies",
-
         },
     ],
+    // Thêm các trường mới
+    preferences: {
+        type: Object,
+        default: {}
+    },
+    recommendations: {
+        movies: [{
+            movieId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Movies"
+            },
+            score: Number,
+            reason: String,
+            timestamp: Date
+        }],
+        lastUpdated: Date
+    }
 },
     {
         timestamps: true,

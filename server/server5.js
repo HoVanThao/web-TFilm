@@ -6,6 +6,7 @@ import userRouter from './Routes/UserRouter.js'
 import movieRouter from './Routes/MoviesRouter.js'
 import categoryRouter from './Routes/CategoriesRouter.js'
 import uploadFileRouter from './Routes/UploadFileRouter.js'
+import recommendationRoutes from './Routes/RecommendationRoutes.js';
 import { errorHandler } from './middlewares/errorMiddleware.js';
 import cloudinary from 'cloudinary';
 
@@ -36,7 +37,7 @@ app.use("/api/users", userRouter);
 app.use("/api/movies", movieRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/upload", uploadFileRouter);
-
+app.use("/api/recommendations", recommendationRoutes);
 // errorMiddlewares
 app.use(errorHandler)
 

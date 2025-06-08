@@ -9,7 +9,7 @@ import Titles from '../Components/Titles'
 import Movie from '../Components/Movie'
 import ShareMovieModal from '../Components/Modals/ShareModal'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMovieByIdAction } from '../Redux/Actions/moviesActions'
+import { getMovieByIdAction, getRecommendedMoviesAction } from '../Redux/Actions/moviesActions'
 import Loader from '../Components/Notfications/Loader'
 import { RiMovie2Line } from 'react-icons/ri'
 import { SelectPartFilm } from '../Components/UsedInputs'
@@ -20,6 +20,7 @@ const SingleMovie = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const sameClass = 'w-full gap-6 flex-colo min-h-screen';
+    const { userInfo } = useSelector((state) => state.userLogin);
     const { isLoading, isError, movie } = useSelector(
         (state) => state.getMovieById
     );
@@ -31,10 +32,21 @@ const SingleMovie = () => {
         m?.category?.some((cat) => movie?.category?.includes(cat)) && m?._id !== movie?._id
     ) || [];
 
+    // Lấy recommended movies từ redux store
+
+    const {
+        isLoading: loadingRecommended,
+        isError: errorRecommended,
+        recommendedMovies
+    } = useSelector((state) => state.recommendedMovies);
+
 
     useEffect(() => {
         dispatch(getMovieByIdAction(id));
-    }, [dispatch, id]);
+        if (userInfo?.token) {
+            dispatch(getRecommendedMoviesAction());
+        }
+    }, [dispatch, id, userInfo?.token]);
 
     // Hàm xử lý khi chọn phần phim
     const handlePartChange = (partNumber) => {
@@ -117,6 +129,46 @@ const SingleMovie = () => {
                                             </div>
                                         )
                                     }
+                                    {/* Thêm phần Recommended Movies */}
+                                    {userInfo?.token && !loadingRecommended && !errorRecommended && recommendedMovies?.data?.length > 0 && (
+                                        <div className="my-16">
+                                            <Titles title="Gợi ý cho bạn" Icon={BsCollectionFill} />
+                                            <div className='grid sm:mt-10 mt-6 xl:grid-cols-5 2xl:grid-cols-56 lg:grid-cols-3 sm:grid-cols-2 gap-6'>
+                                                {recommendedMovies.data
+                                                    ?.filter(rec => rec.movieId._id !== id)
+                                                    ?.slice(0, 5)
+                                                    .map((rec, index) => (
+                                                        <div key={index} className="flex flex-col">
+                                                            <Movie movie={rec.movieId} />
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Hiển thị loading state */}
+                                    {loadingRecommended && (
+                                        <div className="my-16">
+                                            <Titles title="Gợi ý cho bạn" Icon={BsCollectionFill} />
+                                            <div className="flex justify-center mt-8">
+                                                <Loader />
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Hiển thị error state */}
+                                    {errorRecommended && (
+                                        <div className="my-16">
+                                            <Titles title="Gợi ý cho bạn" Icon={BsCollectionFill} />
+                                            <div className="flex justify-center items-center mt-8">
+                                                <div className="text-center text-red-500">
+                                                    <RiMovie2Line className="text-4xl mx-auto mb-2" />
+                                                    <p>Đã có lỗi xảy ra</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </>
                         )

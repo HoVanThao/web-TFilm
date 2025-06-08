@@ -13,6 +13,17 @@ const reviewSchema = mongoose.Schema(
             required: true,
 
         },
+        // Thêm các trường mới
+        // impactScore: Mức độ ảnh hưởng của đánh giá này đến recommendations
+        impactScore: {
+            type: Number,
+            default: 1.0
+        },
+        // processedByML: Đánh dấu review đã được xử lý bởi hệ thống gợi ý chưa
+        processedByML: {
+            type: Boolean,
+            default: false
+        }
     },
     {
         timestamps: true,
@@ -103,16 +114,27 @@ const moviesSchema = mongoose.Schema(
                 ]
             }
         ],
+        // Thêm các trường mới
+        features: {
+            type: Object,
+            default: {}
+        },
+        similarMovies: [{
+            movieId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Movies"
+            },
+            score: Number, // Điểm số tương đồng (0-1)
+            lastUpdated: Date // Thời điểm cập nhật
+        }],
         reviews: [reviewSchema],
         casts: [
             {
-
                 name: { type: String, required: true },
                 image: {
                     type: String,
                     // required: true 
                 },
-
             },
         ],
     },

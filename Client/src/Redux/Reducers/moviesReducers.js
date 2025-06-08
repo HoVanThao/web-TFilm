@@ -328,5 +328,36 @@ export const homePageDataReducer = (state = {
     }
 };
 
+// recommended movies
+export const moviesRecommendedReducer = (state = { recommendedMovies: [] }, action) => {
+    switch (action.type) {
+        case MoviesConstants.MOVIES_RECOMMENDED_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.MOVIES_RECOMMENDED_SUCCESS:
+            return {
+                isLoading: false,
+                recommendedMovies: action.payload
+            };
+        case MoviesConstants.MOVIES_RECOMMENDED_FAIL:
+            return { isLoading: false, isError: action.payload };
+        default:
+            return state;
+    }
+};
 
+// Admin update features reducer
+export const adminUpdateFeaturesReducer = (state = {}, action) => {
+    switch (action.type) {
+        case MoviesConstants.ADMIN_UPDATE_FEATURES_REQUEST:
+            return { isLoading: true };
+        case MoviesConstants.ADMIN_UPDATE_FEATURES_SUCCESS:
+            return { isLoading: false, isSuccess: true };
+        case MoviesConstants.ADMIN_UPDATE_FEATURES_FAIL:
+            return { isLoading: false, isError: action.payload };
+        case MoviesConstants.ADMIN_UPDATE_FEATURES_RESET:
+            return {};
+        default:
+            return state;
+    }
+};
 
