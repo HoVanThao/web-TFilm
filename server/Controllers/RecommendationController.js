@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import RecommendationService from '../service/RecommendationService.js';
 import User from '../Models/UserModels.js';
 import Movies from '../Models/MoviesModel.js';
+import FeatureExtractionService from '../service/FeatureExtractionService.js';
 
 
 // Hệ thống recommendation đã sẵn sàng với:
@@ -141,12 +142,12 @@ const trainModelsAdminController = asyncHandler(async (req, res) => {
         console.log('|------------Bắt đầu quá trình train models------------|');
 
         // // Cập nhật features cho tất cả phim
-        // await FeatureExtractionService.updateAllMoviesFeatures();
-        // console.log('Đã cập nhật features cho tất cả phim');
+        await FeatureExtractionService.updateAllMoviesFeatures();
+        console.log('Đã cập nhật features cho tất cả phim');
 
         // // Cập nhật similar movies
-        // await FeatureExtractionService.updateSimilarMovies();
-        // console.log('Đã cập nhật similar movies cho tất cả phim');
+        await FeatureExtractionService.updateSimilarMovies();
+        console.log('Đã cập nhật similar movies cho tất cả phim');
 
         // Train lại models
         const modelTrainingResult = await RecommendationService.retrainModels();

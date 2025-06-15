@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Movie from "../Models/MoviesModel.js"
+import User from "../Models/UserModels.js"
 import { MoviesData } from "../Data/MovieData.js"
 import RecommendationService from '../service/RecommendationService.js';
 import FeatureExtractionService from '../service/FeatureExtractionService.js';
@@ -360,7 +361,7 @@ const updateMovie = asyncHandler(async (req, res) => {
             const updateMovie = await movie.save();
 
             // Cập nhật similarMovies cho tất cả phim
-            await FeatureExtractionService.updateSimilarMovies();
+            // await FeatureExtractionService.updateSimilarMovies();
 
             res.status(201).json(updateMovie);
         } else {
@@ -423,7 +424,7 @@ const createMovie = asyncHandler(async (req, res) => {
         await createMovie.save();
 
         // Cập nhật similar movies cho tất cả phim
-        await FeatureExtractionService.updateSimilarMovies();
+        // await FeatureExtractionService.updateSimilarMovies();
 
         res.status(201).json(createMovie);
 
@@ -485,7 +486,7 @@ const createSeries = asyncHandler(async (req, res) => {
         await createdSeries.save();
 
         // Cập nhật similar movies cho tất cả phim
-        await FeatureExtractionService.updateSimilarMovies();
+        // await FeatureExtractionService.updateSimilarMovies();
 
         res.status(201).json(createdSeries);
 
@@ -544,7 +545,7 @@ const updateSeries = asyncHandler(async (req, res) => {
         const updatedSeries = await movie.save();
 
         // Cập nhật similarMovies cho tất cả phim
-        await FeatureExtractionService.updateSimilarMovies();
+        // await FeatureExtractionService.updateSimilarMovies();
 
         res.status(200).json(updatedSeries);
     } catch (error) {
@@ -579,7 +580,7 @@ const deleteMovie = asyncHandler(async (req, res) => {
         await movie.deleteOne();
 
         // 5. Cập nhật lại similarMovies cho tất cả phim
-        await FeatureExtractionService.updateSimilarMovies();
+        // await FeatureExtractionService.updateSimilarMovies();
 
         res.json({ message: "Movie removed" });
     } catch (error) {
