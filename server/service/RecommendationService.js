@@ -15,10 +15,10 @@ class RecommendationService {
     constructor() {
 
         // Sử dụng Python từ môi trường ảo
-        // this.pythonPath = path.join(__dirname, '..', 'ml_scripts', 'venv', 'Scripts', 'python.exe');
+        this.pythonPath = path.join(__dirname, '..', 'ml_scripts', 'venv', 'Scripts', 'python.exe');
 
         // Sử dụng Python từ hệ thống (trong Docker)
-        this.pythonPath = 'python';
+        // this.pythonPath = 'python';
 
 
         this.scriptsPath = path.join(__dirname, '..', 'ml_scripts');
@@ -361,6 +361,32 @@ class RecommendationService {
                 _id: { $in: user.likedMovies }
             });
 
+            // Kiểm tra xem người dùng đã có phim yêu thích chưa
+            if (likedMovies.length === 0) {
+                console.log('Người dùng mới, chưa có phim yêu thích. Đề xuất phim mới nhất.');
+
+                // Sắp xếp phim theo năm mới nhất và lấy top 6
+                const newestMovies = [...allMovies]
+                    .sort((a, b) => b.year - a.year || b.createdAt - a.createdAt)
+                    .slice(0, 6)
+                    .map(movie => ({
+                        movieId: movie._id,
+                        score: 0.5,
+                        reason: 'Phim mới, phổ biến',
+                        timestamp: new Date()
+                    }));
+
+                // Lưu vào user
+                user.recommendations = {
+                    movies: newestMovies,
+                    lastUpdated: new Date()
+                };
+                await user.save();
+
+                return newestMovies;
+            }
+
+            // Nếu có phim yêu thích, tiếp tục với logic hiện tại
             // Tính điểm cho từng phim
             for (const movie of allMovies) {
                 // Bỏ qua phim đã thích
@@ -415,6 +441,7 @@ class RecommendationService {
 
                 // Chỉ thêm phim có điểm > 0
                 if (score > 0) {
+                    console.log(score);
                     recommendations.push({
                         movieId: movie._id,
                         score: score,
@@ -423,8 +450,7 @@ class RecommendationService {
                     });
                 }
             }
-
-            // Sắp xếp và lấy top 10 phim
+            // Sắp xếp và lấy top 6 phim
             recommendations.sort((a, b) => b.score - a.score);
             const topRecommendations = recommendations.slice(0, 6);
 
