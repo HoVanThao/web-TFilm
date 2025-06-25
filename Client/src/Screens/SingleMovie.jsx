@@ -28,11 +28,10 @@ const SingleMovie = () => {
         (state) => state.getAllMovies
     );
 
-    // const RelatedMovies = movies?.filter((m) =>
-    //     m?.category?.some((cat) => movie?.category?.includes(cat)) && m?._id !== movie?._id
-    // ) || [];
+    const RelatedMovies = movies?.filter((m) =>
+        m?.category?.some((cat) => movie?.category?.includes(cat)) && m?._id !== movie?._id
+    ) || [];
 
-    // Lấy recommended movies từ redux store
 
     const {
         isLoading: loadingRecommended,
@@ -115,7 +114,7 @@ const SingleMovie = () => {
 
                                     <MovieCasts movie={movie} />
                                     <MovieRates movie={movie} />
-                                    {/* {
+                                    {
                                         RelatedMovies?.length > 0 && (
                                             <div className="my-16">
                                                 <Titles title="Phim dành cho bạn" Icon={BsCollectionFill} />
@@ -128,7 +127,7 @@ const SingleMovie = () => {
                                                 </div>
                                             </div>
                                         )
-                                    } */}
+                                    }
                                     {/* Thêm phần Recommended Movies */}
                                     {userInfo?.token && !loadingRecommended && !errorRecommended && recommendedMovies?.data?.length > 0 && (
                                         <div className="my-16">

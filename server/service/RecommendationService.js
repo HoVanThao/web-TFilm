@@ -15,10 +15,10 @@ class RecommendationService {
     constructor() {
 
         // Sử dụng Python từ môi trường ảo
-        this.pythonPath = path.join(__dirname, '..', 'ml_scripts', 'venv', 'Scripts', 'python.exe');
+        // this.pythonPath = path.join(__dirname, '..', 'ml_scripts', 'venv', 'Scripts', 'python.exe');
 
         // Sử dụng Python từ hệ thống (trong Docker)
-        // this.pythonPath = 'python';
+        this.pythonPath = 'python';
 
 
         this.scriptsPath = path.join(__dirname, '..', 'ml_scripts');

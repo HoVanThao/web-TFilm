@@ -138,7 +138,7 @@ def get_collaborative_recommendations(models, user_id, n=10):
     
     return recommendations
 
-def combine_recommendations(content_recs, collab_recs, content_weight=0.3, collab_weight=0.7):
+def combine_recommendations(content_recs, collab_recs, content_weight=0.5, collab_weight=0.5):
     """Kết hợp recommendations từ cả hai model"""
     # Tạo dictionary để gộp scores
     combined_scores = {}
@@ -204,9 +204,22 @@ def get_user_movie_history(db, user_id):
         )
         
         # Lấy phim đã review
+        # reviewed_movies = db.movies.distinct(
+        #     '_id',
+        #     {'reviews.userId': ObjectId(user_id)}
+        # )
+
+        # Lấy phim đã review với đánh giá 4 hoặc 5 sao
         reviewed_movies = db.movies.distinct(
             '_id',
-            {'reviews.userId': ObjectId(user_id)}
+            {
+                'reviews': {
+                    '$elemMatch': {
+                        'userId': ObjectId(user_id),
+                        'rating': {'$in': [4, 5]}
+                    }
+                }
+            }
         )
         
         movie_history = set()
