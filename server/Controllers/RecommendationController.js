@@ -19,6 +19,7 @@ import FeatureExtractionService from '../service/FeatureExtractionService.js';
 const getRecommendations = asyncHandler(async (req, res) => {
     try {
         const userId = req.user._id;
+        const currentMovieId = req.params.movieId
 
         // Lấy thông tin user
         const user = await User.findById(userId);
@@ -82,14 +83,14 @@ const getRecommendations = asyncHandler(async (req, res) => {
                     await RecommendationService.generateRecommendations(userId);
                     console.log('<-----------Đã tạo recommendations bằng ML cho user----------->');
                 } else {
-                    // Nếu chưa có tương tác, dùng phương pháp legacy
-                    await RecommendationService.generateRecommendationsLegacy(userId);
+                    // Nếu chưa có tương tác, dùng phương pháp legacy với currentMovieId
+                    await RecommendationService.generateRecommendationsLegacy(userId, currentMovieId);
                     console.log('<-----------Đã tạo recommendations bằng phương pháp truyền thống----------->');
                 }
             } catch (mlError) {
                 console.error('<-----------Lỗi khi tạo gợi ý:', mlError);
-                // Fallback: Sử dụng phương pháp cũ
-                await RecommendationService.generateRecommendationsLegacy(userId);
+                // Fallback: Sử dụng phương pháp cũ với currentMovieId
+                await RecommendationService.generateRecommendationsLegacy(userId, currentMovieId);
                 console.log('<-----------Đã fallback về phương pháp cũ----------->');
             }
         }

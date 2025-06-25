@@ -15,10 +15,10 @@ class RecommendationService {
     constructor() {
 
         // Sử dụng Python từ môi trường ảo
-        // this.pythonPath = path.join(__dirname, '..', 'ml_scripts', 'venv', 'Scripts', 'python.exe');
+        this.pythonPath = path.join(__dirname, '..', 'ml_scripts', 'venv', 'Scripts', 'python.exe');
 
         // Sử dụng Python từ hệ thống (trong Docker)
-        this.pythonPath = 'python';
+        // this.pythonPath = 'python';
 
 
         this.scriptsPath = path.join(__dirname, '..', 'ml_scripts');
@@ -344,7 +344,7 @@ class RecommendationService {
     // Sắp xếp phim theo điểm số từ cao xuống thấp
     // Chọn 6 phim có điểm cao nhất
 
-    async generateRecommendationsLegacy(userId) {
+    async generateRecommendationsLegacy(userId, currentMovieId = null) {
         try {
             const userObjectId = new mongoose.Types.ObjectId(userId);
             const user = await User.findById(userObjectId);
@@ -363,9 +363,41 @@ class RecommendationService {
 
             // Kiểm tra xem người dùng đã có phim yêu thích chưa
             if (likedMovies.length === 0) {
-                console.log('Người dùng mới, chưa có phim yêu thích. Đề xuất phim mới nhất.');
+                console.log('Người dùng mới, chưa có phim yêu thích.');
 
-                // Sắp xếp phim theo năm mới nhất và lấy top 6
+                // Nếu có currentMovieId, sử dụng similarMovies từ phim hiện tại
+                if (currentMovieId) {
+                    console.log(`Đề xuất phim tương tự với phim đang xem (ID: ${currentMovieId})`);
+
+                    try {
+                        const currentMovie = await Movies.findById(currentMovieId);
+                        if (currentMovie && currentMovie.similarMovies && currentMovie.similarMovies.length > 0) {
+                            // Lấy danh sách các phim tương tự
+                            const similarMoviesRecommendations = currentMovie.similarMovies
+                                .slice(0, 6)
+                                .map(similar => ({
+                                    movieId: similar.movieId,
+                                    score: similar.score,
+                                    reason: 'Tương tự với phim bạn đang xem',
+                                    timestamp: new Date()
+                                }));
+
+                            // Lưu vào user
+                            user.recommendations = {
+                                movies: similarMoviesRecommendations,
+                                lastUpdated: new Date()
+                            };
+                            await user.save();
+
+                            return similarMoviesRecommendations;
+                        }
+                    } catch (error) {
+                        console.error(`Lỗi khi lấy phim tương tự: ${error.message}`);
+                    }
+                }
+
+                // Fallback: Nếu không có currentMovieId hoặc không tìm thấy phim tương tự
+                console.log('Fallback: Đề xuất phim mới nhất');
                 const newestMovies = [...allMovies]
                     .sort((a, b) => b.year - a.year || b.createdAt - a.createdAt)
                     .slice(0, 6)
@@ -441,7 +473,6 @@ class RecommendationService {
 
                 // Chỉ thêm phim có điểm > 0
                 if (score > 0) {
-                    console.log(score);
                     recommendations.push({
                         movieId: movie._id,
                         score: score,

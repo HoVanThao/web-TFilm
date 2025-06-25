@@ -338,10 +338,10 @@ export const getHomePageDataAction = () => async (dispatch) => {
 
 // Get recommendations action
 // action lấy recommended movies
-export const getRecommendedMoviesAction = () => async (dispatch, getState) => {
+export const getRecommendedMoviesAction = (currentMovieId) => async (dispatch, getState) => {
     try {
         dispatch({ type: moviesConstants.MOVIES_RECOMMENDED_REQUEST });
-        const response = await getRecommendedMoviesService(tokenProtection(getState));
+        const response = await getRecommendedMoviesService(tokenProtection(getState), currentMovieId);
         dispatch({
             type: moviesConstants.MOVIES_RECOMMENDED_SUCCESS,
             payload: response

@@ -43,7 +43,7 @@ const SingleMovie = () => {
     useEffect(() => {
         dispatch(getMovieByIdAction(id));
         if (userInfo?.token) {
-            dispatch(getRecommendedMoviesAction());
+            dispatch(getRecommendedMoviesAction(id));
         }
     }, [dispatch, id, userInfo?.token]);
 

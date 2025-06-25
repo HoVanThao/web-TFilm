@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 // Routes cho user
-router.get('/', protect, getRecommendations);
+router.get('/:movieId', protect, getRecommendations);
 
 // Routes cho admin
 router.post('/update-features', protect, admin, trainModelsAdminController); // Train lại models

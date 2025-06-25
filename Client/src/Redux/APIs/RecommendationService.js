@@ -4,8 +4,8 @@ import Axios from "./Axios"
 // *********************** PUBLIC APIs *********************
 
 // get recommended movies for user
-export const getRecommendedMoviesService = async (token) => {
-    const { data } = await Axios.get(`/recommendations`, {
+export const getRecommendedMoviesService = async (token, currentMovieId) => {
+    const { data } = await Axios.get(`/recommendations/${currentMovieId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
